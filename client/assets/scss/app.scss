@@ -7,7 +7,7 @@ $breakpoints: (
   xxlarge: rem-calc(1920),
 );
 $container-width: rem-calc(1200);
-$loading-size:3em;
+$loading-size:2em;
 @import "foundation";
 @import "loader";
 // Improve Tables
