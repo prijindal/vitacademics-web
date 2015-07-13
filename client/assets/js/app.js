@@ -138,9 +138,8 @@
                       setNotification("Can't Login",data.status.message,'top-left','alert',2000)
                   }
               })
-              .error(function(err) {
-                  console.log('Error', err);
-                  setNotification('ERROR',err,'alert','top-left',2000)
+              .error(function(data) {
+                  setNotification('ERROR','There Was a Problem Fetching result','alert','top-left',2000)
               })
       }
 

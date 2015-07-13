@@ -5,7 +5,7 @@ you can see the website [here](vitacademics-web.herokuapps.com).
 
 #Installation
 
-If you want to clone your project and setup in your own system, ensure that you have npm and nodejs installed
+If you want to clone this project and setup in your own system, ensure that you have npm and nodejs installed
 
 ```bash
 bower instal
