@@ -1,11 +1,11 @@
 # VITAcademics for Web
 
 This is the working repository for the web app of VIT Academics.
-you can see the website at [vitacademics-web.herokuapps.com]()
+you can see the website at [http://vitacademics-web.herokuapps.com]()
 
 #Installation
 
-If you want to clone your project and setup in your own system, ensure that you have npm and nodejs installed
+If you want to clone this project and setup in your own system, ensure that you have npm and nodejs installed
 
 ```bash
 bower instal
