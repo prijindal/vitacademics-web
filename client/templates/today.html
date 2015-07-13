@@ -1,0 +1,58 @@
+---
+name: today
+url: /today
+controller: timedayController
+---
+<div id="timetable" class="grid-block" ng-controller="todayController">
+  <div class="grid-block">
+    <div ng-if="!(dayList.length==0 || checkCompleted())" class="grid-block small-up-1 medium-up-2 large-up-3">
+      <div ng-class="checkcurrent(event)" ng-repeat="event in dayList | orderBy:orderByTime" class="card-wrapper grid-block">
+        <div class="grid-block course card">
+          <div class="grid-block vertical">
+            <div class="grid-block">
+              <div class="grid-block align-spaced">
+                <div class="grid-content text-left">
+                    {{event.slot}}
+                </div>
+                <div class="grid-content text-right">
+                    {{event.venue}}
+                </div>
+              </div>
+            </div>
+            <div class="grid-block">
+              <h4>{{event.course_title}}</h4>
+            </div>
+            <div class="grid-block">
+              <div class="grid-block align-spaced">
+                <div class="grid-block">
+                  <div class="grid-block vertical">
+                    <div class="gri-content aign-left">
+                      <span ng-class="checkAttendance(event,goPer(event.attendance))">Go: {{goPer(event.attendance) | number:0}}</span>
+                    </div>
+                    <div class="grid-content align-left no-padding">
+                      <span ng-class="checkAttendance(event,notGoPer(event.attendance))">Miss: {{notGoPer(event.attendance) | number:0}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-block">
+                  <span ng-class="checkAttendance(event)"><h3>{{event.attendance.attendance_percentage | number:0}} %</h3></span>
+                </div>
+                <div class="grid-content text-right shrink">
+                    <span ng-repeat="time in event.timings | filter:filterByToday | limitTo:1">{{localTime(time.start_time)}} - {{localTime(time.end_time)}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid-block">
+              <div class="grid-content text-center">
+                <a class="small button" ng-click="showUserUpdate(event)">More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="dayList.length==0 || checkCompleted()" class="grid-block align-center">
+      No Classes Left Today
+    </div>
+  </div>
+</div>

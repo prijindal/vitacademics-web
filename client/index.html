@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="VITApplication">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIT Academics</title>
+    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="/assets/js/foundation.js"></script>
+    <script src="/assets/js/templates.js"></script>
+    <script src="/assets/js/routes.js"></script>
+    <script src="/assets/js/app.js"></script>
+  </head>
+  <body>
+    <div class="grid-frame vertical" ng-controller="loginController">
+      <zf-offcanvas id="right-menu" position="right"> <!-- Improve Right Menu Bar -->
+        <a zf-close="" class="close-button">×</a>
+        <ul class="menu-bar vertical">
+          <li><a href="#">Fall Semester 2015-16</a></li>
+          <li><a href="#">14BCE0607</a></li>
+          <li class="divider"><a href="#"></a></li>
+          <!-- <li><a href="">Friends</a></li> -->
+          <li><a href="" ng-click="logout()">Log Out</a></li>
+          <li><a ui-sref="version">Version Details</a></li>
+        </ul>
+      </zf-offcanvas>
+
+      <div class="grid-block vertical">
+        <div class="grid-block shrink vertical"> <!-- Improve Top Menu Bar -->
+          <ul class="menu-bar small-vertical medium-horizontal dark">
+            <li><a ui-sref="today" href="">Today</a></li>
+            <li><a ui-sref="home" href="">Courses</a></li>
+            <li><a ui-sref="timetable" href="">Time Table</a></li>
+            <!-- <li><a href="">Grades</a></li> --> <!-- Can be Done Later -->
+            <li><a href="#" ng-click="refresh()">Refresh</a></li>
+            <li><a zf-open="right-menu">&#9776;</a></li>
+          </ul>
+        </div>
+        <div class="grid-block" ui-view>
+
+        </div>
+      </div>
+
+      <zf-notification-set id="main-notifications" position="top-left"></zf-notification-set>
+
+    </div>
+  </body>
+</html>

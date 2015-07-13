@@ -1,0 +1,45 @@
+<div id="courses" class="grid-block">
+  <div class="grid-block small-up-1 medium-up-2 large-up-4">
+    <div ng-repeat="course in courses" class="grid-block align-center card-container">
+      <div class="grid-block course card">
+        <div class="grid-block vertical">
+          <div class="grid-block">
+            <div class="grid-block align-spaced">
+              <div class="grid-content text-left">
+                  {{course.course_code}}
+              </div>
+              <div class="grid-content text-right">
+                  <span ng-repeat="day in days(course.timings)">{{day}} </span>
+              </div>
+            </div>
+          </div>
+          <div class="grid-block">
+            <h4>{{course.course_title}}</h4>
+          </div>
+          <div class="grid-block">
+            <div class="grid-block align-spaced">
+              <div class="grid-content text-left">
+                  {{course.subject_type}}
+              </div>
+              <div class="grid-content text-right shrink">
+                  {{course.slot}}
+              </div>
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-block align-spaced">
+              <div class="grid-content text-center">
+                <span ng-class="checkAttendance(course)">Attendance: <span>{{course.attendance.attendance_percentage | number:0}} %</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-content text-center">
+              <a class="small button" ng-click="showUserUpdate(course)">More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

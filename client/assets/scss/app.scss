@@ -1,0 +1,204 @@
+@import "settings";
+$breakpoints: (
+  small: rem-calc(0),
+  medium: rem-calc(640),
+  large: rem-calc(1100),
+  xlarge: rem-calc(1440),
+  xxlarge: rem-calc(1920),
+);
+$container-width: rem-calc(1200);
+@import "foundation";
+
+// Improve Tables
+@import "tables";
+
+@mixin disableselect {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body {
+    @include disableselect;
+}
+
+#login {
+    margin:auto;
+    .card {
+        padding:1.25rem;
+        background:#f2f2f2;
+        .input-field {
+            margin:1.25rem;
+        }
+        .checkbox-field {
+            margin-left:1.25rem;
+        }
+        .label-text {
+            label{
+                width:100%;
+                font-size: rem-calc(16);
+            }
+            margin:auto 0.5rem;
+            padding:0.1rem 0.5rem;
+        }
+        .input {
+            margin:auto 1rem;
+            input {
+                font-size: rem-calc(15);
+                margin:0;
+            }
+        }
+    }
+}
+
+#courses,
+#timetable {
+    padding-top:rem-calc(32);
+    .course.card {
+        background-color: #EDEDED;
+        width:100%;
+        min-height:250px;
+        max-height:300px;
+        padding:rem-calc(24) rem-calc(16) 0;
+    }
+    .card-wrapper{
+        &.before {
+            display: none;
+            .course.card {
+                background-color: $gray-dark;
+            }
+        }
+        &.current .course.card {
+            background-color: $info-color;
+        }
+        &.future .course.card {
+            background-color: $gray;
+        }
+    }
+    span {
+        &.danger {
+            color:$alert-color;
+        }
+        &.warning {
+            color:$warning-color;
+        }
+        &.success {
+            color:$success-color;
+        }
+    }
+}
+
+#left-menu {
+    border-right:1px solid #333;
+}
+
+.menu-bar li.active a {
+    font-weight: bold;
+}
+
+span.show-for-medium:not(.ng-hide) {
+    @media only screen and (min-width: 40em) {
+        display: inline !important;
+    }
+}
+
+.grid-content.no-padding {
+    padding:0;
+}
+
+
+.modal {
+    background-color:$gray-light;
+    .accordion-title {
+        text-align: center;
+        background-color:$gray-light;
+        border-bottom: 5px solid $info-color;
+        width:200px;
+        margin-left:auto;
+        margin-right: auto;
+    }
+    .accordion-content {
+        max-height:400px;
+        overflow-y: auto;
+        background-color: $gray-light;
+        border-top:4px solid $info-color;
+        .detailsContainer {
+            margin:0 auto;
+            max-width:300px;
+        }
+        .course-details {
+            margin-bottom: 20px;
+            .course-title {
+                margin:20px 0;
+            }
+        }
+        .course-attendance {
+            span {
+                display: inline-block;
+            }
+            margin:20px 0;
+            .grid-block {
+                margin:20px 0;
+            }
+            .attendance-progress {
+                span {
+                    position: absolute;
+                    font-size: 1.5rem;
+                    top: 60px;
+                    left: 40%;
+                    width:60px;
+                    text-align: center;
+                }
+            }
+        }
+        .modify-attendance {
+            .grid-block {
+                margin-bottom: 10px;
+                width: 100%;
+                overflow: hidden;
+                min-height: 45px;
+                span {
+                    width:50%;
+                    margin:0 auto;
+                }
+                a {
+                    position: absolute;
+                    top:0;
+                    &:first-child {
+                        left:0;
+                    }
+                    &:last-child {
+                        right:0;
+                    }
+                    &.button {
+                        background-color: white;
+                        font-size: 1rem;
+                        border-radius:0.5rem;
+                        border-width: 1px;
+                        border-style: solid;
+                    }
+                }
+            }
+            &.green {
+                a.button {
+                    color:$success-color;
+                    border-color: $success-color;
+                }
+            }
+            &.blue {
+                a.button {
+                    color:$info-color;
+                    border-color: $info-color;
+                }
+            }
+            &.red {
+                a.button {
+                    color:$warning-color;
+                    border-color: $warning-color;
+                }
+            }
+        }
+    }
+}

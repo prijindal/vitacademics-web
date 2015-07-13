@@ -1,0 +1,24 @@
+---
+name: version
+url: /version
+controller: versionController
+---
+<!-- {{version}} -->
+<div class="grid-container">
+  <div class="grid-block vertical" style="max-width:500px;margin:0 auto;">
+    <div class="grid-block vertical">
+      <h4>Messages</h4>
+      <div ng-repeat="message in version.messages" class="grid-block">
+        <p class="lead">{{message.message}}</p>
+      </div>
+    </div>
+    <div class="grid-block vertical">
+      <div class="grid-block vertical">
+        <h4>Contributors</h4>
+        <div ng-repeat="contributor in version.contributors" class="grid-block">
+          <p class="lead">{{contributor.name}}, <a target="_blank" href="{{contributor.github_profile}}">{{contributor.github_profile}}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

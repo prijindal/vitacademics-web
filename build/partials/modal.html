@@ -1,0 +1,74 @@
+  <a zf-close="" class="close-button">×</a>
+  <zf-accordion>
+    <zf-accordion-item title="Attendance">
+      <div class="grid-block vertical align-spaced detailsContainer" ng-controller="attendanceController">
+        <div class="grid-block vertical course-details">
+          <div class="grid-block">
+            <div class="grid-block">
+              {{content.course_code}}
+            </div>
+            <div class="grid-block align-right">
+              {{content.venue}}
+            </div>
+          </div>
+          <div class="grid-block course-title">
+            <h3>{{content.course_title}}</h3>
+          </div>
+          <div class="grid-block">
+            <div class="grid-block">
+              {{content.subject_type}}
+            </div>
+            <div class="grid-block align-right">
+              {{content.slot}}
+            </div>
+          </div>
+        </div>
+        <div class="grid-block vertical course-attendance">
+          <div class="grid-block align-center attendance-progress">
+            <span>{{percentage | number:0}}%</span>
+            <progress-arc stroke="{{getColor()}}" size="150" stroke-width:"10" complete="percentage/100"></progress-arc>
+          </div>
+          <div class="grid-block">
+            You&nbsp;<span ng-if="missed || attends">would&nbsp;</span>have attended {{attended}} out of {{total}} class
+          </div>
+        </div>
+        <div ng-class="getColor()" class="grid-block vertical modify-attendance">
+          <div class="grid-block">
+              <a class="button" ng-click="miss(-1)">-</a>
+              <span>If you miss {{missed}} more Classes</span>
+              <a class="button" ng-click="miss(+1)">+</a>
+          </div>
+          <div class="grid-block space-around">
+              <a class="button" ng-click="attend(-1)">-</a>
+              <span>If you Attend {{attends}} more Classes</span>
+              <a class="button" ng-click="attend(+1)">+</a>
+          </div>
+        </div>
+      </div>
+    </zf-accordion-item>
+      <zf-accordion-item title="Marks">
+      <div ng-if="!content.marks.supported" class="grid-block align-center">
+        Course Does not Support This section
+      </div>
+    </zf-accordion-item>
+      <zf-accordion-item title="Classes">
+        <div class="grid-block">
+          <table> <!-- Improve Tables or remove them, Tables are boring!! -->
+            <thead>
+              <tr>
+                <th>S. No.</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="detail in content.attendance.details">
+                <td>{{detail.sl}}</td>
+                <td>{{detail.date}}</td>
+                <td>{{detail.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </zf-accordion-item>
+  </zf-accordion>
