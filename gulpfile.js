@@ -145,7 +145,7 @@ gulp.task('uglify:app', function() {
 
 // Starts a test server, which you can view at https://vitacademics-web.herokuapp.com//:80
 var port = process.env.PORT || 5000;
-var socket = vitacademics-web.herokuapp.com;
+var socket = 'vitacademics-web.herokuapp.com';
 gulp.task('server', ['build'], function() {
   gulp.src('./build')
     .pipe($.webserver({
