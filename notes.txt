@@ -1,0 +1,6 @@
+heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-nodejs
+heroku buildpacks:set https://github.com/heroku/heroku-buildpack-nodejs#v75 -a vitacademics-web
+git push heroku master
+
+HOST = 0.0.0.0
+PORT = process.env.PORT
