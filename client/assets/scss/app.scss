@@ -8,7 +8,7 @@ $breakpoints: (
 );
 $container-width: rem-calc(1200);
 @import "foundation";
-
+@import "loader";
 // Improve Tables
 @import "tables";
 
@@ -21,7 +21,10 @@ $container-width: rem-calc(1200);
 }
 
 body {
-    @include disableselect;
+    .grid-frame,
+    input{
+        @include disableselect;
+    }
 }
 
 #login {

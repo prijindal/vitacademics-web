@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VIT Academics</title>
     <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
-    <script src="/assets/js/foundation.js"></script>
-    <script src="/assets/js/templates.js"></script>
-    <script src="/assets/js/routes.js"></script>
-    <script src="/assets/js/app.js"></script>
+    <script type="text/javascript">
+    var readyStateCheckInterval = setInterval(function() {
+      if (document.readyState === "complete") {
+          clearInterval(readyStateCheckInterval);
+          document.getElementById('loader-container').style.display = 'none';
+      }
+    }, 10);
+    </script>
   </head>
   <body>
+    <div id="loader-container">
+      <div class="loader">
+				<span class="left">[</span>
+				<span class="center">.</span>
+				<span class="right">]</span>
+			</div>
+    </div>
     <div class="grid-frame vertical" ng-controller="loginController">
       <zf-offcanvas id="right-menu" position="right"> <!-- Improve Right Menu Bar -->
         <a zf-close="" class="close-button">×</a>
@@ -36,5 +47,9 @@
       <zf-notification-set id="bottom-right-notification" position="bottom-right"></zf-notification-set>
 
     </div>
+    <script src="/assets/js/foundation.js"></script>
+    <script src="/assets/js/templates.js"></script>
+    <script src="/assets/js/routes.js"></script>
+    <script src="/assets/js/app.js"></script>
   </body>
 </html>
