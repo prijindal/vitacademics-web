@@ -82,16 +82,30 @@
 
       $scope.login = function login(regno,dob,campus,mobile,remember) {
           var dobString = dateFilter(dob, 'ddMMyyyy')
-          fetchDetails(regno,dobString,campus,mobile,remember, function(data) {
-              console.log(data)
-              if(data.status.code==0) {
-                  fetchCourses(regno,dobString,campus,mobile, function(data) {
-                    console.log(data)
-                    $scope.courses = data.courses
-                    $scope.loggedin = true
-                })
-              }
-          });
+          if (!regno) {
+              setNotification('Warning','Please specify a Registeration number','bottom-right','alert',1000)
+          }
+          else if(!dob) {
+              setNotification('Warning','Please specify your date of birth','bottom-right','alert',1000)
+          }
+          else if(!mobile) {
+              setNotification('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',1000)
+          }
+          else if(!campus) {
+              setNotification('Warning','Please specify your campus','bottom-right','alert',1000)
+          }
+          else {
+              fetchDetails(regno,dobString,campus,mobile,remember, function(data) {
+                  console.log(data)
+                  if(data.status.code==0) {
+                      fetchCourses(regno,dobString,campus,mobile, function(data) {
+                        console.log(data)
+                        $scope.courses = data.courses
+                        $scope.loggedin = true
+                    })
+                  }
+              });
+        }
       }
 
       $scope.days = function days(timings) {
@@ -104,6 +118,7 @@
       }
 
       function fetchDetails(regno,dob,campus,mobile,remember, callback) {
+          setNotification('Logging in','Please Wait...','top-left','info',5000)
           $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
                   regno:regno,
                   dob:dob,
@@ -116,12 +131,21 @@
                       localStorage.setItem("loginDetails", JSON.stringify(data))
                   }
                   $cookies.loginDetails = JSON.stringify(data)
-              }
-          )
+                  if(data.status.code==0) {
+                      setNotification('','Succesfully logged in','top-left','success',2000)
+                  }
+                  else {
+                      setNotification("Can't Login",data.status.message,'top-left','alert',2000)
+                  }
+              })
+              .error(function(err) {
+                  console.log('Error');
+                  setNotification('ERROR',err,'alert','top-left',2000)
+              })
       }
 
       function fetchCourses(regno,dob,campus,mobile, callback) {
-          console.log("Fetching Courses...")
+          setNotification('Fetching Data','Please Wait...','top-right','info',5000)
           $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
                   regno:regno,
                   dob:dob,
@@ -132,8 +156,16 @@
                   if(typeof callback == "function")
                   callback(data);
                   localStorage.setItem("courses", JSON.stringify(data))
-              }
-          )
+                  if(data.status.code==0) {
+                      setNotification('Data succesfully Fetched','top-right','success',2000)
+                  }
+                  else {
+                      setNotification("Can't Fetch Data",data.status.message,'top-left','alert',2000)
+                  }
+              })
+              .error(function(err) {
+                  setNotification('ERROR',err,'alert','top-left',2000)
+              })
       }
 
       $scope.checkAttendance = function(event, value) {
@@ -175,6 +207,24 @@
             });
             modal.activate();
         };
+
+        var setNotification = function(title, content, position, color, autoclose) {
+
+            title = title || ''
+            content = content || ''
+            position = position || 'top-left'
+            color = color || 'primary'
+            autoclose = autoclose || false
+
+            FoundationApi.publish(position+'-notification',
+                        {
+                            title: title,
+                            content: content,
+                            color:color,
+                            autoclose:autoclose
+
+                        });
+        }
   })
 
   VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams) {

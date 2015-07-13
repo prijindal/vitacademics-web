@@ -152,7 +152,7 @@ gulp.task('server', ['build'], function() {
       port: port,
       host: socket,
       fallback: 'index.html',
-      livereload: false,
+      livereload: true,
       open: false
     }))
   ;
