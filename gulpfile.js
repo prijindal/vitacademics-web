@@ -143,12 +143,12 @@ gulp.task('uglify:app', function() {
   ;
 });
 
-// Starts a test server, which you can view at https://vitacademics-web-app.herokuapp.com/:80
+// Starts a test server, which you can view at https://vitacademics-web.herokuapp.com//:80
 gulp.task('server', ['build'], function() {
   gulp.src('./build')
     .pipe($.webserver({
       port: 5000,
-      host: 'localhost',
+      host: 'https://vitacademics-web.herokuapp.com',
       fallback: 'index.html',
       livereload: true,
       open: true
