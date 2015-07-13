@@ -53,9 +53,15 @@ body {
     }
 }
 
-#courses,
 #timetable {
     padding-top:rem-calc(32);
+}
+
+#courses,
+#timetable {
+    #courseContainer {
+        padding-top:rem-calc(32);
+    }
     .course.card {
         background-color: #EDEDED;
         width:100%;

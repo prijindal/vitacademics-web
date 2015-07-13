@@ -139,7 +139,7 @@
                   }
               })
               .error(function(err) {
-                  console.log('Error');
+                  console.log('Error', err);
                   setNotification('ERROR',err,'alert','top-left',2000)
               })
       }
@@ -334,8 +334,6 @@
         else {
             dayOfWeek-=1
         }
-
-        dayOfWeek = 0
 
         $scope.dayList = getDetailsOfDay(dayOfWeek)
 
