@@ -5,7 +5,7 @@ controller: versionController
 ---
 <!-- {{version}} -->
 <div class="grid-block vertical">
-  <div class="grid-block shrink" ng-include="'partials/menu.html'">
+  <div class="grid-block shrink" ng-include="'partials/menu.html'" ng-if="loggedin">
 
   </div>
   <div class="grid-container">

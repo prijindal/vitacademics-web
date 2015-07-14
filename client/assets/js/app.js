@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-
+  //https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login
   var VITapplication = angular.module('VITApplication', [
     'ui.router',
     'ngAnimate',
@@ -16,7 +16,7 @@
     .config(config)
     .run(run)
   ;
-  VITapplication.controller('loginController', function($scope, $http, dateFilter, FoundationApi, $cookies, ModalFactory) {
+  VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications) {
       if(typeof localStorage.loginDetails != "undefined") {
           console.log(localStorage.loginDetails)
           if (typeof localStorage.courses != undefined) {
@@ -35,7 +35,7 @@
           else {
               var data = JSON.parse(localStorage.loginDetails)
               console.log(data)
-              fetchCourses(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
+              vitacademicsRel.details(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
                   console.log(data)
                   $scope.courses = data.courses
                   $scope.loggedin = true
@@ -57,7 +57,7 @@
       $scope.refresh = function refresh() {
           if($scope.loggedin) {
               var data = JSON.parse($cookies.loginDetails)
-              fetchCourses(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
+              vitacademicsRel.login(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
                 console.log(data)
                 $scope.courses = data.courses
             })
@@ -68,10 +68,10 @@
       }
 
       function relogin(data) {
-          fetchDetails(data.reg_no,data.dob,data.campus,data.mobile, true, function(data) {
+          vitacademicsRel.login(data.reg_no,data.dob,data.campus,data.mobile, true, function(data) {
               console.log(data)
               if(data.status.code==0) {
-                  fetchCourses(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
+                  vitacademicsRel.details(data.reg_no,data.dob,data.campus,data.mobile, function(data) {
                     console.log(data)
                     $scope.courses = data.courses
                     $scope.loggedin = true
@@ -82,24 +82,24 @@
 
       $scope.login = function login(regno,dob,campus,mobile,remember) {
           var dobString = dateFilter(dob, 'ddMMyyyy')
-          destroyNotification('bottom-right')
+          notifications.destroy('bottom-right')
           if (!regno) {
-              setNotification('Warning','Please specify a Registeration number','bottom-right','alert',2000)
+              notifications.set('Warning','Please specify a Registeration number','bottom-right','alert',2000)
           }
           else if(!dob) {
-              setNotification('Warning','Please specify your date of birth','bottom-right','alert',2000)
+              notifications.set('Warning','Please specify your date of birth','bottom-right','alert',2000)
           }
           else if(!mobile) {
-              setNotification('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',2000)
+              notifications.set('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',2000)
           }
           else if(!campus) {
-              setNotification('Warning','Please specify your campus','bottom-right','alert',2000)
+              notifications.set('Warning','Please specify your campus','bottom-right','alert',2000)
           }
           else {
-              fetchDetails(regno,dobString,campus,mobile,remember, function(data) {
+              vitacademicsRel.login(regno,dobString,campus,mobile,remember, function(data) {
                   console.log(data)
                   if(data.status.code==0) {
-                      fetchCourses(regno,dobString,campus,mobile, function(data) {
+                      vitacademicsRel.details(regno,dobString,campus,mobile, function(data) {
                         console.log(data)
                         $scope.courses = data.courses
                         $scope.loggedin = true
@@ -116,59 +116,6 @@
               dayList.push(dayWeek[timings[i].day])
           }
           return dayList
-      }
-
-      function fetchDetails(regno,dob,campus,mobile,remember, callback) {
-          setNotification('Logging in','Please Wait...','top-left','info')
-          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
-                  regno:regno,
-                  dob:dob,
-                  mobile:mobile
-              })
-              .success(function(data) {
-                  if(typeof callback == "function")
-                  callback(data);
-                  if (remember) {
-                      localStorage.setItem("loginDetails", JSON.stringify(data))
-                  }
-                  $cookies.loginDetails = JSON.stringify(data)
-                  destroyNotification('top-left')
-                  if(data.status.code==0) {
-                      setNotification('','Succesfully logged in','top-left','success',2000)
-                  }
-                  else {
-                      setNotification("Can't Login",data.status.message,'top-left','alert',2000)
-                  }
-              })
-              .error(function(data) {
-                  destroyNotification('top-left')
-                  setNotification('ERROR','Connection Problem','top-left','alert',2000)
-              })
-      }
-
-      function fetchCourses(regno,dob,campus,mobile, callback) {
-          setNotification('Fetching Data','Please Wait...','top-right','info')
-          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
-                  regno:regno,
-                  dob:dob,
-                  mobile:mobile
-              })
-              .success(function(data) {
-                  if(typeof callback == "function")
-                  callback(data);
-                  localStorage.setItem("courses", JSON.stringify(data))
-                  destroyNotification('top-right')
-                  if(data.status.code==0) {
-                      setNotification('Data succesfully Fetched','top-right','success',2000)
-                  }
-                  else {
-                      setNotification("Can't Fetch Data",data.status.message,'top-left','alert',2000)
-                  }
-              })
-              .error(function(err) {
-                  destroyNotification('top-left')
-                  setNotification('ERROR','Connection Problem','top-left','alert',2000)
-              })
       }
 
       $scope.checkAttendance = function(event, value) {
@@ -210,31 +157,6 @@
             });
             modal.activate();
         };
-
-        var setNotification = function(title, content, position, color, autoclose) {
-            title = title || ''
-            content = content || ''
-            position = position || 'top-left'
-            color = color || 'primary'
-            autoclose = autoclose || false
-
-            FoundationApi.publish(position+'-notification',
-                        {
-                            title: title,
-                            content: content,
-                            color:color,
-                            autoclose:autoclose
-
-                        });
-        }
-
-        var destroyNotification = function(position) {
-            var childrens = angular.element(document.getElementById(position+'-notification')).children()
-            for (var i = 0; i < childrens.length; i++) {
-                childrens[i].innerHTML = ''
-                childrens[i].style.display = 'none'
-            }
-        }
   })
 
   VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams) {
@@ -462,19 +384,116 @@
       }
   })
 
-  VITapplication.controller('versionController', function($scope, $http) {
-          fetchVersion(function(data) {
-              $scope.version = data
-          })
+  VITapplication.controller('versionController', function($scope, vitacademicsRel) {
+          $scope.version = vitacademicsRel.version()
+  })
 
-        function fetchVersion(callback) {
-            $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system',{})
-            .success(function(data) {
-                if(typeof callback == "function") {
-                    callback(data)
-                }
-            })
+  VITapplication.factory('vitacademicsRel',function($http, $cookies, notifications) {
+
+      var fetchDetails = function(regno,dob,campus,mobile,remember, callback) {
+          notifications.set('Logging in','Please Wait...','top-left','info')
+          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
+                  regno:regno,
+                  dob:dob,
+                  mobile:mobile
+              })
+              .success(function(data) {
+                  console.log(data);
+                  if(typeof callback == "function")
+                  callback(data);
+                  if (remember) {
+                      localStorage.setItem("loginDetails", JSON.stringify(data))
+                  }
+                  $cookies.loginDetails = JSON.stringify(data)
+                  notifications.destroy('top-left')
+                  if(data.status.code==0) {
+                      notifications.set('','Succesfully logged in','top-left','success',2000)
+                  }
+                  else {
+                      notifications.set("Can't Login",data.status.message,'top-left','alert',2000)
+                  }
+              })
+              .error(function(data) {
+                  notifications.destroy('top-left')
+                  notifications.set('ERROR','Connection Problem','top-left','alert',10000)
+              })
+      }
+
+      var fetchCourses = function(regno,dob,campus,mobile, callback) {
+          notifications.set('Fetching Data','Please Wait...','top-right','info')
+          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
+                  regno:regno,
+                  dob:dob,
+                  mobile:mobile
+              })
+              .success(function(data) {
+                  if(typeof callback == "function")
+                  callback(data);
+                  localStorage.setItem("courses", JSON.stringify(data))
+                  notifications.destroy('top-right')
+                  if(data.status.code==0) {
+                      notifications.set('Data succesfully Fetched','top-right','success',2000)
+                  }
+                  else {
+                      notifications.set("Can't Fetch Data",data.status.message,'top-left','alert',2000)
+                  }
+              })
+              .error(function(err) {
+                  notifications.destroy('top-left')
+                  notifications.set('ERROR','Connection Problem','top-left','alert',10000)
+              })
+      }
+
+
+      var fetchVersion = function(callback) {
+          // Returns data if the request is possible else returns an
+          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system',{})
+          .success(function(data) {
+              return data
+          })
+          .error(function(data) {
+
+          })
+      }
+
+        return {
+            version: fetchVersion,
+            login: fetchDetails,
+            details: fetchCourses
         }
+  })
+
+  VITapplication.factory('notifications', function(FoundationApi) {
+      var setNotification = function(title, content, position, color, autoclose) {
+          title = title || ''
+          content = content || ''
+          position = position || 'top-left'
+          color = color || 'primary'
+          autoclose = autoclose || false
+
+          FoundationApi.publish(position+'-notification',
+                      {
+                          title: title,
+                          content: content,
+                          color:color,
+                          autoclose:autoclose
+
+                      });
+      }
+
+      var destroyNotification = function(position) {
+          var childrens = angular.element(document.getElementById(position+'-notification')).children()
+          for (var i = 0; i < childrens.length; i++) {
+              childrens[i].innerHTML = ''
+              childrens[i].style.display = 'none'
+          }
+      }
+
+
+      return {
+          set:setNotification,
+          destroy:destroyNotification
+      }
   })
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
