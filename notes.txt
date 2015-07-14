@@ -4,3 +4,5 @@ git push heroku master
 
 HOST = 0.0.0.0
 PORT = process.env.PORT
+
+watch -n10 cp -r -u -v  vitacademics-web/client/ vitacademics-web-release/

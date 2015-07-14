@@ -82,17 +82,18 @@
 
       $scope.login = function login(regno,dob,campus,mobile,remember) {
           var dobString = dateFilter(dob, 'ddMMyyyy')
+          destroyNotification('bottom-right')
           if (!regno) {
-              setNotification('Warning','Please specify a Registeration number','bottom-right','alert',1000)
+              setNotification('Warning','Please specify a Registeration number','bottom-right','alert',2000)
           }
           else if(!dob) {
-              setNotification('Warning','Please specify your date of birth','bottom-right','alert',1000)
+              setNotification('Warning','Please specify your date of birth','bottom-right','alert',2000)
           }
           else if(!mobile) {
-              setNotification('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',1000)
+              setNotification('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',2000)
           }
           else if(!campus) {
-              setNotification('Warning','Please specify your campus','bottom-right','alert',1000)
+              setNotification('Warning','Please specify your campus','bottom-right','alert',2000)
           }
           else {
               fetchDetails(regno,dobString,campus,mobile,remember, function(data) {
@@ -118,7 +119,7 @@
       }
 
       function fetchDetails(regno,dob,campus,mobile,remember, callback) {
-          setNotification('Logging in','Please Wait...','top-left','info',5000)
+          setNotification('Logging in','Please Wait...','top-left','info')
           $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
                   regno:regno,
                   dob:dob,
@@ -131,6 +132,7 @@
                       localStorage.setItem("loginDetails", JSON.stringify(data))
                   }
                   $cookies.loginDetails = JSON.stringify(data)
+                  destroyNotification('top-left')
                   if(data.status.code==0) {
                       setNotification('','Succesfully logged in','top-left','success',2000)
                   }
@@ -139,22 +141,23 @@
                   }
               })
               .error(function(data) {
-                  setNotification('ERROR','There Was a Problem Fetching result','alert','top-left',2000)
+                  destroyNotification('top-left')
+                  setNotification('ERROR','Connection Problem','top-left','alert',2000)
               })
       }
 
       function fetchCourses(regno,dob,campus,mobile, callback) {
-          setNotification('Fetching Data','Please Wait...','top-right','info',5000)
+          setNotification('Fetching Data','Please Wait...','top-right','info')
           $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
                   regno:regno,
                   dob:dob,
                   mobile:mobile
               })
               .success(function(data) {
-                  console.log("Data Fetched")
                   if(typeof callback == "function")
                   callback(data);
                   localStorage.setItem("courses", JSON.stringify(data))
+                  destroyNotification('top-right')
                   if(data.status.code==0) {
                       setNotification('Data succesfully Fetched','top-right','success',2000)
                   }
@@ -163,7 +166,8 @@
                   }
               })
               .error(function(err) {
-                  setNotification('ERROR',err,'alert','top-left',2000)
+                  destroyNotification('top-left')
+                  setNotification('ERROR','Connection Problem','top-left','alert',2000)
               })
       }
 
@@ -208,7 +212,6 @@
         };
 
         var setNotification = function(title, content, position, color, autoclose) {
-
             title = title || ''
             content = content || ''
             position = position || 'top-left'
@@ -223,6 +226,14 @@
                             autoclose:autoclose
 
                         });
+        }
+
+        var destroyNotification = function(position) {
+            var childrens = angular.element(document.getElementById(position+'-notification')).children()
+            for (var i = 0; i < childrens.length; i++) {
+                childrens[i].innerHTML = ''
+                childrens[i].style.display = 'none'
+            }
         }
   })
 
@@ -422,7 +433,6 @@
 
       $scope.miss = function(value) {
           if((value > 0) || ($scope.missed > 0)) {
-              console.log(value);
               $scope.missed += value
               $scope.total += value
               $scope.percentage = ($scope.attended / $scope.total)*100
