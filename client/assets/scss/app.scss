@@ -22,7 +22,7 @@ $loading-size:2em;
 }
 
 body {
-    .grid-frame,
+    @include disableselect;
     input{
         @include disableselect;
     }

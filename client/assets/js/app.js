@@ -51,7 +51,7 @@
           localStorage.removeItem("courses");
           $cookies.loginDetails = false
           $scope.loggedin = false
-          window.location.href="/"
+          window.location.href="#!/"
       }
 
       $scope.refresh = function refresh() {
@@ -81,22 +81,32 @@
       }
 
       $scope.login = function login(regno,dob,campus,mobile,remember) {
-          var dobString = dateFilter(dob, 'ddMMyyyy')
+          var button = angular.element(document.getElementById('loginbtn'))
+          button.addClass('disabled')
+
+            var buttonEnable = 'angular.element(document.getElementById("loginbtn")).removeClass("disabled");'
+
           notifications.destroy('bottom-right')
           if (!regno) {
               notifications.set('Warning','Please specify a Registeration number','bottom-right','alert',2000)
+              setTimeout(buttonEnable, 1000);
           }
           else if(!dob) {
               notifications.set('Warning','Please specify your date of birth','bottom-right','alert',2000)
+              setTimeout(buttonEnable, 1000);
           }
           else if(!mobile) {
               notifications.set('Warning','Please specify your parents/guardians mobile number','bottom-right','alert',2000)
+              setTimeout(buttonEnable, 1000);
           }
           else if(!campus) {
               notifications.set('Warning','Please specify your campus','bottom-right','alert',2000)
+              setTimeout(buttonEnable, 1000);
           }
           else {
+              var dobString = dateFilter(dob, 'ddMMyyyy')
               vitacademicsRel.login(regno,dobString,campus,mobile,remember, function(data) {
+                  setTimeout(buttonEnable, 1000);
                   console.log(data)
                   if(data.status.code==0) {
                       vitacademicsRel.details(regno,dobString,campus,mobile, function(data) {
@@ -159,51 +169,28 @@
         };
   })
 
-  VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams) {
-      var loginDetails = JSON.parse(localStorage.loginDetails)
+  VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams, dayTime) {
+      var loginDetails = JSON.parse(localStorage.loginDetails)      // Giving error if not logged in
       if(loginDetails.status.code==0){
-        var dayList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-        $scope.dayList = dayList
+          // To show the Left Menu and to redirect to current day
 
-        $scope.ListOfDays = dayList
+        $scope.ListOfDays = dayTime.list
 
-        var now = new Date();
-        var dayOfWeek = now.getDay()
-        if (dayOfWeek == 0) {
-            dayOfWeek = 6
-        }
-        else {
-            dayOfWeek-=1
-        }
         if(!$stateParams.timeday){
-            window.location.href =  "#!/timetable/"+dayList[dayOfWeek]
+            window.location.href =  "#!/timetable/"+dayTime.day
         }
     }
 
   })
 
-  VITapplication.controller('timedayController', function($scope, $stateParams) {
+  VITapplication.controller('timedayController', function($scope, $stateParams, dayTime) {
       if($stateParams.timeday) {
-          var dayList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+          var dayList = dayTime.list
           var index = dayList.indexOf($stateParams.timeday)
 
           $scope.index = index
-          $scope.dayList = getDetailsOfDay(index)
+          $scope.dayList = dayTime.getTodayDetails(index)
       }
-          function getDetailsOfDay(index) {
-              var dayDetails = []
-              var courses = JSON.parse(localStorage.courses).courses
-
-              for (var i = 0; i < courses.length; i+=1) {
-                  for (var j = 0;j < courses[i].timings.length; j++) {
-                      if (courses[i].timings[j].day == index) {
-                          dayDetails.push(courses[i])
-                          break;
-                      }
-                  }
-              }
-              return dayDetails;
-          }
 
           $scope.filterByDay = function(timingObject) {
               return timingObject.day == index
@@ -250,51 +237,24 @@
           }
   })
 
-  VITapplication.controller('todayController', function($scope, dateFilter) {
+  VITapplication.controller('todayController', function($scope, dateFilter, dayTime) {
       var loginDetails = JSON.parse(localStorage.loginDetails)
       if(loginDetails.status.code==0){
-        var dayList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-        $scope.dayList = dayList
 
-        $scope.ListOfDays = dayList
+          $scope.ListOfDays = dayTime.list
 
-        var now = new Date();
-        var dayOfWeek = now.getDay()
-        if (dayOfWeek == 0) {
-            dayOfWeek = 6
-        }
-        else {
-            dayOfWeek-=1
-        }
-
-        $scope.dayList = getDetailsOfDay(dayOfWeek)
-
-        function getDetailsOfDay(index) {
-            var dayDetails = []
-            var courses = JSON.parse(localStorage.courses).courses
-
-            for (var i = 0; i < courses.length; i+=1) {
-                for (var j = 0;j < courses[i].timings.length; j++) {
-                    if (courses[i].timings[j].day == index) {
-                        dayDetails.push(courses[i])
-                        break;
-                    }
-                }
-            }
-            return dayDetails;
-        }
-
+        $scope.dayList = dayTime.getTodayDetails()
 
       $scope.orderByTime = function(event) {
           for (var i = 0; i < event.timings.length; i++) {
-              if(event.timings[i].day == dayOfWeek) {
+              if(event.timings[i].day == dayTime.todayDay()) {
                   return event.timings[i].start_time
               }
           }
       }
 
           $scope.filterByToday = function(timingObject) {
-              return timingObject.day == dayOfWeek
+              return timingObject.day == dayTime.todayDay()
           }
 
         $scope.checkcurrent = function(event) {
@@ -324,8 +284,9 @@
 
         $scope.checkCompleted = function() {
             var completed = true
-            for (var i = 0; i < $scope.dayList.length; i++) {
-                if($scope.checkcurrent($scope.dayList[i])!='before') {
+            var listDay = $scope.dayList
+            for (var i = 0; i < listDay.length; i++) {
+                if($scope.checkcurrent(listDay[i])!='before') {
                     completed = false
                     return completed
                 }
@@ -334,12 +295,12 @@
         }
 
         function createDate(timeInHH) {
-            var time = timeInHH.split(':');
+            var time = $scope.localTime(timeInHH).split(':');
             var d = new Date(); // creates a Date Object using the clients current time
 
-            d.setUTCHours(+time[0]); // set Time accordingly, using implicit type coercion
-            d.setUTCMinutes( time[1]);
-            d.setUTCSeconds(time[2].slice(0,-1))
+            d.setHours(+time[0].trim()); // set Time accordingly, using implicit type coercion
+            d.setMinutes( time[1].trim());
+            d.setSeconds('00')
             return d
         }
     }
@@ -385,14 +346,62 @@
   })
 
   VITapplication.controller('versionController', function($scope, vitacademicsRel) {
-          $scope.version = vitacademicsRel.version()
+          vitacademicsRel.version(function(data) {
+                $scope.version = data
+          })
+  })
+
+
+  /*
+    ----------- FACTORIES ----------
+  */
+
+
+  VITapplication.factory('dayTime', function() {
+        var dayList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+
+        var todayDay = function(){
+            // Returns an int representing today's day
+            var now = new Date();
+            var dayOfWeek = now.getDay()
+            if (dayOfWeek == 0) {
+                dayOfWeek = 6
+            }
+            else {
+                dayOfWeek-=1
+            }
+            return dayOfWeek
+        }
+
+        var getDetailsOfDay = function(indexDay) {
+            var dayDetails = []
+            var index = indexDay || todayDay()
+            var courses = JSON.parse(localStorage.courses).courses
+
+            for (var i = 0; i < courses.length; i+=1) {
+                for (var j = 0;j < courses[i].timings.length; j++) {
+                    if (courses[i].timings[j].day == index) {
+                        dayDetails.push(courses[i])
+                        break;
+                    }
+                }
+            }
+            return dayDetails;
+        }
+
+        return {
+            list:dayList,
+            todayDay:todayDay,
+            day:dayList[todayDay()],
+            getTodayDetails: getDetailsOfDay
+        }
   })
 
   VITapplication.factory('vitacademicsRel',function($http, $cookies, notifications) {
 
       var fetchDetails = function(regno,dob,campus,mobile,remember, callback) {
           notifications.set('Logging in','Please Wait...','top-left','info')
-          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
+          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
                   regno:regno,
                   dob:dob,
                   mobile:mobile
@@ -421,7 +430,7 @@
 
       var fetchCourses = function(regno,dob,campus,mobile, callback) {
           notifications.set('Fetching Data','Please Wait...','top-right','info')
-          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
+          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
                   regno:regno,
                   dob:dob,
                   mobile:mobile
@@ -432,27 +441,38 @@
                   localStorage.setItem("courses", JSON.stringify(data))
                   notifications.destroy('top-right')
                   if(data.status.code==0) {
-                      notifications.set('Data succesfully Fetched','top-right','success',2000)
+                      notifications.set('','Data Succesfully fetched','top-right','success',2000)
                   }
                   else {
-                      notifications.set("Can't Fetch Data",data.status.message,'top-left','alert',2000)
+                      notifications.set("Can't Fetch Data",data.status.message,'top-right','alert',2000)
                   }
               })
               .error(function(err) {
                   notifications.destroy('top-left')
-                  notifications.set('ERROR','Connection Problem','top-left','alert',10000)
+                  notifications.set('ERROR','Connection Problem','top-right','alert',10000)
               })
       }
 
 
       var fetchVersion = function(callback) {
           // Returns data if the request is possible else returns an
+          notifications.set('Fetching Data','Please Wait...','top-left','info')
           $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system',{})
           .success(function(data) {
-              return data
+              notifications.destroy('top-left')
+              if(typeof callback == "function") {
+                  callback(data)
+              }
+              if(data.status.code==0) {
+                  notifications.set('','Data Succesfully fetched','top-left','success',2000)
+              }
+              else {
+                  notifications.set("Can't Fetch Data",data.status.message,'top-left','alert',2000)
+              }
           })
           .error(function(data) {
-
+              notifications.destroy('top-left')
+              notifications.set('ERROR','Connection Problem','top-left','alert',10000)
           })
       }
 
