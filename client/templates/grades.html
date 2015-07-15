@@ -1,0 +1,39 @@
+---
+name: grades
+url: /grades
+controller: gradesController
+---
+<div id="grades" class="grid-block vertical">
+  <div class="grid-block shrink" ng-include="'partials/menu.html'">
+
+  </div>
+  <div class="grid-block small-vertical medium-horizontal">
+    <div class="grid-block small-12 medium-3" ng-include="'partials/left-grades-menu.html'">
+
+    </div>
+    <div class="grades grid-block small-12 medium-9">
+      <div class="grid-block vertical align-center">
+        <div class="grid-block">
+          <div class="grid-block">
+            <div class="card grid-block vertical align-center text-center">
+              <h3>Credits Registered</h3>
+              <h4>{{grades.credits_registered}}</h4>
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="card grid-block vertical align-center text-center">
+              <h3>Credits Earned</h3>
+              <h4>{{grades.credits_earned}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="grid-block">
+          <div class="card grid-block vertical align-center text-center">
+            <h2>CGPA</h2>
+            <h2>{{grades.cgpa}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

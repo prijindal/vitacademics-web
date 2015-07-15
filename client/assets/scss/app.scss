@@ -101,7 +101,10 @@ body {
 }
 
 #left-menu {
-    border-right:1px solid #333;
+    border-bottom:1px solid #333;
+    @media only screen and (min-width: 40em) {
+        border-right:1px solid #333;
+    }
 }
 
 .menu-bar li.active a {
@@ -197,10 +200,10 @@ span.show-for-medium:not(.ng-hide) {
                     border-color: $success-color;
                 }
             }
-            &.blue {
+            &.orange {
                 a.button {
-                    color:$info-color;
-                    border-color: $info-color;
+                    color:$warning-color;
+                    border-color: $warning-color;
                 }
             }
             &.red {
@@ -209,6 +212,21 @@ span.show-for-medium:not(.ng-hide) {
                     border-color: $warning-color;
                 }
             }
+        }
+    }
+}
+
+.grades {
+    padding: 20px;
+    .card {
+        padding:20px 10px;
+        background-color: #EDEDED;
+        min-height: 150px;
+        .title {
+            margin:0 auto;
+        }
+        span.small {
+            font-size:rem-calc(16px);
         }
     }
 }

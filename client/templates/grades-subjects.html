@@ -1,0 +1,51 @@
+---
+name: gradesubjects
+url: /grades/subjects
+controller: gradesController
+---
+<div id="grades" class="grid-block vertical">
+  <div class="grid-block shrink" ng-include="'partials/menu.html'">
+
+  </div>
+  <div class="grid-block small-vertical medium-horizontal">
+    <div class="grid-block small-12 medium-3" ng-include="'partials/left-grades-menu.html'">
+
+    </div>
+    <div class="grades grid-block small-12 medium-9">
+      <div class="grid-block small-up-1 large-up-2">
+        <div class="grid-block" ng-repeat="subject in grades.grades | orderBy: 'result_date' :true"> <!-- have to Make a filter here-->
+          <div ng-class="" class="card grid-block vertical">
+            <div class="grid-block vertical">
+              <div class="grid-block">
+                <div class="grid-block align-spaced">
+                  <div class="grid-content text-left">
+                      <p>{{subject.course_code}}</p>
+                  </div>
+                  <div class="grid-content text-right">
+                      <p>{{subject.course_type}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-block title">
+                <p>{{subject.course_title}}</p>
+              </div>
+              <div class="grid-block">
+                <div class="grid-block align-center">
+                  <h1>{{subject.grade}}</h1>
+                </div>
+                <div class="grid-block vertical">
+                  <div class="grid-block">
+                    <p>Credits: {{subject.credits}}</p>
+                  </div>
+                  <div class="grid-block">
+                    <p>Exam held on: {{subject.result_date}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

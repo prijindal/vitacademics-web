@@ -19,17 +19,17 @@
   VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications) {
       if(typeof localStorage.loginDetails != "undefined") {
           console.log(localStorage.loginDetails)
-          if (typeof localStorage.courses != undefined) {
+          if (typeof localStorage.courses != "undefined") {
               console.log(localStorage.courses)
-              $scope.loggedin = true
               if(JSON.parse(localStorage.courses).status.code == 0){
                   $scope.courses = JSON.parse(localStorage.courses).courses
+                  console.log($scope.courses);
                   console.log($scope.courses[0])
+                  $scope.loggedin = true
               }
               else {
                   var data = JSON.parse(localStorage.loginDetails)
                   relogin(data)
-
               }
           }
           else {
@@ -47,11 +47,11 @@
       }
 
       $scope.logout = function logout() {
-          localStorage.removeItem("loginDetails");
-          localStorage.removeItem("courses");
+          localStorage.clear()
           $cookies.loginDetails = false
           $scope.loggedin = false
           window.location.href="#!/"
+          window.location.reload()
       }
 
       $scope.refresh = function refresh() {
@@ -337,7 +337,7 @@
               return 'green'
           }
           else if (value > 74) {
-              return 'blue'
+              return 'orange'
           }
           else{
               return 'red'
@@ -351,6 +351,26 @@
           })
   })
 
+  VITapplication.controller('gradesController', function($scope,vitacademicsRel) {
+      if(localStorage.grades) {
+          $scope.grades = JSON.parse(localStorage.grades)
+          console.log($scope.grades);
+          if ($scope.grades.status.code != 0) {
+              var loginDetails = JSON.parse(localStorage.loginDetails)
+              vitacademicsRel.grades(loginDetails.reg_no,loginDetails.dob,loginDetails.campus,loginDetails.mobile,function(data) {
+                    localStorage.grades = JSON.stringify(data)
+                    $scope.grades = localStorage.grades
+              })
+          }
+      }
+      else{
+          var loginDetails = JSON.parse(localStorage.loginDetails)
+          vitacademicsRel.grades(loginDetails.reg_no,loginDetails.dob,loginDetails.campus,loginDetails.mobile,function(data) {
+                localStorage.grades = JSON.stringify(data)
+                $scope.grades = localStorage.grades
+          })
+      }
+  })
 
   /*
     ----------- FACTORIES ----------
@@ -399,9 +419,11 @@
 
   VITapplication.factory('vitacademicsRel',function($http, $cookies, notifications) {
 
+      var apiServer = 'https://vitacademics-rel.herokuapp.com'
+
       var fetchDetails = function(regno,dob,campus,mobile,remember, callback) {
           notifications.set('Logging in','Please Wait...','top-left','info')
-          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/login',{
+          $http.post(apiServer+'/api/v2/'+campus+'/login',{
                   regno:regno,
                   dob:dob,
                   mobile:mobile
@@ -430,7 +452,7 @@
 
       var fetchCourses = function(regno,dob,campus,mobile, callback) {
           notifications.set('Fetching Data','Please Wait...','top-right','info')
-          $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/refresh',{
+          $http.post(apiServer+'/api/v2/'+campus+'/refresh',{
                   regno:regno,
                   dob:dob,
                   mobile:mobile
@@ -448,7 +470,7 @@
                   }
               })
               .error(function(err) {
-                  notifications.destroy('top-left')
+                  notifications.destroy('top-right')
                   notifications.set('ERROR','Connection Problem','top-right','alert',10000)
               })
       }
@@ -457,7 +479,7 @@
       var fetchVersion = function(callback) {
           // Returns data if the request is possible else returns an
           notifications.set('Fetching Data','Please Wait...','top-left','info')
-          $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system',{})
+          $http.get(apiServer+'/api/v2/system',{})
           .success(function(data) {
               notifications.destroy('top-left')
               if(typeof callback == "function") {
@@ -476,10 +498,35 @@
           })
       }
 
+      var fetchGrades = function(regno,dob,campus,mobile, callback) {
+          notifications.set('Fetching Grades','Please Wait...','top-right','info')
+          $http.post(apiServer+'/api/v2/'+campus+'/grades',{
+                  regno:regno,
+                  dob:dob,
+                  mobile:mobile
+              })
+              .success(function(data) {
+                  if(typeof callback == "function")
+                  callback(data);
+                  notifications.destroy('top-right')
+                  if(data.status.code==0) {
+                      notifications.set('','Grades Succesfully fetched','top-right','success',2000)
+                  }
+                  else {
+                      notifications.set("Can't Fetch your grades",data.status.message,'top-right','alert',2000)
+                  }
+              })
+              .error(function(err) {
+                  notifications.destroy('top-right')
+                  notifications.set('ERROR','Connection Problem','top-right','alert',10000)
+              })
+      }
+
         return {
             version: fetchVersion,
             login: fetchDetails,
-            details: fetchCourses
+            details: fetchCourses,
+            grades: fetchGrades
         }
   })
 
