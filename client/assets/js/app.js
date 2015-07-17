@@ -17,19 +17,24 @@
     .run(run)
   ;
   VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications, dayTime) {
+      $scope.campus = 'vellore'
 
       $scope.reg_no = function() {
+        if(localStorage.loginDetails){
           return JSON.parse(localStorage.loginDetails).reg_no
+        }
       }
 
       $scope.semester = function() {
-          var sem = JSON.parse(localStorage.courses).semester;
-          var year = '2015-16'
-          if (sem == 'FS') {
-              return 'Fall Semester '+year
-          }
-          else if (sem == 'WS') {
-              return 'Winter Semester '+year
+          if(localStorage.loginDetails){
+            var sem = JSON.parse(localStorage.courses).semester;
+            var year = '2015-16'
+            if (sem == 'FS') {
+                return 'Fall Semester '+year
+            }
+            else if (sem == 'WS') {
+                return 'Winter Semester '+year
+            }
           }
       }
 
@@ -93,6 +98,12 @@
                 })
               }
           })
+      }
+
+      $scope.submitlogin = function(event,regno,dob,campus,mobile,remember) {
+        if(event.charCode == 13) {
+          $scope.login(regno,dob,campus,mobile,remember)
+        }
       }
 
       $scope.login = function login(regno,dob,campus,mobile,remember) {

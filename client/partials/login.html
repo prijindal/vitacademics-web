@@ -1,6 +1,6 @@
 <div id="login" class="grid-block shrink align-center">
 <div class="card">
-<div class="grid-block vertical">
+<div class="grid-block vertical" ng-keypress="submitlogin($event,regno,dob,campus,mobile,remember)">
   <div class="grid-block small-vertical large-horizontal input-field">
     <div class="grid-block label-text">
       <label for="regno">Registeration No.</label>
@@ -30,10 +30,10 @@
       <label for="campus">Campus: </label>
     </div>
     <div class="grid-block input">
-      <input type="radio" ng-model="campus" id="vellore" value="vellore">
-      <label for="vellore">Vellore</label>
-      <input type="radio" ng-model="campus" id="chennai" value="chennai">
-      <label for="chennai">Chennai</label>
+      <select ng-model="campus">
+      <option id="vellore" value="vellore">Vellore</option>
+      <option id="chennai" value="chennai">Chennai</option>
+      </select>
     </div>
   </div>
   <div class="grid-block small-horizontal input-field">
