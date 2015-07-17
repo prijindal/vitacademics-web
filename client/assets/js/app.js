@@ -16,7 +16,7 @@
     .config(config)
     .run(run)
   ;
-  VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications) {
+  VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications, dayTime) {
 
       $scope.reg_no = function() {
           return JSON.parse(localStorage.loginDetails).reg_no
@@ -40,7 +40,6 @@
               if(JSON.parse(localStorage.courses).status.code == 0){
                   $scope.courses = JSON.parse(localStorage.courses).courses
                   console.log($scope.courses);
-                  console.log($scope.courses[0])
                   $scope.loggedin = true
               }
               else {
@@ -135,14 +134,7 @@
         }
       }
 
-      $scope.days = function days(timings) {
-          var dayWeek = ['M','T','W','Th','F','S','S']
-          var dayList = []
-          for (var i = 0; i < timings.length; i++) {
-              dayList.push(dayWeek[timings[i].day])
-          }
-          return dayList
-      }
+      $scope.days = dayTime.daysOfCourse
 
       $scope.checkAttendance = function(event, value) {
           value = value || event.attendance.attendance_percentage;
@@ -178,7 +170,8 @@
                         modal.destroy();
                       }, 1000);
                   },
-                  content:popUpData
+                  content:popUpData,
+                  days:dayTime.daysOfCourse
                   }
             });
             modal.activate();
@@ -448,11 +441,21 @@
             return dayDetails;
         }
 
+        function daysOfCourse(timings) {
+            var dayWeek = ['M','T','W','Th','F','S','S']
+            var dayList = []
+            for (var i = 0; i < timings.length; i++) {
+                dayList.push(dayWeek[timings[i].day])
+            }
+            return dayList
+        }
+
         return {
             list:dayList,
             todayDay:todayDay,
             day:dayList[todayDay()],
-            getTodayDetails: getDetailsOfDay
+            getTodayDetails: getDetailsOfDay,
+            daysOfCourse: daysOfCourse
         }
   })
 

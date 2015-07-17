@@ -3,6 +3,14 @@
     <zf-accordion-item title="Attendance">
       <div class="grid-block vertical align-spaced detailsContainer" ng-controller="attendanceController">
         <div class="grid-block vertical course-details">
+          <div class="grid-block faculty">
+            <div class="grid-block">
+              {{content.faculty}}
+            </div>
+            <div class="grid-block align-right">
+              <span ng-repeat="day in days(content.timings)">{{day}}&nbsp;</span>
+            </div>
+          </div>
           <div class="grid-block">
             <div class="grid-block">
               {{content.course_code}}
