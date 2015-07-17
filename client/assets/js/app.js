@@ -243,7 +243,7 @@
 
           $scope.ListOfDays = dayTime.list
 
-        $scope.dayList = dayTime.getTodayDetails()
+        $scope.dayList = dayTime.getTodayDetails(dayTime.todayDay())
 
       $scope.orderByTime = function(event) {
           for (var i = 0; i < event.timings.length; i++) {
@@ -269,6 +269,7 @@
                 var start = createDate(todayTime.start_time)
                 var finish = createDate(todayTime.end_time)
                 var now = new Date()
+                console.log(start, finish, now);
 
                 if( ((finish - now) > 0) && (now-start > 0) ) {
                     return 'current'
@@ -295,18 +296,19 @@
         }
 
         function createDate(timeInHH) {
-            var time = $scope.localTime(timeInHH).split(':');
-            var d = new Date(); // creates a Date Object using the clients current time
 
-            d.setHours(+time[0].trim()); // set Time accordingly, using implicit type coercion
-            d.setMinutes( time[1].trim());
+            var time = timeInHH.split(':')
+            var d = new Date(); // creates a Date Object using the clients current time
+            console.log(time);
+            d.setUTCHours(+time[0]); // set Time accordingly, using implicit type coercion
+            d.setUTCMinutes( time[1]);
             d.setSeconds('00')
             return d
         }
     }
   })
 
-  VITapplication.controller('attendanceController', function($scope) {
+  VITapplication.controller('attendanceController', function($scope, attendance) {
       $scope.percentage = $scope.content.attendance.attendance_percentage
       $scope.attended = $scope.content.attendance.attended_classes
       $scope.total = $scope.content.attendance.total_classes
@@ -315,6 +317,7 @@
       $scope.attends = 0
 
       $scope.miss = function(value) {
+          value  = value * attendance.getClassValue($scope.content)
           if((value > 0) || ($scope.missed > 0)) {
               $scope.missed += value
               $scope.total += value
@@ -323,6 +326,7 @@
       }
 
       $scope.attend = function(value){
+          value  = value * attendance.getClassValue($scope.content)
           if((value>0) || ($scope.attends>0)){
               $scope.attends += value
               $scope.total+=value
@@ -376,6 +380,26 @@
     ----------- FACTORIES ----------
   */
 
+  VITapplication.factory('attendance', function() {
+      function getClassValue(content) {
+          var details = content.attendance.details;
+          if(details) {
+              for (var i = 0; i < details.length; i++) {
+                  if(details[i].class_units) {
+                      return details[i].class_units
+                  }
+              }
+          }
+          if(content.course_type == 2) {
+              return 2;
+          }
+          return 1
+      }
+      return {
+          getClassValue:getClassValue
+      }
+  })
+
 
   VITapplication.factory('dayTime', function() {
         var dayList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
@@ -395,7 +419,7 @@
 
         var getDetailsOfDay = function(indexDay) {
             var dayDetails = []
-            var index = indexDay || todayDay()
+            var index = indexDay
             var courses = JSON.parse(localStorage.courses).courses
 
             for (var i = 0; i < courses.length; i+=1) {
