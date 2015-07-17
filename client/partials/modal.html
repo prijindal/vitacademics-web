@@ -33,8 +33,8 @@
         </div>
         <div class="grid-block vertical course-attendance">
           <div class="grid-block align-center attendance-progress">
-            <span>{{percentage | number:0}}%</span>
-            <progress-arc stroke="{{getColor()}}" size="150" stroke-width:"10" complete="percentage/100"></progress-arc>
+            <span>{{percentage || 0 | number:0}}%</span>
+            <progress-arc stroke="{{getColor()}}" size="150" stroke-width:"10" complete="percentage/100 || 1"></progress-arc>
           </div>
           <div class="grid-block">
             You&nbsp;<span ng-if="missed || attends">would&nbsp;</span>have attended {{attended}} out of {{total}} class

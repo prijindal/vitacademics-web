@@ -107,8 +107,14 @@ body {
     }
 }
 
-.menu-bar li.active a {
-    font-weight: bold;
+.menu-bar {
+    li.active a {
+        font-weight: bold;
+    }
+    li.divider {
+        border-top: 1px solid #333;
+        height: 0;
+    }
 }
 
 span.show-for-medium:not(.ng-hide) {

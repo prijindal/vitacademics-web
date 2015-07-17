@@ -179,6 +179,7 @@
   })
 
   VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams, dayTime) {
+
       var loginDetails = JSON.parse(localStorage.loginDetails)      // Giving error if not logged in
       if(loginDetails.status.code==0){
           // To show the Left Menu and to redirect to current day
