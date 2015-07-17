@@ -17,6 +17,22 @@
     .run(run)
   ;
   VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications) {
+
+      $scope.reg_no = function() {
+          return JSON.parse(localStorage.loginDetails).reg_no
+      }
+
+      $scope.semester = function() {
+          var sem = JSON.parse(localStorage.courses).semester;
+          var year = '2015-16'
+          if (sem == 'FS') {
+              return 'Fall Semester '+year
+          }
+          else if (sem == 'WS') {
+              return 'Winter Semester '+year
+          }
+      }
+
       if(typeof localStorage.loginDetails != "undefined") {
           console.log(localStorage.loginDetails)
           if (typeof localStorage.courses != "undefined") {
@@ -269,7 +285,6 @@
                 var start = createDate(todayTime.start_time)
                 var finish = createDate(todayTime.end_time)
                 var now = new Date()
-                console.log(start, finish, now);
 
                 if( ((finish - now) > 0) && (now-start > 0) ) {
                     return 'current'
@@ -299,7 +314,7 @@
 
             var time = timeInHH.split(':')
             var d = new Date(); // creates a Date Object using the clients current time
-            console.log(time);
+
             d.setUTCHours(+time[0]); // set Time accordingly, using implicit type coercion
             d.setUTCMinutes( time[1]);
             d.setSeconds('00')
