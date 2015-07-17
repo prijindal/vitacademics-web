@@ -144,15 +144,27 @@ gulp.task('uglify:app', function() {
 });
 
 // Starts a test server, which you can view at https://vitacademics-web.herokuapp.com//:80
+gulp.task('server', ['build'], function() {
+  gulp.src('./build')
+    .pipe($.webserver({
+      port: 5000,
+      host: 'localhost',
+      fallback: 'index.html',
+      livereload: true,
+      open: false
+    }))
+  ;
+});
+
+// Starts a Deploy server, which you can view at https://vitacademics-web.herokuapp.com//:80
 var port = process.env.PORT || 5000;
 var socket = '0.0.0.0';
-gulp.task('server', ['build'], function() {
+gulp.task('deploy', ['build'], function() {
   gulp.src('./build')
     .pipe($.webserver({
       port: port,
       host: socket,
       fallback: 'index.html',
-      livereload: true,
       open: false
     }))
   ;
