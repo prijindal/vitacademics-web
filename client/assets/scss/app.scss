@@ -115,6 +115,11 @@ body {
         border-top: 1px solid #333;
         height: 0;
     }
+    li.image-link {
+      img {
+        margin:0 auto;
+      }
+    }
 }
 
 span.show-for-medium:not(.ng-hide) {
