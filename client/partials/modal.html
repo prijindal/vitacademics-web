@@ -60,23 +60,22 @@
       </div>
     </zf-accordion-item>
       <zf-accordion-item title="Classes">
-        <div class="grid-block">
-          <table> <!-- Improve Tables or remove them, Tables are boring!! -->
-            <thead>
-              <tr>
-                <th>S. No.</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="detail in content.attendance.details">
-                <td>{{detail.sl}}</td>
-                <td>{{detail.date}}</td>
-                <td>{{detail.status}}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="grid-block" id="classes">
+          <div class="grid-block vertical">
+            <div ng-repeat="detail in content.attendance.details" class="card grid-block vertical">
+              <div class="grid-block">
+                <div class="grid-content">
+                  {{detail.date}}
+                </div>
+                <div class="grid-content">
+                  {{detail.status}}
+                </div>
+              </div>
+              <div class="grid-content">
+                Units earned: {{detail.class_units}}
+              </div>
+            </div>
+          </div>
         </div>
     </zf-accordion-item>
   </zf-accordion>

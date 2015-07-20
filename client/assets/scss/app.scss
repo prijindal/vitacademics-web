@@ -10,8 +10,6 @@ $container-width: rem-calc(1200);
 $loading-size:2em;
 @import "foundation";
 @import "loader";
-// Improve Tables
-@import "tables";
 
 @mixin disableselect {
     -webkit-user-select: none;
@@ -226,6 +224,15 @@ span.show-for-medium:not(.ng-hide) {
                     border-color: $warning-color;
                 }
             }
+        }
+        #classes {
+          .card {
+            margin:10px;
+            background: $gray-dark;
+            .grid-content {
+              margin:10px;
+            }
+          }
         }
     }
 }
