@@ -4,6 +4,10 @@
     height: 100%;
     position: absolute;
     z-index:10;
+    &.slideAway {
+      top:0;
+      -webkit-animation: slide 1.5s forwards;
+    }
     .grid-block {
         width:100%;
         height: 100%;
@@ -45,3 +49,7 @@
 				-webkit-transform:translateX(0px) rotateY(360deg);
 			}
 		}
+
+    @-webkit-keyframes slide {
+        100% { top: -100%;display: none;}
+    }
