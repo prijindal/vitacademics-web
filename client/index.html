@@ -33,7 +33,7 @@
           <li class="divider"><a href="#"></a></li>
           <!-- <li><a href="">Friends</a></li> -->
           <li><a href="" ng-click="logout()">Log Out</a></li>
-          <li><a ui-sref="version">Version Details</a></li>
+          <li><a ui-sref="version" ng-click="loading('version')">Version Details</a></li>
           <li class="divider"><a href="#"></a></li>
           <li class="image-link"><a href="https://play.google.com/store/apps/details?id=com.karthikb351.vitinfo2&amp;hl=en"><img src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Play Store"></a></li>
           <li class="image-link"><a href="https://itunes.apple.com/in/app/vitacademics/id727796987?mt=8"><img src="https://vitacademics-rel.herokuapp.com/images/apple.svg" alt="App Store"></a></li>
@@ -45,8 +45,16 @@
       </zf-offcanvas>
 
       <div class="grid-block">
-        <div class="grid-block" ui-view>
+        <div class="grid-block" ui-view ng-hide="loader.loading">
 
+        </div>
+        <div class="grid-block vertical" ng-show="loader.loading">
+          <div class="grid-block shrink" ng-include="'partials/menu.html'">
+
+          </div>
+          <div class="grid-block vertical align-center text-center">
+            Loading...
+          </div>
         </div>
       </div>
 

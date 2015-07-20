@@ -17,6 +17,29 @@
     .run(run)
   ;
   VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications, dayTime) {
+      $scope.loader = {
+
+           loading : true ,
+           timetable: false,
+           today: false,
+           version: false,
+           grades: false,
+           login: false
+
+         };
+
+     $scope.loading = function(element) {
+       if(!$scope.loader[element]){
+         $scope.loader.loading = true;
+       }
+     }
+
+     $scope.loaded = function(element) {
+       $scope.loader.loading = false;
+       $scope.loader[element] = true
+     }
+
+     $scope.loaded('login')
       $scope.campus = 'vellore'
 
       $scope.reg_no = function() {
@@ -190,6 +213,7 @@
   })
 
   VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams, dayTime) {
+      $scope.loaded('timetable')
 
       var loginDetails = JSON.parse(localStorage.loginDetails)      // Giving error if not logged in
       if(loginDetails.status.code==0){
@@ -259,6 +283,8 @@
   })
 
   VITapplication.controller('todayController', function($scope, dateFilter, dayTime) {
+      $scope.loaded('today')
+
       var loginDetails = JSON.parse(localStorage.loginDetails)
       if(loginDetails.status.code==0){
 
@@ -370,12 +396,16 @@
   })
 
   VITapplication.controller('versionController', function($scope, vitacademicsRel) {
+    $scope.loaded('version')
+
           vitacademicsRel.version(function(data) {
                 $scope.version = data
           })
   })
 
   VITapplication.controller('gradesController', function($scope,vitacademicsRel) {
+    $scope.loaded('grades')
+
       if(localStorage.grades) {
           $scope.grades = JSON.parse(localStorage.grades)
           console.log($scope.grades);
