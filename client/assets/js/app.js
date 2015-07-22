@@ -24,7 +24,8 @@
            today: false,
            version: false,
            grades: false,
-           login: false
+           login: false,
+           advisor: false
 
          };
 
@@ -49,7 +50,7 @@
       }
 
       $scope.semester = function() {
-          if(localStorage.loginDetails){
+          if(localStorage.courses){
             var sem = JSON.parse(localStorage.courses).semester;
             var year = '2015-16'
             if (sem == 'FS') {
@@ -426,6 +427,22 @@
       }
   })
 
+  VITapplication.controller('advisorController', function($scope,vitacademicsRel) {
+    console.log('Advisor');
+    $scope.loaded('advisor')
+    if(localStorage.facultyAdvisor) {
+      console.log(localStorage.facultyAdvisor);
+      $scope.advisor = JSON.parse(localStorage.facultyAdvisor)
+    }else{
+      if(localStorage.loginDetails) {
+        var data = JSON.parse(localStorage.loginDetails)
+        vitacademicsRel.advisor(data.reg_no,data.dob,data.campus,data.mobile,function(data) {
+          $scope.advisor = data
+        })
+      }
+    }
+  })
+
   /*
     ----------- FACTORIES ----------
   */
@@ -606,11 +623,38 @@
               })
       }
 
+
+      var fetchAdvisor = function(regno,dob,campus,mobile,remember, callback) {
+        notifications.set('Fetching Fac. Advisor Details','Please Wait...','top-right','info')
+        $http.post(apiServer+'/api/v2/'+campus+'/advisor',{
+                regno:regno,
+                dob:dob,
+                mobile:mobile
+            })
+            .success(function(data) {
+                if(typeof callback == "function")
+                callback(data);
+                notifications.destroy('top-right')
+                localStorage.setItem("facultyAdvisor", JSON.stringify(data))
+                if(data.status.code==0) {
+                    notifications.set('','Fac. Advisor Succesfully fetched','top-right','success',2000)
+                }
+                else {
+                    notifications.set("Can't Fetch facult details",data.status.message,'top-right','alert',2000)
+                }
+            })
+            .error(function(err) {
+                notifications.destroy('top-right')
+                notifications.set('ERROR','Connection Problem','top-right','alert',10000)
+            })
+      }
+
         return {
             version: fetchVersion,
             login: fetchDetails,
             details: fetchCourses,
-            grades: fetchGrades
+            grades: fetchGrades,
+            advisor: fetchAdvisor
         }
   })
 

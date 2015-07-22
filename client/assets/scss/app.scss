@@ -11,20 +11,20 @@ $loading-size:2em;
 @import "foundation";
 @import "loader";
 
-@mixin disableselect {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-
-body {
-    @include disableselect;
-    input{
-        @include disableselect;
-    }
-}
+// @mixin disableselect {
+//     -webkit-user-select: none;
+//     -khtml-user-select: none;
+//     -moz-user-select: none;
+//     -o-user-select: none;
+//     user-select: none;
+// }
+//
+// body {
+//     @include disableselect;
+//     input{
+//         @include disableselect;
+//     }
+// }
 
 #login {
     margin:auto;
@@ -250,4 +250,11 @@ span.show-for-medium:not(.ng-hide) {
             font-size:rem-calc(16px);
         }
     }
+}
+
+#advisor {
+  #advisorCard {
+    flex-grow:0;
+    min-height: 300px;
+  }
 }
