@@ -431,8 +431,15 @@
     console.log('Advisor');
     $scope.loaded('advisor')
     if(localStorage.facultyAdvisor) {
-      console.log(localStorage.facultyAdvisor);
       $scope.advisor = JSON.parse(localStorage.facultyAdvisor)
+      if($scope.advisor.status.code != 0){
+        if(localStorage.loginDetails) {
+          var data = JSON.parse(localStorage.loginDetails)
+          vitacademicsRel.advisor(data.reg_no,data.dob,data.campus,data.mobile,function(data) {
+            $scope.advisor = data
+          })
+        }
+      }
     }else{
       if(localStorage.loginDetails) {
         var data = JSON.parse(localStorage.loginDetails)
@@ -625,7 +632,7 @@
       }
 
 
-      var fetchAdvisor = function(regno,dob,campus,mobile,remember, callback) {
+      var fetchAdvisor = function(regno,dob,campus,mobile, callback) {
         notifications.set('Fetching Fac. Advisor Details','Please Wait...','top-right','info')
         $http.post(apiServer+'/api/v2/'+campus+'/advisor',{
                 regno:regno,
@@ -633,8 +640,9 @@
                 mobile:mobile
             })
             .success(function(data) {
-                if(typeof callback == "function")
-                callback(data);
+                if(typeof callback == "function") {
+                  callback(data);
+                }
                 notifications.destroy('top-right')
                 localStorage.setItem("facultyAdvisor", JSON.stringify(data))
                 if(data.status.code==0) {

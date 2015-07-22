@@ -256,5 +256,8 @@ span.show-for-medium:not(.ng-hide) {
   #advisorCard {
     flex-grow:0;
     min-height: 300px;
+    .card {
+      padding: 20px 10px 10px;
+    }
   }
 }

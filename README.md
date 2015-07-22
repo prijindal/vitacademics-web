@@ -24,3 +24,6 @@ which will deploy the app at port 5000
 This app was made using **Foundation For apps** at [https://github.com/zurb/foundation-apps]()
 
 and is using the **VITAcademics API** at  [https://github.com/aneesh-neelam/VITacademics]()
+
+
+Please do suggest any updates or report any bugs
