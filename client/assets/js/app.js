@@ -583,6 +583,7 @@
           $http.get(apiServer+'/api/v2/system',{})
           .success(function(data) {
               notifications.destroy('top-left')
+              console.log(data);
               if(typeof callback == "function") {
                   callback(data)
               }
