@@ -1,5 +1,7 @@
 # VITAcademics for Web
 
+[![Join the chat at https://gitter.im/CollegeCODE/VITacademics-Web](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CollegeCODE/VITacademics-Web?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is the working repository for the web app of VIT Academics.
 you can see the website [here](https://vitacademics-web.herokuapp.com/#!/).
 
