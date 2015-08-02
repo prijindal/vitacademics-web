@@ -124,8 +124,8 @@ gulp.task('uglify:foundation', function(cb) {
     }));
 
   return gulp.src(paths.foundationJS)
-    .pipe(uglify)
     .pipe($.concat('foundation.js'))
+    .pipe($.uglify())
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 });
