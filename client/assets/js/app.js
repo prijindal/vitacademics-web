@@ -16,7 +16,7 @@
     .config(config)
     .run(run)
   ;
-  VITapplication.controller('loginController', function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications, dayTime) {
+  VITapplication.controller('loginController',['$scope', '$cookies', 'ModalFactory', 'dateFilter','vitacademicsRel', 'notifications', 'dayTime' ,function($scope, $cookies, ModalFactory, dateFilter,vitacademicsRel, notifications, dayTime) {
       $scope.loader = {
 
            loading : true ,
@@ -211,9 +211,9 @@
             });
             modal.activate();
         };
-  })
+  }])
 
-  VITapplication.controller('timetableController', function($scope, dateFilter, $stateParams, dayTime) {
+  VITapplication.controller('timetableController',['$scope', 'dateFilter', '$stateParams', 'dayTime', function($scope, dateFilter, $stateParams, dayTime) {
       $scope.loaded('timetable')
 
       var loginDetails = JSON.parse(localStorage.loginDetails)      // Giving error if not logged in
@@ -227,9 +227,9 @@
         }
     }
 
-  })
+  }])
 
-  VITapplication.controller('timedayController', function($scope, $stateParams, dayTime) {
+  VITapplication.controller('timedayController',['$scope', '$stateParams', 'dayTime', function($scope, $stateParams, dayTime) {
       if($stateParams.timeday) {
           var dayList = dayTime.list
           var index = dayList.indexOf($stateParams.timeday)
@@ -281,9 +281,9 @@
                   }
               }
           }
-  })
+  }])
 
-  VITapplication.controller('todayController', function($scope, dateFilter, dayTime) {
+  VITapplication.controller('todayController',['$scope', 'dateFilter', 'dayTime' ,function($scope, dateFilter, dayTime) {
       $scope.loaded('today')
 
       var loginDetails = JSON.parse(localStorage.loginDetails)
@@ -353,9 +353,9 @@
             return d
         }
     }
-  })
+  }])
 
-  VITapplication.controller('attendanceController', function($scope, attendance) {
+  VITapplication.controller('attendanceController',['$scope, attendance', function($scope, attendance) {
       $scope.percentage = $scope.content.attendance.attendance_percentage
       $scope.attended = $scope.content.attendance.attended_classes
       $scope.total = $scope.content.attendance.total_classes
@@ -394,17 +394,17 @@
               return 'red'
           }
       }
-  })
+  }])
 
-  VITapplication.controller('versionController', function($scope, vitacademicsRel) {
+  VITapplication.controller('versionController',['$scope', 'vitacademicsRel', function($scope, vitacademicsRel) {
     $scope.loaded('version')
 
           vitacademicsRel.version(function(data) {
                 $scope.version = data
           })
-  })
+  }])
 
-  VITapplication.controller('gradesController', function($scope,vitacademicsRel) {
+  VITapplication.controller('gradesController',['$scope','vitacademicsRel', function($scope,vitacademicsRel) {
     $scope.loaded('grades')
 
       if(localStorage.grades) {
@@ -425,9 +425,9 @@
                 $scope.grades = localStorage.grades
           })
       }
-  })
+  }])
 
-  VITapplication.controller('advisorController', function($scope,vitacademicsRel) {
+  VITapplication.controller('advisorController',['$scope','vitacademicsRel', function($scope,vitacademicsRel) {
     console.log('Advisor');
     $scope.loaded('advisor')
     if(localStorage.facultyAdvisor) {
@@ -448,7 +448,7 @@
         })
       }
     }
-  })
+  }])
 
   /*
     ----------- FACTORIES ----------
@@ -525,7 +525,7 @@
         }
   })
 
-  VITapplication.factory('vitacademicsRel',function($http, $cookies, notifications) {
+  VITapplication.factory('vitacademicsRel',['$http', '$cookies', 'notifications' , function($http, $cookies, notifications) {
 
       var apiServer = 'https://vitacademics-rel.herokuapp.com'
 
@@ -665,9 +665,9 @@
             grades: fetchGrades,
             advisor: fetchAdvisor
         }
-  })
+  }])
 
-  VITapplication.factory('notifications', function(FoundationApi) {
+  VITapplication.factory('notifications',['FoundationApi', function(FoundationApi) {
       var setNotification = function(title, content, position, color, autoclose) {
           title = title || ''
           content = content || ''
@@ -698,7 +698,7 @@
           set:setNotification,
           destroy:destroyNotification
       }
-  })
+  }])
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
 

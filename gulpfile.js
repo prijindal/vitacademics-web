@@ -104,7 +104,7 @@ gulp.task('sass', function () {
   return gulp.src('client/assets/scss/app.scss')
     .pipe($.sass({
       includePaths: paths.sass,
-      outputStyle: (isProduction ? 'compressed' : 'nested'),
+      outputStyle: (isProduction ? 'compressed' : 'compressed'),
       errLogToConsole: true
     }))
     .pipe($.autoprefixer({
@@ -137,8 +137,8 @@ gulp.task('uglify:app', function() {
     }));
 
   return gulp.src(paths.appJS)
-    .pipe(uglify)
     .pipe($.concat('app.js'))
+    .pipe($.uglify())
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 });
