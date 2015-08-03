@@ -331,7 +331,7 @@
     }
   }])
 
-  VITapplication.controller('attendanceController',['$scope, attendance', function($scope, attendance) {
+  VITapplication.controller('attendanceController',['$scope', 'attendance', function($scope, attendance) {
       $scope.percentage = $scope.content.attendance.attendance_percentage
       $scope.attended = $scope.content.attendance.attended_classes
       $scope.total = $scope.content.attendance.total_classes
