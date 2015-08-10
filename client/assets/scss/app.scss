@@ -228,12 +228,27 @@ span.show-for-medium:not(.ng-hide) {
         #marks {
           .test {
             padding:20px;
+            .progress-bar {
+              div {
+                border:1px solid;
+                width:100%;
+                position:relative;
+                height:30px;
+                &.left-bar {
+                  background:$success-color;
+                }
+                &.right-bar {
+                  background: transparent;
+                  border-left: none;
+                }
+              }
+            }
             .small-info {
               position: relative;
               top:-10px;
               left:20px;
               font-size: small;
-              background-color: #333;
+              background-color: $dark-color;
               color:#FFFFFF;
               padding:10px 10px 0;
               border-radius: 20px;

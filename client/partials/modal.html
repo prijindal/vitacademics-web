@@ -61,15 +61,16 @@
       <div ng-if="content.marks.supported" id="marks" class="grid-block align-center">
         <div class="grid-block vertical">
           <div class="grid-block align-center shrink">
-            Total Marks:{{content.marks.scored_percentage}} / {{content.marks.max_percentage}}
+            <h4>Total Marks:{{content.marks.scored_percentage}} / {{content.marks.max_percentage}}</h4>
           </div>
           <div class="grid-block vertical">
             <div class="grid-block test" ng-repeat="test in content.marks.assessments">
               <div class="small-3 grid-block">
                 {{test.title}}:
               </div>
-              <div class="small-9 medium-5 grid-block">
-                <progress value="{{test.scored_marks || (test.max_marks/100)}}" max="{{test.max_marks}}"></progress>
+              <div class="small-9 medium-5 grid-block progress-bar">
+                  <div class="left-bar" style="width:{{(test.scored_marks/test.max_marks)*100+'%'}}"></div>
+                  <div class="right-bar" style="width:{{((test.max_marks - test.scored_marks)/test.max_marks)*100+'%'}};"></div>
               </div>
               <div class="small-info show-for-medium">
                 Marks: {{test.scored_marks || 0}} / {{test.max_marks}}
