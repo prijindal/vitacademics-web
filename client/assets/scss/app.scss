@@ -106,6 +106,7 @@ $loading-size:2em;
 }
 
 .menu-bar {
+  flex-wrap: wrap;
     li.active a {
         font-weight: bold;
     }
@@ -158,6 +159,9 @@ span.show-for-medium:not(.ng-hide) {
         }
         .faculty {
             margin:20px 0;
+            .days {
+              min-width:90px;
+            }
         }
         .course-attendance {
             span {
@@ -233,7 +237,7 @@ span.show-for-medium:not(.ng-hide) {
                 border:1px solid;
                 width:100%;
                 position:relative;
-                height:30px;
+                height:1.75rem;
                 &.left-bar {
                   background:$success-color;
                 }
