@@ -225,6 +225,24 @@ span.show-for-medium:not(.ng-hide) {
                 }
             }
         }
+        #marks {
+          .test {
+            padding:20px;
+            .small-info {
+              position: relative;
+              top:-10px;
+              left:20px;
+              font-size: small;
+              background-color: #333;
+              color:#FFFFFF;
+              padding:10px 10px 0;
+              border-radius: 20px;
+              p.status {
+                color:red;
+              }
+            }
+          }
+        }
         #classes {
           .card {
             margin:10px;

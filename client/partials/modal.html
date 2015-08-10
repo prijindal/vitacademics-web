@@ -58,6 +58,29 @@
       <div ng-if="!content.marks.supported" class="grid-block align-center">
         Course Does not Support This section
       </div>
+      <div ng-if="content.marks.supported" id="marks" class="grid-block align-center">
+        <div class="grid-block vertical">
+          <div class="grid-block align-center shrink">
+            Total Marks:{{content.marks.scored_percentage}} / {{content.marks.max_percentage}}
+          </div>
+          <div class="grid-block vertical">
+            <div class="grid-block test" ng-repeat="test in content.marks.assessments">
+              <div class="small-3 grid-block">
+                {{test.title}}:
+              </div>
+              <div class="small-9 medium-5 grid-block">
+                <progress value="{{test.scored_marks || (test.max_marks/100)}}" max="{{test.max_marks}}"></progress>
+              </div>
+              <div class="small-info show-for-medium">
+                Marks: {{test.scored_marks || 0}} / {{test.max_marks}}
+                Contribution : {{(test.scored_marks/test.max_marks) * test.weightage}} / {{test.weightage}}
+                <!-- Conducted On: {{test.conducted_on}} -->
+                <p class="status">{{test.status}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </zf-accordion-item>
       <zf-accordion-item title="Classes">
         <div class="grid-block" id="classes">
