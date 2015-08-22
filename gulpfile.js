@@ -42,6 +42,7 @@ var assets = {
 	vendorJs: {
 		main:[
 			'client/bower_components/angular/angular.js', 
+			'client/bower_components/angular-route/angular-route.js', 
 			'client/bower_components/angular-animate/angular-animate.js', 
 			'client/bower_components/angular-aria/angular-aria.js', 
 			'client/bower_components/angular-material/angular-material.js'],

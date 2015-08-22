@@ -37,3 +37,25 @@ md-list .md-button {
     min-height:45px;
   }
 }
+
+
+md-sidenav {
+  @media (max-width:600px) {
+    min-width:250px;
+    max-width: 250px;
+    &.md-sidenav-left .nav-header a {
+      img {
+        height:130px;
+      }
+    }
+  }
+}
+
+.loginView {
+  min-height:500px;
+  form {
+    max-width: 500px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+}
