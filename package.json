@@ -1,25 +1,24 @@
 {
   "name": "vitacademics-web",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
     "start": "gulp",
-    "postinstall":"bower install"
+    "postinstall": "bower install"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/prijindal/vitacademics-web.git"
   },
   "dependencies": {
-    "bower": "1.4.1",
-    "front-router": "^1.0.0",
+    "express": "^4.13.3",
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
     "gulp-concat": "^2.6.0",
-    "gulp-if": "^1.2.5",
-    "gulp-load-plugins": "1.0.0-rc.1",
-    "gulp-ng-html2js": "^0.2.0",
-    "gulp-sass": "^2.0.3",
-    "gulp-uglify": "^1.2.0",
-    "gulp-webserver": "^0.9.1",
-    "rimraf": "^2.4.1",
-    "run-sequence": "^1.1.1",
-    "yargs": "^3.15.0"
-  },
-  "private": true
+    "gulp-develop-server": "^0.4.3",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-ruby-sass": "^1.2.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0"
+  }
 }

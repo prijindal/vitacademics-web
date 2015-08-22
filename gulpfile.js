@@ -1,191 +1,120 @@
-// FOUNDATION FOR APPS TEMPLATE GULPFILE
-// -------------------------------------
-// This file processes all of the assets in the "client" folder, combines them with the Foundation for Apps assets, and outputs the finished files in the "build" folder as a finished app.
+var gulp = require('gulp'),
+	sass = require('gulp-ruby-sass'),
+	uglify = require('gulp-uglify'),
+	concat = require('gulp-concat'),
+	sourcemaps = require('gulp-sourcemaps'),
+	livereload = require('gulp-livereload');
 
-// 1. LIBRARIES
-// - - - - - - - - - - - - - - -
-
-var $        = require('gulp-load-plugins')();
-var argv     = require('yargs').argv;
-var gulp     = require('gulp');
-var rimraf   = require('rimraf');
-var router   = require('front-router');
-var sequence = require('run-sequence');
-
-// Check for --production flag
-var isProduction = !!(argv.production);
-
-// 2. FILE PATHS
-// - - - - - - - - - - - - - - -
-
-var paths = {
-  assets: [
-    './client/**/*.*',
-    '!./client/templates/**/*.*',
-    '!./client/assets/{scss,js}/**/*.*'
-  ],
-  // Sass will check these folders for files when you use @import.
-  sass: [
-    'client/assets/scss',
-    'bower_components/foundation-apps/scss'
-  ],
-  // These files include Foundation for Apps and its dependencies
-  foundationJS: [
-    'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-    'bower_components/tether/tether.js',
-    'bower_components/hammerjs/hammer.js',
-    'bower_components/angular/angular.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/angular-cookies/angular-cookies.js',
-    'bower_components/angular-progress-arc/angular-progress-arc.js',
-    'bower_components/foundation-apps/js/vendor/**/*.js',
-    'bower_components/foundation-apps/js/angular/**/*.js',
-    '!bower_components/foundation-apps/js/angular/app.js'
-  ],
-  // These files are for your app's JavaScript
-  appJS: [
-    'client/assets/js/app.js'
-  ]
+var assets = {
+	html: {
+		main:['client/index.html'],
+		files:'client/**/*.html',
+		output:{
+			path:'build'
+		}
+	},
+	scss: {
+		main:'client/static/scss/app.scss',
+		files:['client/static/scss/**/*.scss'],
+		output:{
+			path: 'build/static/css/'
+		}
+	},
+	js: {
+		main:['client/static/js/app.js',
+			  'client/static/js/services/*.js', 
+			  'client/static/js/filters/*.js',
+			  'client/static/js/controllers/*.js'
+			],
+		files:'client/static/js/**/*.js',
+		output:{
+			path: 'build/static/js/',
+			filename: 'app.js'
+		}
+	},
+	vendorCss: {
+		main:'client/bower_components/angular-material/angular-material.css',
+		output:{
+			path: 'build/static/css/vendor/',
+			filename: 'angular-material.css'
+		}	
+	},
+	vendorJs: {
+		main:[
+			'client/bower_components/angular/angular.js', 
+			'client/bower_components/angular-animate/angular-animate.js', 
+			'client/bower_components/angular-aria/angular-aria.js', 
+			'client/bower_components/angular-material/angular-material.js'],
+		output:{
+			path: 'build/static/js/vendor/',
+			filename: 'angular.js'
+		}
+	},
+	images: {
+		main:['client/static/img/**/*'],
+		output:'build/static/img'
+	}
 }
 
-// 3. TASKS
-// - - - - - - - - - - - - - - -
+gulp.task('sass', function() {
+	return sass(assets.scss.main, {sourcemap: true})
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(assets.scss.output.path))
+		.pipe(livereload());
+})
 
-// Cleans the build directory
-gulp.task('clean', function(cb) {
-  rimraf('./build', cb);
-});
+gulp.task('js', function() {
+	return gulp.src(assets.js.main)
+		.pipe(sourcemaps.init())
+		.pipe(concat(assets.js.output.filename))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(assets.js.output.path))
+		.pipe(livereload());
+})
 
-// Copies everything in the client folder except templates, Sass, and JS
-gulp.task('copy', function() {
-  return gulp.src(paths.assets, {
-    base: './client/'
-  })
-    .pipe(gulp.dest('./build'))
-  ;
-});
+gulp.task('html', function() {
+	return gulp.src(assets.html.main)
+		.pipe(gulp.dest(assets.html.output.path))
+		.pipe(livereload());
+})
 
-// Copies your app's page templates and generates URLs for them
-gulp.task('copy:templates', function() {
-  return gulp.src('./client/templates/**/*.html')
-    .pipe(router({
-      path: 'build/assets/js/routes.js',
-      root: 'client'
-    }))
-    .pipe(gulp.dest('./build/templates'))
-  ;
-});
+gulp.task('vendor:css', function() {
+	return gulp.src(assets.vendorCss.main)
+		.pipe(sourcemaps.init())
+		.pipe(concat(assets.vendorCss.output.filename))
+		.pipe(sourcemaps.init())
+		.pipe(gulp.dest(assets.vendorCss.output.path))
+})
 
-// Compiles the Foundation for Apps directive partials into a single JavaScript file
-gulp.task('copy:foundation', function(cb) {
-  gulp.src('bower_components/foundation-apps/js/angular/components/**/*.html')
-    .pipe($.ngHtml2js({
-      prefix: 'components/',
-      moduleName: 'foundation',
-      declareModule: false
-    }))
-    .pipe($.uglify())
-    .pipe($.concat('templates.js'))
-    .pipe(gulp.dest('./build/assets/js'))
-  ;
+gulp.task('vendor:javascript', function() {
+	return gulp.src(assets.vendorJs.main)
+		.pipe(sourcemaps.init())
+		.pipe(concat(assets.vendorJs.output.filename))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(assets.vendorJs.output.path))
+})
 
-  // Iconic SVG icons
-  gulp.src('./bower_components/foundation-apps/iconic/**/*')
-    .pipe(gulp.dest('./build/assets/img/iconic/'))
-  ;
+gulp.task('templates', function() {
+	return gulp.src('client/templates/**/*')
+			   .pipe(gulp.dest('build/templates'))
+			   .pipe(livereload());
+})
+gulp.task('partials', function() {
+	return gulp.src('client/partials/**/*')
+			   .pipe(gulp.dest('build/partials'))
+			   .pipe(livereload());
+})
 
-  cb();
-});
+gulp.task('images', function() {
+	return gulp.src(assets.images.main)
+						 .pipe(gulp.dest(assets.images.output))
+})
 
-// Compiles Sass
-gulp.task('sass', function () {
-  return gulp.src('client/assets/scss/app.scss')
-    .pipe($.sass({
-      includePaths: paths.sass,
-      outputStyle: (isProduction ? 'compressed' : 'compressed'),
-      errLogToConsole: true
-    }))
-    .pipe($.autoprefixer({
-      browsers: ['last 2 versions', 'ie 10']
-    }))
-    .pipe(gulp.dest('./build/assets/css/'))
-  ;
-});
-
-// Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
-gulp.task('uglify', ['uglify:foundation', 'uglify:app'])
-
-gulp.task('uglify:foundation', function(cb) {
-  var uglify = $.if(isProduction, $.uglify()
-    .on('error', function (e) {
-      console.log(e);
-    }));
-
-  return gulp.src(paths.foundationJS)
-    .pipe($.concat('foundation.js'))
-    .pipe($.uglify())
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
-});
-
-gulp.task('uglify:app', function() {
-  var uglify = $.if(isProduction, $.uglify()
-    .on('error', function (e) {
-      console.log(e);
-    }));
-
-  return gulp.src(paths.appJS)
-    .pipe($.concat('app.js'))
-    .pipe($.uglify())
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
-});
-
-// Starts a test server, which you can view at https://vitacademics-web.herokuapp.com//:80
-gulp.task('server', ['build'], function() {
-  gulp.src('./build')
-    .pipe($.webserver({
-      port: 5000,
-      host: 'localhost',
-      fallback: 'index.html',
-      livereload: true,
-      open: false
-    }))
-  ;
-});
-
-// Starts a Deploy server, which you can view at https://vitacademics-web.herokuapp.com//:80
-var port = process.env.PORT || 5000;
-var socket = '0.0.0.0';
-gulp.task('deploy', ['build'], function() {
-  gulp.src('./build')
-    .pipe($.webserver({
-      port: port,
-      host: socket,
-      fallback: 'index.html',
-      open: false
-    }))
-  ;
-});
-
-// Builds your entire app once, without starting a server
-gulp.task('build', function(cb) {
-  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', cb);
-});
-
-// Default task: builds your app, starts a server, and recompiles assets when they change
-gulp.task('default', ['server'], function () {
-  // Watch Sass
-  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
-
-  // Watch JavaScript
-  gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify:app']);
-
-  // Watch static files
-  gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
-
-  // Watch app templates
-  gulp.watch(['./client/templates/**/*.html'], ['copy:templates']);
-});
+gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images'], function() {
+	livereload.listen({basePath:'build'});
+	gulp.watch(assets.scss.files, ['sass'])
+	gulp.watch(assets.js.files, ['js'])
+	gulp.watch('client/index.html', ['html'])
+	gulp.watch('client/templates/**/*.html', ['templates'])
+	gulp.watch('client/partials/**/*.html', ['partials'])
+})

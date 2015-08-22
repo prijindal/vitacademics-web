@@ -1,0 +1,39 @@
+$primary:rgb(63,81,181);
+$accent:rgb(255,64,129);
+$warn:rgb(244,67,54);;
+
+md-list .md-button {
+  	width: 100%;
+  	min-height: 60px;
+    margin:0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.md-sidenav-left {
+  .nav-header a {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      margin: 0 auto;
+      text-decoration: none;
+      img {
+        height:150px;
+      }
+      h1 {
+        color:#000;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+  }
+}
+
+.md-sidenav-right {
+  md-list .md-button {
+    font-weight: 500;
+    font-size: 16px;
+    min-height:45px;
+  }
+}

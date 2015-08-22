@@ -1,73 +1,21 @@
-<!doctype html>
-<html lang="en" ng-app="VITApplication">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VITacademics</title>
-    <script type="text/javascript">
-    var readyStateCheckInterval = setInterval(function() {
-      if (document.readyState === "complete") {
-          clearInterval(readyStateCheckInterval);
-          angular.element(document.getElementById('loader-container')).addClass('slideAway')
-      }
-    }, 10);
-    </script>
-    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="./static/css/vendor/angular-material.css">
+    <link rel="stylesheet" href="./static/css/app.css">
   </head>
-  <body>
-    <div id="loader-container">
-      <div class="grid-block vertical align-center text-center">
-        <div class="loader">
-  				<span class="left">[</span>
-  				<span class="center">.</span>
-  				<span class="right">]</span>
-  			</div>
-      </div>
-    </div>
-    <div class="grid-frame vertical" ng-controller="loginController">
-      <zf-offcanvas id="right-menu" position="right"> <!-- Improve Right Menu Bar -->
-        <a zf-close="" class="close-button">×</a>
-        <ul class="menu-bar vertical">
-          <li><a>{{semester()}}</a></li>
-          <li><a>{{reg_no()}}</a></li>
-          <li><a ui-sref="advisor">Faculty Advisor</a></li>
-          <li class="divider"><a href="#"></a></li>
-          <!-- <li><a href="">Friends</a></li> -->
-          <li><a href="" ng-click="logout()">Log Out</a></li>
-          <li><a ui-sref="version" ng-click="loading('version')">Version Details</a></li>
-          <li class="divider"><a href="#"></a></li>
-          <li class="image-link"><a href="https://play.google.com/store/apps/details?id=com.karthikb351.vitinfo2&amp;hl=en"><img src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Play Store"></a></li>
-          <li class="image-link"><a href="https://itunes.apple.com/in/app/vitacademics/id727796987?mt=8"><img src="https://vitacademics-rel.herokuapp.com/images/apple.svg" alt="App Store"></a></li>
-          <li class="image-link"><a href="http://www.windowsphone.com/en-us/store/app/vitacademics-8-1/d6a9e028-4cc2-46ea-9f1b-84c02f4ae408"><img src="https://vitacademics-rel.herokuapp.com/images/windows.png" alt="Windows Store"></a></li>
-          <li class="divider"><a href="#"></a></li>
-          <li class="image-link"><a href="https://github.com/aneesh-neelam/VITacademics"><img src="https://vitacademics-rel.herokuapp.com/images/github.png" alt="GitHub" class="img-responsive"></a></li>
-          <li class="image-link"><a href="https://www.facebook.com/academicsvit"><img src="https://vitacademics-rel.herokuapp.com/images/fb.png" alt="Facebook" class="img-responsive"></a></li>
-        </ul>
-      </zf-offcanvas>
+  <body ng-app="VitApp" layout="row" ng-controller="layoutController as layout">
 
-      <div class="grid-block">
-        <div class="grid-block" ui-view ng-hide="loader.loading">
+    <div layout="row" ng-include="'./partials/left-sidenav.html'"></div>    
 
-        </div>
-        <div class="grid-block vertical" ng-show="loader.loading">
-          <div class="grid-block shrink" ng-include="'partials/menu.html'">
+    <div flex ng-include="'./partials/topbar.html'"></div>
 
-          </div>
-          <div class="grid-block vertical align-center text-center">
-            Loading...
-          </div>
-        </div>
-      </div>
+    <div ng-include="'./partials/right-sidenav.html'"></div>
 
-      <zf-notification-set id="top-left-notification" position="top-left"></zf-notification-set>
-      <zf-notification-set id="top-right-notification" position="top-right"></zf-notification-set>
-      <zf-notification-set id="bottom-left-notification" position="bottom-left"></zf-notification-set>
-      <zf-notification-set id="bottom-right-notification" position="bottom-right"></zf-notification-set>
+    <script src="./static/js/vendor/angular.js" charset="utf-8"></script>
 
-    </div>
-    <script src="/assets/js/foundation.js"></script>
-    <script src="/assets/js/templates.js"></script>
-    <script src="/assets/js/routes.js"></script>
-    <script src="/assets/js/app.js"></script>
+    <script src="./static/js/app.js" charset="utf-8"></script>
   </body>
 </html>
