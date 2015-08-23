@@ -45,6 +45,7 @@ var assets = {
 			'client/bower_components/angular-route/angular-route.js', 
 			'client/bower_components/angular-animate/angular-animate.js', 
 			'client/bower_components/angular-aria/angular-aria.js', 
+			'client/bower_components/angular-messages/angular-messages.js', 
 			'client/bower_components/angular-material/angular-material.js'],
 		output:{
 			path: 'build/static/js/vendor/',
@@ -111,7 +112,12 @@ gulp.task('images', function() {
 						 .pipe(gulp.dest(assets.images.output))
 })
 
-gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images'], function() {
+gulp.task('favicon', function() {
+	return gulp.src('client/favicon.ico')
+						 .pipe(gulp.dest('build'))
+})
+
+gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'], function() {
 	livereload.listen({basePath:'build'});
 	gulp.watch(assets.scss.files, ['sass'])
 	gulp.watch(assets.js.files, ['js'])

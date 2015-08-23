@@ -23,6 +23,10 @@
   "dependencies": {
     "angular-material": "~0.10.1",
     "angular-animate": "1.4.3",
-    "angular-route": "~1.4.4"
+    "angular-route": "~1.4.3",
+    "angular-messages": "~1.4.3"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }

@@ -26,6 +26,7 @@ md-list .md-button {
         color:#000;
         font-weight: 500;
         margin-bottom: 0;
+        margin-top: 0;
       }
   }
 }
@@ -51,11 +52,44 @@ md-sidenav {
   }
 }
 
-.loginView {
+.loginView{
   min-height:500px;
   form {
     max-width: 500px;
     margin:0 auto;
     padding:0 20px;
+  }
+}
+
+
+.feedbackView  {
+  min-height:500px;
+  section {
+    max-width: 500px;
+    margin:0 auto;
+  }
+  md-input-container {
+    min-height:50px;
+  }
+}
+.loginView {
+    div[ng-message] {
+      left:36px;
+    }
+}
+
+.aboutView {
+  max-width:800px;
+  margin:40px auto 0;
+  .contributor {
+    padding:20px;
+    .contributor-container {
+      width:100%;
+      min-height:50px;
+      .lead {
+        color: rgba(0,0,0,0.87);
+        font-size: 1.5em;
+      }
+    }
   }
 }

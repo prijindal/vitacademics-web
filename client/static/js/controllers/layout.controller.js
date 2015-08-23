@@ -6,7 +6,7 @@ angular.module('VitApp')
           $mdSidenav(navId)
             .toggle()
             .then(function(){
-              console.log('Toggled Left');
+              console.log('Toggled', navId);
           });
         }
 

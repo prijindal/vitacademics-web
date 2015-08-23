@@ -2,7 +2,7 @@
                 md-component-id="right"
                 md-is-locked-open="false">
 
-      <md-toolbar class="md-whiteframe-z1">
+      <md-toolbar class="md-primary md-hue-2 md-whiteframe-z1">
         <div class="md-toolbar-tools">
           Info
         </div>
@@ -13,7 +13,7 @@
           <div ng-repeat="menuList in layout.rightMenu()">
             <md-subheader>{{menuList.title}}</md-subheader>
             <md-list-item class="md-2-line" ng-repeat="menuItem in menuList.items">
-              <md-button layout-align="center center">{{menuItem}}</md-button>
+              <md-button layout-align="center center" ng-href="{{menuItem.url}}">{{menuItem.name}}</md-button>
             </md-list-item>
             <md-divider></md-divider>
           </div>
