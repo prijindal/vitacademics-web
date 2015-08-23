@@ -1,0 +1,42 @@
+  <md-content class="loginView" layout="column" layout-align="center">
+    <div layout="column" ng-controller="loginController as login">
+      <md-content layout-padding>
+        <form name="login.loginForm" ng-submit="login.submit()">
+          <md-input-container class="md-icon-float">
+            <label>Registration Number</label>
+            <md-icon md-svg-src="static/material-design-icons/social/svg/design/ic_person_24px.svg"></md-icon>
+            <input ng-minlength="9" md-maxlength="9" required name="reg_no" ng-model="login.user.reg_no" tabindex="1">
+            <div ng-messages="login.loginForm.reg_no.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The Registration number has to be exactly 9 digits.</div>
+            </div>
+            <!-- Add self Shecking -->
+          </md-input-container>
+
+          <md-input-container class="md-icon-float">
+            <label>Date of birth</label>
+            <md-icon md-svg-src="static/material-design-icons/social/svg/design/ic_cake_24px.svg"></md-icon>
+            <input type="date" name="dob" required ng-model="login.user.dob"  tabindex="2">
+            <div ng-messages="login.loginForm.dob.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float">
+            <label>Parents Mobile Number</label>
+            <md-icon md-svg-src="static/material-design-icons/hardware/svg/design/ic_phone_iphone_24px.svg"></md-icon>
+            <input type="text" name="parentMobile" required ng-model="login.user.parentMobile"  tabindex="3">
+            <div ng-messages="login.loginForm.parentMobile.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+            <!-- Add self Shecking -->
+          </md-input-container>
+          <md-radio-group ng-model="login.user.campus" tabindex="4">
+            <md-radio-button value="vellore" class="md-primary">Vellore</md-radio-button>
+            <md-radio-button value="chennai"> Chennai </md-radio-button>
+          </md-radio-group>
+          <md-button class="md-raised md-primary" type="submit" tabindex="5">Login</md-button>
+        </form>
+      </md-content>
+    </div>
+  </md-content>

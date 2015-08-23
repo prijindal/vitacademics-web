@@ -1,0 +1,71 @@
+  <md-content class="aboutView" ng-controller="aboutController as about" layout="column" layout-align="center" layout-padding>
+  <section class="md-whiteframe-z2">
+      <md-toolbar class="demo-toolbar md-primary md-hue-2 md-default-theme">
+        <div class="md-toolbar-tools">
+          <h3>Messages from The Team</h3>
+        </div>
+      </md-toolbar>
+      <md-content layout="row" layout-padding layout-wrap>
+        <section ng-repeat="message in about.messages" class="contributor" flex="100" layout="column" layout-align="center center">
+          <div flex class="contributor-container md-whiteframe-z4">
+            <md-content layout-padding>
+              <md-subheader class="lead">{{message.message}}</md-subheader>
+              <div layout="column" layout-align="center">
+                <md-subheader flex>on {{message.timestamp | date:'fullDate'}}</md-subheader>
+              </div>
+            </md-content>
+          </div>
+        </section>
+
+      </md-content>
+    </section>
+
+    <section class="md-whiteframe-z2">
+      <md-toolbar class="demo-toolbar md-primary md-hue-2 md-default-theme">
+        <div class="md-toolbar-tools">
+          <h3>Team Behind Vit Academics</h3>
+        </div>
+      </md-toolbar>
+      <md-content layout="row" layout-padding layout-wrap>
+        <section ng-repeat="contributor in about.contributors" class="contributor" flex-gt-sm="50" flex="100" layout="column" layout-align="center center">
+          <div flex class="contributor-container md-whiteframe-z4">
+            <md-content layout-padding>
+              <md-subheader class="lead">{{contributor.name}}</md-subheader>
+              <div layout="column" layout-align="center">
+                <md-subheader flex>{{contributor.role}}</md-subheader> 
+                <md-subheader flex>
+                  <md-fab-speed-dial ng-hide="demo.hidden" md-direction="right" class="md-fling"
+                                     md-open="demo.isOpen"
+                                     ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false">
+                    <md-fab-trigger>
+                      <md-button aria-label="menu" class="md-fab md-warn">
+                        <md-tooltip md-direction="top">Contact</md-tooltip>
+                        <md-icon md-svg-src="./static/material-design-icons/navigation/svg/design/ic_menu_24px.svg" aria-label="menu"></md-icon>
+                      </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                      <div>
+                        <md-button aria-label="mail" class="md-fab md-raised md-mini md-accent"
+                                   ng-href="{{contributor.email}}">
+                          <md-tooltip md-direction="down">{{contributor.email}}</md-tooltip>
+                          <md-icon md-svg-src="static/material-design-icons/content/svg/design/ic_mail_24px.svg"></md-icon>
+                        </md-button>
+                      </div>
+                      <div>
+                        <md-button aria-label="github" class="md-fab md-raised md-mini md-accent"
+                                   ng-href="{{contributor.github_profile}}">
+                          <md-tooltip md-direction="down">{{contributor.github_profile}}</md-tooltip>
+                          <md-icon md-svg-src="static/material-design-icons/action/svg/design/ic_work_24px.svg"></md-icon>
+                        </md-button>
+                      </div>
+                    </md-fab-actions>
+                  </md-fab-speed-dial>
+                </md-subheader>
+              </div>
+            </md-content>
+          </div>
+        </section>
+
+      </md-content>
+    </section>
+  </md-content>

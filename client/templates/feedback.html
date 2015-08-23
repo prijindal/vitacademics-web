@@ -1,0 +1,23 @@
+<md-content class="feedbackView" ng-controller="feedbackController as feedback" layout="column" layout-align="center" layout-padding>
+    <div>
+    <section class="md-whiteframe-z2">
+      <md-toolbar class="demo-toolbar md-primary md-hue-2 md-default-theme">
+        <div class="md-toolbar-tools">
+          <h3>Feedback Form</h3>
+        </div>
+      </md-toolbar>
+      <md-content layout-padding>
+        <form name="feedback.feedbackForm" ng-submit="feedback.submit()">
+          <md-input-container>
+            <label>Please give us your valuable feedback</label>
+            <textarea required name="content" ng-model="feedback.content"></textarea>
+            <div ng-messages="feedback.feedbackForm.content.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+          <md-button class="md-raised md-primary" type="submit">Submit</md-button>
+        </form>
+      </md-content>
+    </section>
+    </div>
+</md-content>
