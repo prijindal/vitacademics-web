@@ -1,8 +1,10 @@
-		<md-sidenav flex layout="column" class="md-sidenav-left md-whiteframe-z2"
+		<md-sidenav flex layout="column" layout-align="start"
+
+ class="md-sidenav-left md-whiteframe-z2"
                 md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-md')">
 
-        <md-content class="nav-header" flex>
+        <md-content flex="50" class="nav-header">
           <a ng-href="#/">
             <img src="/static/img/logo.svg">
             <h1>Vit Acadmics</h1>
@@ -13,7 +15,7 @@
       	<md-list>
           <md-divider></md-divider>
       	  <md-list-item class="md-2-line" ng-repeat="menuItem in layout.leftMenu()">
-      	    <md-button class="md-primary md-hue-2" layout-align="center center">{{menuItem}}</md-button>
+      	    <md-button layout-align="center center" ng-href="{{menuItem.url}}">{{menuItem.name}}</md-button>
       	  </md-list-item>
           <md-divider></md-divider>
       	</md-list>

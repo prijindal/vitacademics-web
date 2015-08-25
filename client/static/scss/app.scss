@@ -1,13 +1,49 @@
 $primary:rgb(63,81,181);
 $accent:rgb(255,64,129);
-$warn:rgb(244,67,54);;
+$warn:rgb(244,67,54);
+
+@mixin variousColors {
+
+      &.gray {
+        background: #f5f5f5;
+      }
+      &.green {
+        background: #00e676; 
+      }
+      &.yellow {
+        background: #f9a825; 
+      }
+      &.blue {
+        background: #1e88e5; 
+      }
+      &.purple {
+        background: #b388ff;
+      }
+      &.red {
+        background: #ff8a80;
+      }
+      &.brown {
+        background:#8d6e63;
+      }
+      &.blueGray {
+        background:#455a64;
+      }
+      &.orange {
+        background:#ffab40;
+      }
+      &.black {
+        background:#333;
+        color:#fff;
+      }
+}
 
 md-list .md-button {
   	width: 100%;
   	min-height: 60px;
     margin:0;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
+    text-transform: capitalize;
 }
 
 .md-sidenav-left {
@@ -21,12 +57,11 @@ md-list .md-button {
       text-decoration: none;
       img {
         height:150px;
+        margin-top: 16px;
       }
       h1 {
         color:#000;
         font-weight: 500;
-        margin-bottom: 0;
-        margin-top: 0;
       }
   }
 }
@@ -90,6 +125,160 @@ md-sidenav {
         color: rgba(0,0,0,0.87);
         font-size: 1.5em;
       }
+    }
+  }
+}
+
+.coursesView {
+  max-width: 700px;
+  margin:20px auto;
+}
+
+.courseCard {
+  margin:50px 0;
+  md-toolbar {
+    @include variousColors;
+  }
+}
+
+.courseContent {
+  .md-subheader .md-subheader-inner{ 
+    padding:0;
+  }
+  h3,h4,p {
+    margin:0;
+  }
+  .md-subheader .md-subheader-inner,h2,h3,h4,p,hexagon-bar {
+    margin-top:16px;
+    text-align:center;
+  }
+  span.input {
+    border-bottom:2px solid rgb(40,53,147);
+  }
+}
+
+.course-tab-area {
+  $tabHeight:400px;
+  $transitionTime:0.45s;
+  $transitionCurve:cubic-bezier(0.35, 0, 0.25, 1);
+  height:$tabHeight;
+  &.ng-hide-add {
+    animation: animateMe-add $transitionTime $transitionCurve;
+  }
+  &.ng-hide-remove {
+    animation: animateMe-remove $transitionTime $transitionCurve;
+    display: block !important;
+  }
+  @keyframes animateMe-add {
+    from {height: $tabHeight;}
+    to {height: 0;}
+  }
+  @keyframes animateMe-remove {
+    from {height: 0;}
+    to {height: $tabHeight;}
+  }
+}
+
+
+
+  .grid-list {
+    margin-top:20px;
+    max-height:1100px;
+    overflow: hidden;
+    md-grid-tile{
+      margin:8px;
+      color:#000;
+      font-weight: bold;
+      @include variousColors;
+      h2 {
+        margin-top:0;
+      }
+    }
+  }
+
+.hexagonBar {
+  height:150px;
+  width:150px;
+  margin:0 auto;
+  background:url('http://localhost:5000/static/img/progress.svg');
+  background-size:contain;
+  background-repeat:no-repeat;
+  &.debarred {
+    background:url('http://localhost:5000/static/img/incomplete.svg');
+    background-size:contain;
+    background-repeat:no-repeat;
+  }
+  > div {
+    width:100%;
+    height:100%;
+  }
+  .filled {
+    background-color:rgba(255,255,255,0.9);
+  }
+  .total {
+    background-color:rgba(255,255,255,0);
+  }
+}
+
+.md-grid-item-content md-icon {
+  height:48px;
+  width:48px;
+}
+
+md-bottom-sheet.md-grid md-list-item {
+  @media screen and (min-width: 960px) {
+    -webkit-flex: 1 1 20%;
+    -ms-flex: 1 1 20%;
+    flex: 1 1 20%;
+    max-width: 20%;
+  }
+}
+
+.attendance-list {
+  padding-left: 0;
+  md-grid-tile{
+    &.absent {
+      opacity:0.5;
+    }
+    h3 {
+      margin-top:0;
+    }
+  }
+  md-grid-tile-header {
+    figcaption {
+      margin:0 auto;
+      h3 {
+        margin-left:0;
+        color:#000;
+      }
+    }
+  }
+}
+
+.timeTableView {
+  min-width:850px;
+  .grid-list {
+    max-height: initial;
+    a {
+      color:#000;
+      text-decoration: none;
+    }
+    h3 {
+      margin-top:0;
+    }
+    h4 {
+      margin-top: 2px;
+    }
+  }
+}
+
+.advisorView {
+  max-width: 500px;
+  margin:50px auto;
+  .advisorDetails {
+    .md-title {
+      margin:0;
+      padding-left: 16px;
     }
   }
 }

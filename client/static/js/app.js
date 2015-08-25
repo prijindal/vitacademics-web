@@ -1,4 +1,5 @@
 angular.module('VitApp', [
+  'ngAnimate',
 	'ngMaterial',
   'ngRoute',
   'ngMessages'
@@ -17,14 +18,27 @@ angular.module('VitApp', [
     .when('/feedback', {
       templateUrl:'templates/feedback.html'
     })
+    .when('/courses', {
+      templateUrl:'templates/courses.html'
+    })
+    .when('/timetable', {
+      templateUrl:'templates/timetable.html'
+    })
+    .when('/advisor', {
+      templateUrl:'templates/advisor.html'
+    })
 
   $routeProvider.otherwise({
     redirectTo: '/'
   });
 }])
-.config(function($mdThemingProvider) {
+.config(['$mdThemingProvider', function($mdThemingProvider) {
   // Define a Color Palette
   $mdThemingProvider.theme('default')
     .backgroundPalette('grey');
 
-});
+  $mdThemingProvider.theme('darkTheme')
+    .primaryPalette('blue-grey')
+    .accentPalette('deep-purple')
+    .dark()
+}]);

@@ -4,14 +4,7 @@ angular.module('VitApp')
               menuList:[
               {
                 "title":"Further Links",
-                "items":[     {
-                                name:'Spotlight',
-                                url:'#/spotlights'
-                              },
-                              {
-                                name:'Campus Map',
-                                url:'#/campus'
-                              },
+                "items":[     
                               {
                                 name:'About Us',
                                 url:'#/about'

@@ -2,13 +2,22 @@ angular.module('VitApp')
 	     .factory('leftNav', function() {
           return {
               menuList:[
-              'Today',
-              'Courses',
-              'TimeTable',
-              'Friends',
-              'Grades',
-              'Faculty Advisor',
-              'Logout'
+              {
+                name:'Courses',
+                url:'#/courses'
+              },
+              {
+                name:'TimeTable',
+                url:'#/timetable'
+              },
+              {
+                name:'Faculty Advisor',
+                url:'#/advisor'
+              },
+              {
+                name:'Logout',
+                url:'#/logout'
+              }
             ]
           }
 	     })

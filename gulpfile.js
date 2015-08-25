@@ -24,7 +24,8 @@ var assets = {
 		main:['client/static/js/app.js',
 			  'client/static/js/services/*.js', 
 			  'client/static/js/filters/*.js',
-			  'client/static/js/controllers/*.js'
+			  'client/static/js/controllers/*.js',
+			  'client/static/js/directives/*.js'
 			],
 		files:'client/static/js/**/*.js',
 		output:{
@@ -33,7 +34,7 @@ var assets = {
 		}
 	},
 	vendorCss: {
-		main:'client/bower_components/angular-material/angular-material.css',
+		main:'client/bower_components/angular-material/angular-material.min.css',
 		output:{
 			path: 'build/static/css/vendor/',
 			filename: 'angular-material.css'
@@ -41,12 +42,12 @@ var assets = {
 	},
 	vendorJs: {
 		main:[
-			'client/bower_components/angular/angular.js', 
-			'client/bower_components/angular-route/angular-route.js', 
-			'client/bower_components/angular-animate/angular-animate.js', 
-			'client/bower_components/angular-aria/angular-aria.js', 
-			'client/bower_components/angular-messages/angular-messages.js', 
-			'client/bower_components/angular-material/angular-material.js'],
+			'client/bower_components/angular/angular.min.js', 
+			'client/bower_components/angular-route/angular-route.min.js', 
+			'client/bower_components/angular-animate/angular-animate.min.js', 
+			'client/bower_components/angular-aria/angular-aria.min.js', 
+			'client/bower_components/angular-messages/angular-messages.min.js', 
+			'client/bower_components/angular-material/angular-material.min.js'],
 		output:{
 			path: 'build/static/js/vendor/',
 			filename: 'angular.js'
@@ -60,7 +61,6 @@ var assets = {
 
 gulp.task('sass', function() {
 	return sass(assets.scss.main, {sourcemap: true})
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(assets.scss.output.path))
 		.pipe(livereload());
 })
@@ -69,6 +69,7 @@ gulp.task('js', function() {
 	return gulp.src(assets.js.main)
 		.pipe(sourcemaps.init())
 		.pipe(concat(assets.js.output.filename))
+		.pipe(uglify())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(assets.js.output.path))
 		.pipe(livereload());
@@ -82,17 +83,13 @@ gulp.task('html', function() {
 
 gulp.task('vendor:css', function() {
 	return gulp.src(assets.vendorCss.main)
-		.pipe(sourcemaps.init())
 		.pipe(concat(assets.vendorCss.output.filename))
-		.pipe(sourcemaps.init())
 		.pipe(gulp.dest(assets.vendorCss.output.path))
 })
 
 gulp.task('vendor:javascript', function() {
 	return gulp.src(assets.vendorJs.main)
-		.pipe(sourcemaps.init())
 		.pipe(concat(assets.vendorJs.output.filename))
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(assets.vendorJs.output.path))
 })
 
