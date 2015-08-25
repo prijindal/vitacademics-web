@@ -10,6 +10,7 @@
     "url": "git://github.com/prijindal/vitacademics-web.git"
   },
   "dependencies": {
+    "bower": "^1.4.1",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
