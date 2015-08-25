@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	sass = require('gulp-ruby-sass'),
+	sass = require('gulp-sass'),
 	uglify = require('gulp-uglify'),
 	concat = require('gulp-concat'),
 	sourcemaps = require('gulp-sourcemaps'),
