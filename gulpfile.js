@@ -122,3 +122,5 @@ gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'te
 	gulp.watch('client/templates/**/*.html', ['templates'])
 	gulp.watch('client/partials/**/*.html', ['partials'])
 })
+
+gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'])
