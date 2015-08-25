@@ -60,9 +60,13 @@ var assets = {
 }
 
 gulp.task('sass', function() {
-	return sass(assets.scss.main, {sourcemap: true})
-		.pipe(gulp.dest(assets.scss.output.path))
-		.pipe(livereload());
+	gulp.src(assets.scss.main)
+			.pipe(sass({
+	      outputStyle: 'compressed',
+	      errLogToConsole: true
+	    }))
+			.pipe(gulp.dest(assets.scss.output.path))
+			.pipe(livereload());
 })
 
 gulp.task('js', function() {
