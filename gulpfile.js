@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	sass = require('gulp-sass'),
+	sass = require('gulp-ruby-sass'),
 	uglify = require('gulp-uglify'),
 	concat = require('gulp-concat'),
 	sourcemaps = require('gulp-sourcemaps'),
@@ -60,11 +60,8 @@ var assets = {
 }
 
 gulp.task('sass', function() {
-	gulp.src(assets.scss.main)
-			.pipe(sass({
-	      outputStyle: 'compressed',
-	      errLogToConsole: true
-	    }))
+	return sass(assets.scss.main)
+			.pipe(sourcemaps.write({outputStyle: 'compressed'}))
 			.pipe(gulp.dest(assets.scss.output.path))
 			.pipe(livereload());
 })

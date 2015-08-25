@@ -2,6 +2,8 @@ $primary:rgb(63,81,181);
 $accent:rgb(255,64,129);
 $warn:rgb(244,67,54);
 
+@import "pages";
+
 @mixin variousColors {
 
       &.gray {
@@ -44,6 +46,7 @@ md-list .md-button {
     font-weight: 600;
     font-size: 20px;
     text-transform: capitalize;
+    display: flex;
 }
 
 .md-sidenav-left {

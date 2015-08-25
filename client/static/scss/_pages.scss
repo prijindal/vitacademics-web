@@ -1,0 +1,37 @@
+/* ANIMATIONS
+============================================================================= */
+
+/* page specific animations ------------------------ */
+.page {
+  position: absolute;
+  top:50px;
+  width:100%;
+}
+.page.ng-leave        {
+    animation:fadeOut 1s both ease-in;   
+}
+.page.ng-enter        {  
+    animation:fadeIn 1s both ease-in;    
+}
+
+/* slide in from the right */
+@keyframes fadeIn {
+    from    { 
+              transform: translateX(100%);
+              opacity :0; 
+            }
+    to      { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+}
+
+
+/* slide in from the bottom */
+@keyframes fadeOut {
+    to      { 
+              transform: translateX(-100%);
+              opacity: 0;
+            }
+}
+

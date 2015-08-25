@@ -1,7 +1,6 @@
 angular.module('VitApp')
-     .controller('layoutController', ['$mdSidenav','leftNav', 'rightNav', function($mdSidenav, leftNav, rightNav){
+     .controller('layoutController', ['$mdSidenav','leftNav', 'rightNav', 'currentPage', function($mdSidenav, leftNav, rightNav, currentPage){
         var self = this;
-
         self.toggleSideBar = function(navId) {
           $mdSidenav(navId)
             .toggle()
@@ -17,4 +16,17 @@ angular.module('VitApp')
         self.rightMenu = function() {
           return rightNav.menuList
         }
+
+        var closeBothNavs = function() {
+          $mdSidenav('left')
+              .close()
+          $mdSidenav('right')
+            .close()
+        }
+
+        self.focusPage = function(pageDetails) {
+          currentPage.showPage(pageDetails)
+          closeBothNavs()
+        }
+        self.getCurrentPage = currentPage.getCurrentPage
     }])

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="./static/css/app.css">
     <meta name="viewport" content="initial-scale=1" />
   </head>
-  <body ng-app="VitApp" layout="row" ng-controller="layoutController as layout">
+  <body ng-app="VitApp" layout="row" ng-controller="layoutController as layout" initialisation="">
 
     <div layout="row" ng-include="'./partials/left-sidenav.html'"></div>    
 
     <md-content flex>
       <div flex ng-include="'./partials/topbar.html'"></div>
-      <div ng-view flex></div>
+      <div id="page" class="page" ng-view flex></div>
     </md-content>
     <div ng-include="'./partials/right-sidenav.html'"></div>
 
