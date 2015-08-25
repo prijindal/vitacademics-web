@@ -1,0 +1,142 @@
+<section id="{{course.slot}}" class="courseCard md-whiteframe-z2" ng-init="attendance(course)">
+      <md-toolbar class="md-primary md-hue-2 md-default-theme" ng-class="pickColor(course.slot)">
+        <div class="md-toolbar-tools">
+          <h3>{{course.course_title}}</h3>
+          <span flex></span>
+          <button class="md-icon-button md-button md-default-theme" ng-click="temp = !temp">
+            <md-icon md-svg-src="./static/material-design-icons/image/svg/design/ic_details_24px.svg" alt=""></md-icon>      
+            <div class="md-ripple-container"></div>
+          </button>
+          <button class="md-icon-button md-button md-default-theme" ng-click="openTimingsSheet()">
+            <md-icon md-svg-src="./static/material-design-icons/device/svg/design/ic_access_time_24px.svg" alt=""></md-icon>      
+            <div class="md-ripple-container"></div>
+          </button>
+        </div>
+      </md-toolbar>
+      <md-content md-theme="darkTheme" class="course-tab-area" ng-show="temp" ng-animate>
+        <md-tabs class="md-primary" md-dynamic-height md-border-bottom>
+          <md-tab label="Attendance">
+            <md-content class="md-padding grid-list attendance-list" style="max-height:initial;">
+              <md-grid-list md-cols="{{totalDays*2}}" md-gutter="0em" md-row-height="10:1">
+                <md-grid-tile ng-repeat="(num, details) in attendance" class="{{pickColor('abcdefghijklmnopqrstuvwxyz'[num])}}" md-colspan="2" md-rowspan="10">
+                  <md-grid-tile-header>
+                    <h3>{{week[num]}}</h3>
+                  </md-grid-tile-header>
+                </md-grid-tile>
+                
+                <md-grid-tile class="empty" md-colspan="{{totalDays*2}}" md-rowspan="1"></md-grid-tile>
+
+              </md-grid-list>
+              <md-grid-list ng-init="i=$index" ng-repeat="n in [].constructor(maxLength) track by $index" md-cols="{{totalDays*2}}" md-gutter="0em" md-row-height="10:1">
+                <md-grid-tile ng-class="{absent : details[i].class_units==0}" ng-repeat="(num, details) in attendance" class="{{pickColor('abcdefghijklmnopqrstuvwxyz'[num])}}" md-colspan="2" md-rowspan="15">
+                  <h3>{{details[i].status}}</h3>
+                  <md-grid-tile-footer>
+                    <h3>{{details[i].date | date:'MMM d'}}</h3>
+                  </md-grid-tile-footer>
+                </md-grid-tile>
+              </md-grid-list>
+            </md-content>
+          </md-tab>
+          <md-tab label="Marks">
+            <md-content class="md-padding grid-list" layout="row">
+              <span flex-gt-sm="10"></span>
+              <md-grid-list ng-show="course.marks.supported" flex="95" flex-gt-sm="80" md-cols="10" md-gutter="1em" md-row-height="2:2">
+                <!-- 5, 1 -->
+                <md-grid-tile ng-repeat="(i, gridDetails) in grid[course.marks.assessments.length].grid" class="{{gridDetails.class}}" md-rowspan="{{gridDetails.rows}}" md-colspan="{{gridDetails.cols}}">
+                  <div ng-show="gridDetails.show">
+                    <h2>{{course.marks.assessments[gridDetails.index].scored_marks || 0}}/{{course.marks.assessments[gridDetails.index].max_marks}}</h2>
+                    <md-grid-tile-footer>
+                      <h3>{{course.marks.assessments[gridDetails.index].title}}</h3>
+                    </md-grid-tile-footer>
+                  </div>
+                </md-grid-tile>
+                <!-- 5, 1 -->
+                <md-grid-tile class="empty" md-rowspan="1" md-colspan="5"></md-grid-tile>
+                <!-- 10, 4 -->
+                <md-grid-tile class="gray" md-rowspan="4" md-colspan="10">
+                  <h2>{{course.marks.scored_marks || 0}}/{{course.marks.max_percentage}}</h2>
+                  <md-grid-tile-footer style="color:#333;">
+                    <h3>Total Marks</h3>
+                  </md-grid-tile-footer>
+                </md-grid-tile>
+              </md-grid-list>
+              <md-content ng-hide="course.marks.supported" layout="row" layout-align="center center">
+                <div flex>
+                  Marks are not supported by the course
+                </div>
+              </md-content>
+              <span flex-gt-sm="10"></span>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+      <md-content id="courseContent{{index}}" class="courseContent" layout-padding>
+        <md-content layout-padding layout="column">
+          <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
+              <div flex="50">
+                <h4>{{course.faculty}}</h4>
+              </div>
+              <div flex>
+                <p class="lead">Venue: <span>{{course.venue}}</span></p>
+              </div>
+          </md-content>
+          <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
+              <div flex="50">
+                <p>Slot: {{course.slot}}</p>
+              </div>
+              <div flex>
+                <md-subheader>Credits: {{course.credits}}</md-subheader>
+              </div>
+          </md-content>
+          <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
+              <div flex="50">
+                <h3>{{course.course_code}}</h3>
+              </div>
+              <div flex>
+                <md-subheader>{{course.subject_type}}</md-subheader>
+              </div>
+          </md-content>
+          <md-content flex layout="column" layout-align="center center">
+              <div flex="50">
+                <h2>Classes Attended: <span>{{course.attendance.attended_classes}}</span></h2>
+              </div>
+              <div flex>
+                 <h2>Total Classes: <span>{{course.attendance.total_classes}}</span></h2>
+              </div>
+          </md-content>
+          <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
+              <div flex="50">
+                <hexagon-bar current="course.attendance.attended_classes" max="course.attendance.total_classes"></hexagon-bar>
+              </div>
+              <div flex layout="column" layout-align="center center">
+                <div flex>
+                  <p>
+                    <md-button class="md-fab md-mini" aria-label="subtract go">
+                      <md-icon md-svg-src="./static/material-design-icons/content/svg/design/ic_remove_24px.svg" alt="">
+                      </md-icon>
+                    </md-button>
+                      Attend
+                    <md-button class="md-fab md-mini" aria-label="add go">
+                      <md-icon md-svg-src="./static/material-design-icons/content/svg/design/ic_add_24px.svg" alt="">
+                      </md-icon>
+                    </md-button>
+                  </p>
+                </div>
+                <div flex>
+                  <p>
+                    <md-button class="md-fab md-mini" aria-label="subtract misses">
+                      <md-icon md-svg-src="./static/material-design-icons/content/svg/design/ic_remove_24px.svg" alt="">
+                      </md-icon>
+                    </md-button>
+                      Miss
+                    <md-button class="md-fab md-mini" aria-label="add misses">
+                      <md-icon md-svg-src="./static/material-design-icons/content/svg/design/ic_add_24px.svg" alt="">
+                      </md-icon>
+                    </md-button>
+                  </p>
+                </div>
+              </div>
+          </md-content>
+        </md-content>
+      </md-content>
+    </section>

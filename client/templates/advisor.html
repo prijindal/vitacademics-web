@@ -1,0 +1,23 @@
+<md-content ng-controller="advisorController as advisor" class="advisorView">
+  <md-card class="md-whiteframe-z2 advisorDetails">
+    <md-card-content>
+      <h2 class="md-title">{{advisor.details.name}}</h2>
+      <md-subheader>{{advisor.details.designation}}</md-subheader>
+      <md-subheader>Cabin: {{advisor.details.cabin}}</md-subheader>
+      <md-subheader>Intercom: {{advisor.details.intercom}}</md-subheader>
+
+      <md-button class="md-fab md-warn">
+        <md-tooltip md-direction="bottom">
+          {{advisor.details.phone}}
+        </md-tooltip>
+        <md-icon md-svg-icon="./static/material-design-icons/communication/svg/design/ic_call_24px.svg"></md-icon>
+      </md-button>
+      <md-button ng-href="mailto:{{advisor.details.email}}" class="md-fab md-warn">
+        <md-tooltip md-direction="bottom">
+          {{advisor.details.email}}
+        </md-tooltip>
+        <md-icon md-svg-icon="./static/material-design-icons/communication/svg/design/ic_email_24px.svg"></md-icon>
+      </md-button>
+    </md-card-content>
+  </md-card>
+</md-content>

@@ -1,0 +1,11 @@
+<md-bottom-sheet class="md-grid" layout="row">
+  <md-list flex layout="row" layout-align="center center">
+    <md-list-item ng-repeat="day in timings.week">
+      <md-button class="md-grid-item-content">
+        <md-icon ng-class="{'md-accent': timings.checkTimings($index)!==false}" md-svg-src="./static/material-design-icons/action/svg/design/ic_today_48px.svg"></md-icon>
+        <div class="md-grid-text">{{day}}</div>
+        <div class="md-grid-text">{{timings.getTimings($index) || 'No Class'}}</div>
+      </md-button>
+    </md-list-item>
+  </md-list>
+</md-bottom-sheet>

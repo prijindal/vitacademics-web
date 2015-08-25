@@ -1,0 +1,5 @@
+<md-content ng-controller="coursesController as courses" class="coursesView" layout="column" layout-align="center" layout-padding>
+  <div ng-repeat="course in courses.courses">
+    <course-details course='course' index='$index'></course-details>
+  </div>
+</md-content>

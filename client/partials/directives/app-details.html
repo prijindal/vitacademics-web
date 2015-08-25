@@ -1,0 +1,14 @@
+          <div flex class="contributor-container md-whiteframe-z4">
+            <md-content layout-padding>
+              <md-subheader class="lead">{{platform | uppercase}}</md-subheader>
+              <div layout="row" layout-align="center left">
+                <md-subheader>Latest: {{details.latest}}</md-subheader>
+
+                <md-button aria-label="mail" class="md-fab md-raised md-mini md-accent"
+                           ng-href="{{details.link}}">
+                  <md-tooltip md-direction="down">{{platform}}</md-tooltip>
+                  <md-icon md-svg-src="static/material-design-icons/file/svg/design/ic_file_download_24px.svg"></md-icon>
+                </md-button>
+              </div>
+            </md-content>
+          </div>
