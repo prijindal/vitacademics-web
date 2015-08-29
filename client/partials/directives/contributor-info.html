@@ -1,8 +1,8 @@
           <div flex class="contributor-container md-whiteframe-z4">
             <md-content layout-padding>
-              <md-subheader class="lead">{{contributor.name}}</md-subheader>
+              <md-subheader class="lead">{{:: contributor.name}}</md-subheader>
               <div layout="column" layout-align="center">
-                <md-subheader flex>{{contributor.role}}</md-subheader> 
+                <md-subheader flex>{{:: contributor.role}}</md-subheader> 
                 <md-subheader flex>
                   <md-fab-speed-dial ng-hide="demo.hidden" md-direction="right" class="md-fling"
                                      md-open="demo.isOpen"
@@ -17,14 +17,14 @@
                       <div>
                         <md-button aria-label="mail" class="md-fab md-raised md-mini md-accent"
                                    ng-href="{{'mailto:'+ contributor.email}}">
-                          <md-tooltip md-direction="down">{{contributor.email}}</md-tooltip>
+                          <md-tooltip md-direction="down">{{:: contributor.email}}</md-tooltip>
                           <md-icon md-svg-src="static/material-design-icons/content/svg/design/ic_mail_24px.svg"></md-icon>
                         </md-button>
                       </div>
                       <div>
                         <md-button aria-label="github" class="md-fab md-raised md-mini md-accent"
                                    ng-href="{{contributor.github_profile}}">
-                          <md-tooltip md-direction="down">{{contributor.github_profile}}</md-tooltip>
+                          <md-tooltip md-direction="down">{{:: contributor.github_profile}}</md-tooltip>
                           <md-icon md-svg-src="static/material-design-icons/action/svg/design/ic_work_24px.svg"></md-icon>
                         </md-button>
                       </div>

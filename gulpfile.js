@@ -42,6 +42,8 @@ var assets = {
 	},
 	vendorJs: {
 		main:[
+			'client/bower_components/underscore/underscore.js',
+			'client/bower_components/jquery/dist/jquery.min.js',
 			'client/bower_components/angular/angular.min.js', 
 			'client/bower_components/angular-route/angular-route.min.js', 
 			'client/bower_components/angular-animate/angular-animate.min.js', 
@@ -91,6 +93,7 @@ gulp.task('vendor:css', function() {
 gulp.task('vendor:javascript', function() {
 	return gulp.src(assets.vendorJs.main)
 		.pipe(concat(assets.vendorJs.output.filename))
+		.pipe(uglify())
 		.pipe(gulp.dest(assets.vendorJs.output.path))
 })
 

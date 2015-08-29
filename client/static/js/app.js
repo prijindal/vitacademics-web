@@ -31,7 +31,6 @@ angular.module('VitApp', [
     .when('/logout', {
     redirectTo: function() {
         console.log('Redirecting...')
-        isAppRouting = false;
         return '/'
       }
     })
@@ -39,7 +38,6 @@ angular.module('VitApp', [
   $routeProvider.otherwise({
     redirectTo: function() {
       console.log('Redirecting...')
-      isAppRouting = false;
       return '/'
     }
   });
@@ -54,19 +52,3 @@ angular.module('VitApp', [
     .accentPalette('deep-purple')
     .dark()
 }])
-.run(['$rootScope', function ($rootScope) {
-    $rootScope.checkLoading = function() {
-      if(angular.element(document.getElementById('page')).hasClass('ng-leave')) {
-        isAppRouting = false;
-      }
-      return isAppRouting
-    }
-    $rootScope.$on('$routeChangeStart', function (event, toState, toParams, fromState, fromParams, error) { 
-        isAppRouting = true; // Fix This
-        console.log('Loading started')
-    });
-    angular.element(document).ready(function () {
-        isAppRouting = false;
-        console.log('Document Loaded');
-    });
-}]);

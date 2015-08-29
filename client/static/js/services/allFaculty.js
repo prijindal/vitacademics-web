@@ -1,15 +1,14 @@
 angular.module('VitApp')
        .service('allFaculty', function(){
+        var details = {};
+        var save = function(data) {
+            details = data;
+            console.log(data)
+        }
           return {
-            details:{
-            "name": "RISHIN HALDAR",
-            "designation": "Assistant Professor (Sr.)",
-            "school": "SCSE",
-            "division": "NIL",
-            "phone": "8056804792",
-            "email": "rishinhaldar@vit.ac.in",
-            "cabin": "SJT-310-A04",
-            "intercom": "2750"
-          }
+            details:function() {
+              return details.advisor;
+            },
+            save:save
           } 
        })

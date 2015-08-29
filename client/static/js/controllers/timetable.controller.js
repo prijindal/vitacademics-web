@@ -1,7 +1,7 @@
 angular.module('VitApp')
        .controller('timetableController', ['$filter', 'allCourses', 'courseColor', function($filter, allCourses, courseColor){
            var self = this;
-            var courses = allCourses.courses
+            var courses = allCourses.courses()
       var Content = {0:[],1:[],2:[],3:[],4:[],5:[]};
       for (var i = courses.length - 1; i >= 0; i--) {
         for(var j = courses[i].timings.length-1; j>=0;j--) {

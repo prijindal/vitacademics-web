@@ -24,7 +24,9 @@
     "angular-material": "~0.10.1",
     "angular-animate": "1.4.3",
     "angular-route": "~1.4.3",
-    "angular-messages": "~1.4.3"
+    "angular-messages": "~1.4.3",
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.3"
   },
   "resolutions": {
     "angular": "1.4.3"

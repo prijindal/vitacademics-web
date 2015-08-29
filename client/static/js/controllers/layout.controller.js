@@ -1,5 +1,5 @@
 angular.module('VitApp')
-     .controller('layoutController', ['$mdSidenav','leftNav', 'rightNav', 'currentPage', function($mdSidenav, leftNav, rightNav, currentPage){
+     .controller('layoutController', ['$mdSidenav','leftNav', 'rightNav', 'currentPage', 'saveData', function($mdSidenav, leftNav, rightNav, currentPage, saveData){
         var self = this;
         self.toggleSideBar = function(navId) {
           $mdSidenav(navId)
@@ -29,4 +29,8 @@ angular.module('VitApp')
           closeBothNavs()
         }
         self.getCurrentPage = currentPage.getCurrentPage
+        self.refresh = function() {
+          console.log('Refreshing...')
+          saveData.save();
+        }
     }])
