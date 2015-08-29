@@ -10,6 +10,9 @@ angular.module('VitApp', [
     .when('/', {
       templateUrl:'templates/login.html'
     })
+    .when('/login', {
+      templateUrl:'templates/login.html'
+    })
     .when('/about', {
       templateUrl:'templates/about.html'
     })
@@ -29,15 +32,13 @@ angular.module('VitApp', [
       templateUrl:'templates/advisor.html'
     })
     .when('/logout', {
-    redirectTo: function() {
-        console.log('Redirecting...')
-        return '/'
-      }
+      template:'Logging Out...'
     })
 
   $routeProvider.otherwise({
     redirectTo: function() {
       console.log('Redirecting...')
+      Auth.logout()
       return '/'
     }
   });
@@ -52,3 +53,22 @@ angular.module('VitApp', [
     .accentPalette('deep-purple')
     .dark()
 }])
+.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+    $rootScope.$on('$routeChangeStart', function (event) {
+        if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+            //event.preventDefault();
+            $location.path('/');
+        }
+        else {
+            if($location.path() == '/') {
+              $location.path('/courses');
+            }
+            else if($location.path() == '/logout'){
+              console.log('Logging Out');
+              Auth.logout()
+              $location.path('/advisor');
+            }
+        }
+    });
+}]);

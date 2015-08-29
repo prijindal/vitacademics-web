@@ -1,5 +1,11 @@
 angular.module('VitApp')
-     .controller('layoutController', ['$mdSidenav','leftNav', 'rightNav', 'currentPage', 'saveData', function($mdSidenav, leftNav, rightNav, currentPage, saveData){
+     .controller('layoutController', 
+      ['$scope', '$location','Auth', 
+       '$mdSidenav','leftNav', 'rightNav', 
+       'currentPage', 'saveData', 
+        function($scope, $location, Auth , 
+        $mdSidenav, leftNav, rightNav, currentPage, saveData){
+
         var self = this;
         self.toggleSideBar = function(navId) {
           $mdSidenav(navId)
@@ -25,7 +31,6 @@ angular.module('VitApp')
         }
 
         self.focusPage = function(pageDetails) {
-          currentPage.showPage(pageDetails)
           closeBothNavs()
         }
         self.getCurrentPage = currentPage.getCurrentPage
@@ -33,4 +38,18 @@ angular.module('VitApp')
           console.log('Refreshing...')
           saveData.save({});
         }
+
+        $scope.$watch(Auth.isLoggedIn, function (value, oldValue) {
+
+          if(!value && oldValue) {
+            console.log("Disconnect");
+            $location.path('/');
+          }
+
+          if(value) {
+            console.log("Connect");
+            //Do something when the user is connected
+          }
+
+        }, true);
     }])
