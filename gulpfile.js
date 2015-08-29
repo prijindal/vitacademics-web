@@ -93,7 +93,6 @@ gulp.task('vendor:css', function() {
 gulp.task('vendor:javascript', function() {
 	return gulp.src(assets.vendorJs.main)
 		.pipe(concat(assets.vendorJs.output.filename))
-		.pipe(uglify())
 		.pipe(gulp.dest(assets.vendorJs.output.path))
 })
 

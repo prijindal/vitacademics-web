@@ -31,6 +31,6 @@ angular.module('VitApp')
         self.getCurrentPage = currentPage.getCurrentPage
         self.refresh = function() {
           console.log('Refreshing...')
-          saveData.save();
+          saveData.save({});
         }
     }])

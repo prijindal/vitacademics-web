@@ -5,8 +5,8 @@
           <md-input-container class="md-icon-float">
             <label>Registration Number</label>
             <md-icon md-svg-src="static/material-design-icons/social/svg/design/ic_person_24px.svg"></md-icon>
-            <input ng-minlength="9" md-maxlength="9" required name="reg_no" ng-model="login.user.reg_no" tabindex="1">
-            <div ng-messages="login.loginForm.reg_no.$error">
+            <input ng-minlength="9" md-maxlength="9" required name="regno" ng-model="login.user.regno" tabindex="1">
+            <div ng-messages="login.loginForm.regno.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The Registration number has to be exactly 9 digits.</div>
             </div>
@@ -25,8 +25,8 @@
           <md-input-container class="md-icon-float">
             <label>Parents Mobile Number</label>
             <md-icon md-svg-src="static/material-design-icons/hardware/svg/design/ic_phone_iphone_24px.svg"></md-icon>
-            <input type="text" name="parentMobile" required ng-model="login.user.parentMobile"  tabindex="3">
-            <div ng-messages="login.loginForm.parentMobile.$error">
+            <input type="tel" name="mobile" required ng-model="login.user.mobile"  tabindex="3">
+            <div ng-messages="login.loginForm.mobile.$error">
               <div ng-message="required">This is required.</div>
             </div>
             <!-- Add self Shecking -->

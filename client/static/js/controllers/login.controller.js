@@ -1,11 +1,12 @@
 angular.module('VitApp')
-       .controller('loginController', ['saveData', function(saveData) {
+       .controller('loginController', ['$filter', 'saveData', function($filter, saveData) {
           var self = this;
           self.user = {
             campus:'vellore'
           }
           self.submit = function() {
-            saveData.save()
+            self.user.dob = $filter('date')(self.user.dob, 'ddMMyyyy')
+            saveData.save(self.user)
             console.dir(self.user)
           }
        }])
