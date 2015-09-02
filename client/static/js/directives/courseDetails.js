@@ -17,30 +17,29 @@ angular.module('VitApp')
               var attendanceMod = {
                 attended:$scope.course.attendance.attended_classes,
                 total:$scope.course.attendance.total_classes,
+                units:$scope.course.class_length,
                 missing:0,
                 going:0,
                 miss_plus:function() {
-                  this.missing++;
-                  this.total++;
-                  console.log(this)
+                  this.missing+=this.units;
+                  this.total+=this.units;
                 },
                 miss_minus:function() {
                   if(this.missing>0){
-                    this.missing--;
-                    this.total--;
+                    this.missing-=this.units;
+                    this.total-=this.units;
                   }
                 },
                 go_plus:function() {
-                  this.going++;
-                  this.attended++;
-                  this.total++;
-                  console.log(this)
+                  this.going+=this.units;
+                  this.attended+=this.units;
+                  this.total+=this.units;
                 },
                 go_minus:function() {
                   if(this.going>0){
-                    this.going--;
-                    this.attended--;
-                    this.total--;
+                    this.going-=this.units;
+                    this.attended-=this.units;
+                    this.total-=this.units;
                   }
                 }
               }
