@@ -6,7 +6,9 @@ angular.module('VitApp')
             self.dob = new Date($localStorage.dob)
           }
           else {
-            self.user.campus = 'vellore'
+            self.user = {
+                campus:'vellore'
+              }
           }
           self.submit = function() {
             var date = self.dob

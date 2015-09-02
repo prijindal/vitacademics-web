@@ -23,7 +23,7 @@ which will deploy the app at port 5000
 
 #Details
 
-This app was made using **Foundation For apps** at [https://github.com/zurb/foundation-apps]()
+This app was made using **Angular Material** at [https://github.com/angular/material]()
 
 and is using the **VITAcademics API** at  [https://github.com/aneesh-neelam/VITacademics]()
 

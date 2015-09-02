@@ -2,6 +2,7 @@
   "name": "vitacademics-web",
   "version": "2.0.0",
   "scripts": {
+    "start":"node server.js",
     "postinstall": "bower install && gulp build"
   },
   "private": true,
