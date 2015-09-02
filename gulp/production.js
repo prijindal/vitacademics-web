@@ -20,7 +20,6 @@ var assets = {
   },
   js: {
     main:[
-        'config/production.js',
         'client/static/js/app.js',
         'client/static/js/services/*.js', 
         'client/static/js/filters/*.js',

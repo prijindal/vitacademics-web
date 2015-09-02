@@ -6,9 +6,6 @@ angular.module('VitApp')
            },
            restrict: 'AE',
            replace:true,
-           templateUrl: 'partials/directives/contributor-info.html',
-           link:function($scope) {
-            $scope.ICONS = CONFIG.material_icons;
-           }
+           templateUrl: 'partials/directives/contributor-info.html'
          };
        });

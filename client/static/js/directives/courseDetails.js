@@ -7,7 +7,6 @@ angular.module('VitApp')
             } ,
            templateUrl: 'partials/directives/course-details.html',
            link:function($scope, $elements, $attr) {
-              $scope.ICONS = CONFIG.material_icons;
               $scope.pickColor = courseColor.pick
               $scope.grid = marksGrid.grid
               $scope.week = attendanceGrid.week;

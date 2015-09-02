@@ -1,5 +1,0 @@
-CONFIG = {
-    material_icons:{
-
-    }
-  }
