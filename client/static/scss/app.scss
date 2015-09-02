@@ -172,6 +172,9 @@ md-sidenav {
     animation: animateMe-remove $transitionTime $transitionCurve;
     display: block !important;
   }
+}
+
+
   @keyframes animateMe-add {
     from {height: $tabHeight;}
     to {height: 0;}
@@ -180,8 +183,6 @@ md-sidenav {
     from {height: 0;}
     to {height: $tabHeight;}
   }
-}
-
 
 
   .grid-list {
