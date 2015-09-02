@@ -7,13 +7,6 @@ angular.module('VitApp')
             max:'='
            },
            restrict: 'AE',
-           templateUrl: 'partials/directives/hexagon-bar.html',
-           link:function($scope, $elements, $attrs) {
-              $scope.completed = 100*$scope.current/$scope.max;
-              $scope.remaining = 100 - $scope.completed;
-              $scope.checkDebarred = function() {
-                return $scope.completed < 75;
-              }
-           }
+           templateUrl: 'partials/directives/hexagon-bar.html'
          };
        });

@@ -1,8 +1,8 @@
-<div class="hexagonBar" ng-class="{debarred: checkDebarred()}" >
-  <div class="filled" style="height:{{remaining+'%'}}">
+<div class="hexagonBar" ng-class="{debarred: (100*current/max) < 75}" >
+  <div class="filled" style="height:{{(100 - (100*current/max))+'%'}}">
 
   </div>
-  <div class="total" style="height:{{completed+'%'}}">
+  <div class="total" style="height:{{(100*current/max)+'%'}}">
 
   </div>
 </div>

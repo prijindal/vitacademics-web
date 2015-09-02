@@ -1,5 +1,5 @@
 angular.module('VitApp')
-       .controller('loginController', ['$filter', 'saveData','Auth','$localStorage', function($filter, saveData, Auth, $localStorage) {
+       .controller('loginController', ['$filter', 'saveData','$location','Auth','$localStorage', function($filter, saveData,$location, Auth, $localStorage) {
           var self = this;
           if($localStorage.userInfo) {
             self.user = $localStorage.userInfo
@@ -11,6 +11,7 @@ angular.module('VitApp')
               }
           }
           self.submit = function() {
+            $('#login').attr('disabled',true);
             var date = self.dob
             var dateOfBirth = new Date(date)
             self.user.dob = $filter('date')(dateOfBirth, 'ddMMyyyy')
@@ -19,6 +20,8 @@ angular.module('VitApp')
               Auth.setUser(self.user);
               $localStorage.userInfo = self.user;
               $localStorage.dob = dateOfBirth;
+              $location.path('/courses');
+              $('#login').removeAttr("disabled")
             })
           }
        }])

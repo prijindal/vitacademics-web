@@ -14,6 +14,37 @@ angular.module('VitApp')
               $scope.attendance = attendanceDetails.details
               $scope.maxLength = attendanceDetails.maxLength
               $scope.totalDays = attendanceDetails.totalDays
+              var attendanceMod = {
+                attended:$scope.course.attendance.attended_classes,
+                total:$scope.course.attendance.total_classes,
+                missing:0,
+                going:0,
+                miss_plus:function() {
+                  this.missing++;
+                  this.total++;
+                  console.log(this)
+                },
+                miss_minus:function() {
+                  if(this.missing>0){
+                    this.missing--;
+                    this.total--;
+                  }
+                },
+                go_plus:function() {
+                  this.going++;
+                  this.attended++;
+                  this.total++;
+                  console.log(this)
+                },
+                go_minus:function() {
+                  if(this.going>0){
+                    this.going--;
+                    this.attended--;
+                    this.total--;
+                  }
+                }
+              }
+              $scope.attendanceMod = attendanceMod
               $scope.openTimingsSheet = function() {
                 $mdBottomSheet.show({
                   templateUrl: 'partials/course-timings.html',

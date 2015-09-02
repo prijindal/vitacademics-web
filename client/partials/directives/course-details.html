@@ -98,25 +98,28 @@
           </md-content>
           <md-content flex layout="column" layout-align="center center">
               <div flex="50">
-                <h2>Classes Attended: <span>{{course.attendance.attended_classes}}</span></h2>
+                <h2>Classes Attended: <span>{{attendanceMod.attended}}</span></h2>
               </div>
               <div flex>
-                 <h2>Total Classes: <span>{{course.attendance.total_classes}}</span></h2>
+                 <h2>Total Classes: <span>{{attendanceMod.total}}</span></h2>
               </div>
           </md-content>
           <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
               <div flex="50">
-                <hexagon-bar current="course.attendance.attended_classes" max="course.attendance.total_classes"></hexagon-bar>
+                <hexagon-bar current="attendanceMod.attended" max="attendanceMod.total"></hexagon-bar>
+              </div>
+              <div flex="20">
+                <h1>{{(attendanceMod.attended*100/ attendanceMod.total) | number : 0}}%</h1>
               </div>
               <div flex layout="column" layout-align="center center">
                 <div flex>
                   <p>
-                    <md-button class="md-fab md-mini" aria-label="subtract go">
+                    <md-button ng-click="attendanceMod.go_minus()" class="md-fab md-mini" aria-label="subtract go">
                       <md-icon alt=""><i class="material-icons">remove</i>
                       </md-icon>
                     </md-button>
-                      Attend
-                    <md-button class="md-fab md-mini" aria-label="add go">
+                      Attend {{attendanceMod.going}}
+                    <md-button ng-click="attendanceMod.go_plus()" class="md-fab md-mini" aria-label="add go">
                       <md-icon alt=""><i class="material-icons">add</i>
                       </md-icon>
                     </md-button>
@@ -124,12 +127,12 @@
                 </div>
                 <div flex>
                   <p>
-                    <md-button class="md-fab md-mini" aria-label="subtract misses">
+                    <md-button ng-click="attendanceMod.miss_minus()" class="md-fab md-mini" aria-label="subtract misses">
                       <md-icon alt=""><i class="material-icons">remove</i>
                       </md-icon>
                     </md-button>
-                      Miss
-                    <md-button class="md-fab md-mini" aria-label="add misses">
+                      Miss {{attendanceMod.missing}}
+                    <md-button ng-click="attendanceMod.miss_plus()" class="md-fab md-mini" aria-label="add misses">
                       <md-icon alt=""><i class="material-icons">add</i>
                       </md-icon>
                     </md-button>
