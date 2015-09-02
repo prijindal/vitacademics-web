@@ -19,7 +19,9 @@ var assets = {
     }
   },
   js: {
-    main:['client/static/js/app.js',
+    main:[
+        'config/production.js',
+        'client/static/js/app.js',
         'client/static/js/services/*.js', 
         'client/static/js/filters/*.js',
         'client/static/js/controllers/*.js',

@@ -10,7 +10,7 @@
                     <md-fab-trigger>
                       <md-button aria-label="menu" class="md-fab md-warn">
                         <md-tooltip md-direction="top">Contact</md-tooltip>
-                        <md-icon md-svg-src="./static/material-design-icons/navigation/svg/design/ic_menu_24px.svg" aria-label="menu"></md-icon>
+                        <md-icon md-svg-src="{{ICONS.menu}}" aria-label="menu"></md-icon>
                       </md-button>
                     </md-fab-trigger>
                     <md-fab-actions>
@@ -18,14 +18,14 @@
                         <md-button aria-label="mail" class="md-fab md-raised md-mini md-accent"
                                    ng-href="{{'mailto:'+ contributor.email}}">
                           <md-tooltip md-direction="down">{{:: contributor.email}}</md-tooltip>
-                          <md-icon md-svg-src="static/material-design-icons/content/svg/design/ic_mail_24px.svg"></md-icon>
+                          <md-icon md-svg-src="{{ICONS.email}}"></md-icon>
                         </md-button>
                       </div>
                       <div>
                         <md-button aria-label="github" class="md-fab md-raised md-mini md-accent"
                                    ng-href="{{contributor.github_profile}}">
                           <md-tooltip md-direction="down">{{:: contributor.github_profile}}</md-tooltip>
-                          <md-icon md-svg-src="static/material-design-icons/action/svg/design/ic_work_24px.svg"></md-icon>
+                          <md-icon md-svg-src="{{ICONS.work}}"></md-icon>
                         </md-button>
                       </div>
                     </md-fab-actions>

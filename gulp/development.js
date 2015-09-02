@@ -21,13 +21,15 @@ var assets = {
     }
   },
   js: {
-    main:['client/static/js/app.js',
+    main:[
+        'config/development.js',
+        'client/static/js/app.js',
         'client/static/js/services/*.js', 
         'client/static/js/filters/*.js',
         'client/static/js/controllers/*.js',
         'client/static/js/directives/*.js'
       ],
-    files:'client/static/js/**/*.js',
+    files:['client/static/js/**/*.js','config/development.js'],
     output:{
       path: 'build/static/js/',
       filename: 'app.js'

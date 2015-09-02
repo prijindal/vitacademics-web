@@ -1,10 +1,8 @@
-var config = {
-	development:true
-}
+var env = process.env.NODE_ENV || 'development'
 
 var gulp;
 
-if(config.development) {
+if(env == 'development') {
 	gulp = require('./gulp/development.js')
 }
 else {

@@ -52,4 +52,6 @@ angular.module('VitApp')
           }
 
         }, true);
+
+        $scope.ICONS = CONFIG.material_icons;
     }])

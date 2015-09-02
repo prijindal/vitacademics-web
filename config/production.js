@@ -1,0 +1,5 @@
+CONFIG = {
+    material_icons:{
+
+    }
+  }
