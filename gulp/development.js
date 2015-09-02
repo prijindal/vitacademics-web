@@ -49,7 +49,8 @@ var assets = {
       'client/bower_components/angular-animate/angular-animate.js', 
       'client/bower_components/angular-aria/angular-aria.js', 
       'client/bower_components/angular-messages/angular-messages.js', 
-      'client/bower_components/angular-material/angular-material.js'],
+      'client/bower_components/angular-material/angular-material.js',
+      'client/bower_components/ngstorage/ngStorage.js'],
     output:{
       path: 'build/static/js/vendor/',
       filename: 'angular.js'

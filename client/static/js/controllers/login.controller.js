@@ -1,17 +1,19 @@
 angular.module('VitApp')
-       .controller('loginController', ['$filter', 'saveData','Auth', function($filter, saveData, Auth) {
+       .controller('loginController', ['$filter', 'saveData','Auth','$localStorage', function($filter, saveData, Auth, $localStorage) {
           var self = this;
-          self.user = {
-            regno:'14BCE0607',
-            dob:new Date('Thu Dec 07 1995 00:00:00 GMT+0530 (India Standard Time)'),
-            mobile:'9711071395',
-            campus:'vellore'
+          if($localStorage.userInfo) {
+            self.user = $localStorage.userInfo
+            self.dob = new Date($localStorage.dob)
           }
           self.submit = function() {
-            console.log(self.user.dob)
-            self.user.dob = $filter('date')(self.user.dob, 'ddMMyyyy')
-            saveData.save(self.user)
-            console.dir(self.user)
-            Auth.setUser(self.user);
+            var date = self.dob
+            var dateOfBirth = new Date(date)
+            self.user.dob = $filter('date')(dateOfBirth, 'ddMMyyyy')
+            saveData.save(self.user, function() {
+              console.dir(self.user)
+              Auth.setUser(self.user);
+              $localStorage.userInfo = self.user;
+              $localStorage.dob = dateOfBirth;
+            })
           }
        }])

@@ -3,7 +3,8 @@ angular.module('VitApp', [
   'ngAnimate',
 	'ngMaterial',
   'ngRoute',
-  'ngMessages'
+  'ngMessages',
+  'ngStorage'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -36,11 +37,7 @@ angular.module('VitApp', [
     })
 
   $routeProvider.otherwise({
-    redirectTo: function() {
-      console.log('Redirecting...')
-      Auth.logout()
-      return '/'
-    }
+    redirectTo: '/'
   });
 }])
 .config(['$mdThemingProvider', function($mdThemingProvider) {
@@ -53,7 +50,7 @@ angular.module('VitApp', [
     .accentPalette('deep-purple')
     .dark()
 }])
-.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+.run(['$rootScope', '$location', '$localStorage', 'Auth', function ($rootScope, $location, $localStorage, Auth) {
     $rootScope.$on('$routeChangeStart', function (event) {
         if (!Auth.isLoggedIn()) {
             console.log('DENY');
@@ -67,6 +64,7 @@ angular.module('VitApp', [
             else if($location.path() == '/logout'){
               console.log('Logging Out');
               Auth.logout()
+              $localStorage.$reset()
               $location.path('/advisor');
             }
         }

@@ -1,6 +1,10 @@
 angular.module('VitApp')
-       .service('saveData', ['$http', 'allAbout', 'allCourses', 'allFaculty', function($http, allAbout, allCourses, allFaculty){
+       .service('saveData', ['$http', '$mdToast', 'allAbout', 'allCourses', 'allFaculty', function($http, $mdToast, allAbout, allCourses, allFaculty){
           var credentials;
+
+          var makeToast = function(content, color) {
+            return '<md-toast class="'+color+'"><span flex>'+content+'</span></md-toast>'
+          }
 
           var saveAbout = function(cb ) {
             $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system')
@@ -14,10 +18,8 @@ angular.module('VitApp')
           }
           var saveCredentials = function(userDetails, cb) {      
             if(Object.keys(userDetails).length == 0 && credentials) {
-              saveCourses(credentials, function() {
-                cb({error:0})
-              });
-              saveFaculty(credentials);
+              // Data Already present
+              cb({error:0, userDetails:credentials})
             }
             else if(Object.keys(userDetails).length != 0) {   
               $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/login', {
@@ -26,13 +28,12 @@ angular.module('VitApp')
                 mobile:userDetails.mobile
               })
               .success(function(data) {
+                // Login Succesfull
                 credentials = userDetails;
-                saveCourses(userDetails, function() {
-                  cb({error:0})
-                });
-                saveFaculty(userDetails);
+                cb({error:0, userDetails:credentials})
               })
               .error(function(error) {
+                // Login Insucessfull
                 console.error('ERROR')
                 cb({error:1})
               })
@@ -50,10 +51,13 @@ angular.module('VitApp')
             .success(function(data) {
               console.dir(data);
               allCourses.save(data);
-              cb()
+              cb({error:0})
+            })
+            .error(function(error) {
+              cb({error:1})
             })
           }
-          var saveFaculty = function(userDetails) {
+          var saveFaculty = function(userDetails, cb) {
             $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/advisor', {
               regno:userDetails.regno,
               dob:userDetails.dob,
@@ -62,24 +66,66 @@ angular.module('VitApp')
             .success(function(data) {
               console.dir(data);
               allFaculty.save(data);
+              cb({error:0})
+            })
+            .error(function(error) {
+              cb({error:1})
             })
           }
           return {
-            save:function(userDetails) {
+            save:function(userDetails, cb) {
+              // Starting Getting Data
+              console.log('Getting Data')
               saveAbout(function(data) {
                   if(data.error==1) {
-
+                    // Error in About Loading
+                    console.error('Error in refreshing System Info')
                   }
                   else {
-
+                    // About Loaded Succesfully
+                    console.log('System Info succesfully fetched')
                   }
                 })
               saveCredentials(userDetails, function(data) {
                   if(data.error==1) {
-
+                    // Error in Loggin in
+                    console.error('Error in getting User Credentials')
                   }
                   else if(data.error==0){
+                    // Logged in succesfull
+                    console.log('Login Succesfull')
+                    console.log('Getting Data')
+                    // Load new Data
 
+                    saveCourses(data.userDetails, function(data) {
+                      if(data.error == 1) {
+                        console.error('Cant get user courses')
+                        // Error in Getting Course info
+                      }
+                      else if(data.error == 0) {
+                        console.log('Courses fetched')
+                        // Data Succesfully Fetched
+                        cb({error:0})
+                        $mdToast.show({
+                          template: makeToast('Got All Data Succesfully', 'black'),
+                          hideDelay: 3000,
+                          position: 'top left'
+                        });
+                      }
+                    });
+                    saveFaculty(data.userDetails,  function(data) {
+                      if(data.error == 1) {
+                        console.error('Error in getting Faculty Info')
+                        // Error in Getting Faculty info
+                      }
+                      else if(data.error == 0) {
+                        // Data Succesfully Fetched
+                        console.log('Faculty info Succesfully fetched')
+                      }
+                    });
+                  }
+                  else {
+                    // Unknown error
                   }
                 })
             }

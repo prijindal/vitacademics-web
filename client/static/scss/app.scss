@@ -203,11 +203,11 @@ md-sidenav {
   height:150px;
   width:150px;
   margin:0 auto;
-  background:url('http://localhost:5000/static/img/progress.svg');
+  background:url('/static/img/progress.svg');
   background-size:contain;
   background-repeat:no-repeat;
   &.debarred {
-    background:url('http://localhost:5000/static/img/incomplete.svg');
+    background:url('/static/img/incomplete.svg');
     background-size:contain;
     background-repeat:no-repeat;
   }
@@ -284,4 +284,8 @@ md-bottom-sheet.md-grid md-list-item {
       padding-left: 16px;
     }
   }
+}
+
+md-toast {
+  @include variousColors;
 }

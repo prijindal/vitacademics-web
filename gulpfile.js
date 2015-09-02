@@ -1,5 +1,5 @@
 var config = {
-	development:false
+	development:true
 }
 
 var gulp;
