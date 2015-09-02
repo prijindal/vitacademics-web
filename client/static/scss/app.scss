@@ -290,3 +290,7 @@ md-bottom-sheet.md-grid md-list-item {
 md-toast {
   @include variousColors;
 }
+
+.material-icons.large {
+  font-size:48px;
+}
