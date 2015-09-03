@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 
 gulp.task('sass', function() {
   return gulp.src(assets.scss.main)
-      .pipe(sass({compressed:true}))
+      .pipe(sass({outputStyle: 'compressed'}))
       .pipe(gulp.dest(assets.scss.output.path))
 })
 
@@ -24,6 +24,7 @@ gulp.task('html', function() {
 gulp.task('vendor:css', function() {
   return gulp.src(assets.vendorCss.main)
     .pipe(concat(assets.vendorCss.output.filename))
+    .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest(assets.vendorCss.output.path))
 })
 
