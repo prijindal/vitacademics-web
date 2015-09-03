@@ -11,7 +11,7 @@ angular.module('VitApp')
               }
           }
           self.submit = function() {
-            $('#login').attr('disabled',true);
+            angular.element(document.getElementById('login')).attr('disabled',true);
             var date = self.dob
             var dateOfBirth = new Date(date)
             self.user.dob = $filter('date')(dateOfBirth, 'ddMMyyyy')
@@ -21,7 +21,7 @@ angular.module('VitApp')
               $localStorage.userInfo = self.user;
               $localStorage.dob = dateOfBirth;
               $location.path('/courses');
-              $('#login').removeAttr("disabled")
+              angular.element(document.getElementById('login')).removeAttr("disabled")
             })
           }
        }])
