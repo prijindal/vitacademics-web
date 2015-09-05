@@ -57,7 +57,9 @@ angular.module('VitApp', [
         if (!Auth.isLoggedIn()) {
             console.log('DENY');
             //event.preventDefault();
-            $location.path('/');
+            if($location.path() != '/feedback') {
+                $location.path('/');
+            }
         }
         else {
             if($location.path() == '/') {
