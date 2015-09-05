@@ -12,16 +12,25 @@
   </head>
   <body ng-app="VitApp" layout="row" ng-controller="layoutController as layout" initialisation="">
 
-    <div layout="row" ng-include="'./partials/left-sidenav.html'"></div>    
+    <div layout="row" ng-include="'./partials/left-sidenav.html'"></div>
 
     <md-content id="container" flex>
       <div flex ng-include="'./partials/topbar.html'"></div>
       <div id="page" class="page" ng-view flex></div>
     </md-content>
     <div ng-include="'./partials/right-sidenav.html'"></div>
-    
+
     <script src="./static/js/vendor/angular.js" charset="utf-8"></script>
 
     <script src="./static/js/app.js" charset="utf-8"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-67228857-1', 'auto');
+
+    </script>
   </body>
 </html>

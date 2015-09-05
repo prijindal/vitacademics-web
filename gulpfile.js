@@ -21,7 +21,7 @@ assets = {
   js: {
     main:[
         'client/static/js/app.js',
-        'client/static/js/services/*.js', 
+        'client/static/js/services/*.js',
         'client/static/js/filters/*.js',
         'client/static/js/controllers/*.js',
         'client/static/js/directives/*.js'
@@ -37,17 +37,19 @@ assets = {
     output:{
       path: 'build/static/css/vendor/',
       filename: 'angular-material.css'
-    } 
+    }
   },
   vendorJs: {
     main:[
-      'client/bower_components/angular/angular.js', 
-      'client/bower_components/angular-route/angular-route.js', 
-      'client/bower_components/angular-animate/angular-animate.js', 
-      'client/bower_components/angular-aria/angular-aria.min.js', 
-      'client/bower_components/angular-messages/angular-messages.js', 
+      'client/bower_components/angular/angular.js',
+      'client/bower_components/angular-route/angular-route.js',
+      'client/bower_components/angular-animate/angular-animate.js',
+      'client/bower_components/angular-aria/angular-aria.min.js',
+      'client/bower_components/angular-messages/angular-messages.js',
       'client/bower_components/angular-material/angular-material.js',
-      'client/bower_components/ngstorage/ngStorage.js'],
+      'client/bower_components/ngstorage/ngStorage.js',
+      'client/bower_components/angulartics/src/angulartics.js',
+      'client/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'],
     output:{
       path: 'build/static/js/vendor/',
       filename: 'angular.js'

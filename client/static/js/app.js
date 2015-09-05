@@ -1,10 +1,12 @@
 var isAppRouting;
 angular.module('VitApp', [
   'ngAnimate',
-	'ngMaterial',
+  'ngMaterial',
   'ngRoute',
   'ngMessages',
-  'ngStorage'
+  'ngStorage',
+  'angulartics',
+  'angulartics.google.analytics'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
