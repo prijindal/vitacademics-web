@@ -10,19 +10,19 @@ angular.module('VitApp')
             $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system')
                 .success(function(data) {
                   allAbout.save(data);
-                  cb({error:data.status.code})
+                  cb({error:data.status.code, message:data.status.message})
                 })
                 .error(function(err) {
                   cb({error:1})
                 })
           }
-          var saveCredentials = function(userDetails, cb) {      
+          var saveCredentials = function(userDetails, cb) {
             if(Object.keys(userDetails).length == 0 && credentials) {
               // Data Already present
               console.log('Loading Data')
               cb({error:0, userDetails:credentials})
             }
-            else if(Object.keys(userDetails).length != 0) {   
+            else if(Object.keys(userDetails).length != 0) {
               $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/login', {
                 regno:userDetails.regno,
                 dob:userDetails.dob,
@@ -31,7 +31,7 @@ angular.module('VitApp')
               .success(function(data) {
                 // Login Succesfull
                 credentials = userDetails;
-                cb({error:data.status.code, userDetails:credentials})
+                cb({error:data.status.code, userDetails:credentials, message:data.status.message})
               })
               .error(function(error) {
                 // Login Insucessfull
@@ -52,7 +52,7 @@ angular.module('VitApp')
             .success(function(data) {
               console.dir(data);
               allCourses.save(data);
-              cb({error:data.status.code})
+              cb({error:data.status.code, message:data.status.message})
             })
             .error(function(error) {
               cb({error:1})
@@ -67,7 +67,7 @@ angular.module('VitApp')
             .success(function(data) {
               console.dir(data);
               allFaculty.save(data);
-              cb({error:data.status.code})
+              cb({error:data.status.code, message:data.status.message})
             })
             .error(function(error) {
               cb({error:1})
@@ -87,6 +87,15 @@ angular.module('VitApp')
                     // Error in About Loading
                     console.error('Error in refreshing System Info')
                   }
+                  else if(data.error!=0) {
+                    // Server Error
+                    console.error('Server Error')
+                    $mdToast.show({
+                      template:makeToast(data.message, 'red'),
+                      position:'top left',
+                      hideDelay:false
+                    })
+                  }
                   else {
                     // About Loaded Succesfully
                     console.log('System Info succesfully fetched')
@@ -98,6 +107,15 @@ angular.module('VitApp')
                     console.error('Error in getting User Credentials')
                     $mdToast.show({
                       template:makeToast('Sorry Please try Later...', 'red'),
+                      position:'top left',
+                      hideDelay:false
+                    })
+                  }
+                  else if(data.error!=0) {
+                    // Server Error
+                    console.error('Server Error')
+                    $mdToast.show({
+                      template:makeToast(data.message, 'red'),
                       position:'top left',
                       hideDelay:false
                     })
@@ -124,6 +142,15 @@ angular.module('VitApp')
                           hideDelay:false
                         })
                       }
+                      else if(data.error!=0) {
+                        // Server Error
+                        console.error('Server Error')
+                        $mdToast.show({
+                          template:makeToast(data.message, 'red'),
+                          position:'top left',
+                          hideDelay:false
+                        })
+                      }
                       else if(data.error == 0) {
                         console.log('Courses fetched')
                         // Data Succesfully Fetched
@@ -140,14 +167,20 @@ angular.module('VitApp')
                         console.error('Error in getting Faculty Info')
                         // Error in Getting Faculty info
                       }
+                      else if(data.error!=0) {
+                        // Server Error
+                        console.error('Server Error')
+                        $mdToast.show({
+                          template:makeToast(data.message, 'red'),
+                          position:'top left',
+                          hideDelay:false
+                        })
+                      }
                       else if(data.error == 0) {
                         // Data Succesfully Fetched
                         console.log('Faculty info Succesfully fetched')
                       }
                     });
-                  }
-                  else {
-                    // Unknown error
                   }
                 })
             }
