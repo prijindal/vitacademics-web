@@ -1,10 +1,10 @@
 angular.module('VitApp')
-     .controller('layoutController', 
-      ['$scope', '$location','Auth', 
-       '$mdSidenav','leftNav', 'rightNav', 
-       'currentPage', 'saveData', 
-        function($scope, $location, Auth , 
-        $mdSidenav, leftNav, rightNav, currentPage, saveData){
+     .controller('layoutController',
+      ['$scope', '$location','Auth',
+       '$mdSidenav', '$mdDialog', 'leftNav', 'rightNav',
+       'currentPage', 'saveData',
+        function($scope, $location, Auth ,
+        $mdSidenav, $mdDialog, leftNav, rightNav, currentPage, saveData){
 
         var self = this;
         self.toggleSideBar = function(navId) {
@@ -33,6 +33,21 @@ angular.module('VitApp')
         self.focusPage = function(pageDetails) {
           closeBothNavs()
         }
+
+        self.logoutAlert = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                  .title('Are you sure you want to logout?')
+                  .content('You can come back later anytime.')
+                  .ariaLabel('Logout')
+                  .ok('Logout')
+                  .cancel('Go Back')
+                  .targetEvent(ev);
+            $mdDialog.show(confirm).then(function() {
+                $location.path('/logout')
+            });
+          };
+
         self.getCurrentPage = currentPage.getCurrentPage
         self.refresh = function() {
           console.log('Refreshing...')

@@ -13,10 +13,6 @@ angular.module('VitApp')
               {
                 name:'Faculty Advisor',
                 url:'#/advisor'
-              },
-              {
-                name:'Logout',
-                url:'#/logout'
               }
             ]
           }

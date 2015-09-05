@@ -17,8 +17,13 @@
       	  <md-list-item class="md-2-line" ng-repeat="menuItem in layout.leftMenu()">
       	    <md-button layout-align="center center" ng-click="layout.focusPage(menuItem)" ng-href="{{menuItem.url}}">
               {{menuItem.name}}
-              </md-button>
+            </md-button>
       	  </md-list-item>
+          <md-list-item>
+              <md-button layout-align="center center" ng-click="layout.logoutAlert($event)">
+                Logout
+              </md-button>
+          </md-list-item>
           <md-divider></md-divider>
       	</md-list>
       </md-content>
