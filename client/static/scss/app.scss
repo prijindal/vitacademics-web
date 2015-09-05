@@ -10,13 +10,13 @@ $warn:rgb(244,67,54);
         background: #f5f5f5;
       }
       &.green {
-        background: #00e676; 
+        background: #00e676;
       }
       &.yellow {
-        background: #f9a825; 
+        background: #f9a825;
       }
       &.blue {
-        background: #1e88e5; 
+        background: #1e88e5;
       }
       &.purple {
         background: #b388ff;
@@ -145,7 +145,7 @@ md-sidenav {
 }
 
 .courseContent {
-  .md-subheader .md-subheader-inner{ 
+  .md-subheader .md-subheader-inner{
     padding:0;
   }
   h3,h4,p {
@@ -260,7 +260,7 @@ md-bottom-sheet.md-grid md-list-item {
 }
 
 .timeTableView {
-  min-width:850px;
+  min-width:500px;
   .grid-list {
     max-height: initial;
     a {

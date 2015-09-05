@@ -4,11 +4,11 @@
           <h3>{{course.course_title}}</h3>
           <span flex></span>
           <button class="md-icon-button md-button md-default-theme" ng-click="temp = !temp">
-            <md-icon alt=""><i class="material-icons">details</i></md-icon>      
+            <md-icon alt=""><i class="material-icons">details</i></md-icon>
             <div class="md-ripple-container"></div>
           </button>
           <button class="md-icon-button md-button md-default-theme" ng-click="openTimingsSheet()">
-            <md-icon alt=""><i class="material-icons">access_time</i></md-icon>      
+            <md-icon alt=""><i class="material-icons">access_time</i></md-icon>
             <div class="md-ripple-container"></div>
           </button>
         </div>
@@ -23,13 +23,13 @@
                     <h3>{{week[num]}}</h3>
                   </md-grid-tile-header>
                 </md-grid-tile>
-                
+
                 <md-grid-tile class="empty" md-colspan="{{totalDays*2}}" md-rowspan="1"></md-grid-tile>
 
               </md-grid-list>
               <md-grid-list ng-init="i=$index" ng-repeat="n in [].constructor(maxLength) track by $index" md-cols="{{totalDays*2}}" md-gutter="0em" md-row-height="10:1">
                 <md-grid-tile ng-class="{absent : details[i].class_units==0, black: details[i]==undefined}" ng-repeat="(num, details) in attendance" class="{{pickColor('abcdefghijklmnopqrstuvwxyz'[num])}}" md-colspan="2" md-rowspan="15">
-                  <h3>{{details[i].status}}</h3>
+                  <h3 hide-sm>{{details[i].status}}</h3>
                   <md-grid-tile-footer>
                     <h3>{{details[i].date | date:'MMM d'}}</h3>
                   </md-grid-tile-footer>

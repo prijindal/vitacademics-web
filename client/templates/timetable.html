@@ -1,6 +1,6 @@
 <md-content ng-controller="timetableController as timeTable" class="timeTableView" layout-padding>
 <md-content class="grid-list">
-  <md-grid-list md-cols="2" md-cols-gt-sm="12"="12" md-gutter="0em" md-row-height="10:1">
+  <md-grid-list md-cols="12"="12" md-gutter="0em" md-row-height="10:1">
     <md-grid-tile class="red" md-colspan="2" md-rowspan="10">
       <md-grid-tile-header>
         <h3>Monday</h3>
@@ -32,16 +32,16 @@
       </md-grid-tile-header>
     </md-grid-tile>
 
-    <md-grid-tile class="empty" md-colspan="2" md-colspan-gt-sm="12" md-rowspan="1"></md-grid-tile>
-  
+    <md-grid-tile class="empty" md-colspan="12" md-rowspan="1"></md-grid-tile>
+
   </md-grid-list>
-  <md-grid-list ng-repeat="n in [].constructor(timeTable.maxLength) track by $index" md-cols="2" md-cols-gt-sm="12"="12" md-gutter="0em" ng-init="i=$index" md-row-height="10:1">
+  <md-grid-list ng-repeat="n in [].constructor(timeTable.maxLength) track by $index" md-cols="12"="12" md-gutter="0em" ng-init="i=$index" md-row-height="10:1">
      <md-grid-tile ng-repeat="content in timeTable.TableView" class="{{timeTable.getTheme(i, $index)}}" md-colspan="2" md-rowspan="15">
       <div>
         <md-tooltip md-direction="top" class="grid-tile-tooltip" md-delay="100">
           Slot: {{content[i].slot}}
         </md-tooltip>
-        <h3>{{content[i].venue}}</h3>
+        <h3 hide-sm>{{content[i].venue}}</h3>
         <md-grid-tile-footer ng-show="content[i]">
           <h3>{{content[i].course_code}}</h3>
           <h4>{{timeTable.getTimings(content[i].start_time)}} to {{timeTable.getTimings(content[i].end_time)}}</h4>
