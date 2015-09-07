@@ -10,7 +10,7 @@ angular.module('VitApp')
                     currentPage = {name:'Courses'}
                     break;
               case '/timetable':
-                    currentPage = {name:'TimeTable'}
+                    currentPage = {name:'Timetable'}
                     break;
               case '/advisor':
                     currentPage = {name:'Advisor'}
@@ -22,10 +22,10 @@ angular.module('VitApp')
                     currentPage = {name:'Version Info'}
                     break;
               case '/feedback':
-                    currentPage = {name:'FeedBack'}
+                    currentPage = {name:'Feedback'}
                     break;
               default:
-                    currentPage = {name:'VitAcadmics'};
+                    currentPage = {name:'VITacadmics'};
             }
             return currentPage;
           }

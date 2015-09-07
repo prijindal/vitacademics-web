@@ -7,7 +7,7 @@ angular.module('VitApp')
                 url:'#/courses'
               },
               {
-                name:'TimeTable',
+                name:'Timetable',
                 url:'#/timetable'
               },
               {
