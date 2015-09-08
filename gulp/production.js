@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
   sass = require('gulp-sass'),
   uglify = require('gulp-uglify'),
-  concat = require('gulp-concat');
+  concat = require('gulp-concat'),
+  stripDebug = require('gulp-strip-debug');
 
 gulp.task('sass', function() {
   return gulp.src(assets.scss.main)
@@ -12,6 +13,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
   return gulp.src(assets.js.main)
     .pipe(concat(assets.js.output.filename))
+    .pipe(stripDebug())
     .pipe(uglify())
     .pipe(gulp.dest(assets.js.output.path))
 })
