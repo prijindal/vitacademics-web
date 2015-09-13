@@ -5,12 +5,12 @@
           <md-input-container class="md-icon-float">
             <label>Registration Number</label>
             <md-icon><i class="material-icons">person</i></md-icon>
-            <input ng-minlength="9" md-maxlength="9" required name="regno" ng-model="login.user.regno" tabindex="1">
+            <input ng-minlength="9" md-maxlength="9" required name="regno" ng-model="login.user.regno" style="text-transform:uppercase" tabindex="1">
             <div ng-messages="login.loginForm.regno.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The Registration number has to be exactly 9 digits.</div>
             </div>
-            <!-- Add self Shecking -->
+            <!-- Add self checking -->
           </md-input-container>
 
           <md-input-container class="md-icon-float">
@@ -23,13 +23,13 @@
           </md-input-container>
 
           <md-input-container class="md-icon-float">
-            <label>Parents Mobile Number</label>
+            <label>Parent's Mobile Number</label>
             <md-icon><i class="material-icons">settings_cell</i></md-icon>
             <input type="tel" name="mobile" required ng-model="login.user.mobile"  tabindex="3">
             <div ng-messages="login.loginForm.mobile.$error">
               <div ng-message="required">This is required.</div>
             </div>
-            <!-- Add self Shecking -->
+            <!-- Add self checking -->
           </md-input-container>
           <md-radio-group ng-model="login.user.campus" tabindex="4">
             <md-radio-button value="vellore" class="md-primary">Vellore</md-radio-button>
