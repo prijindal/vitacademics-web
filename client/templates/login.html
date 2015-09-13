@@ -2,10 +2,10 @@
     <div layout="column" ng-controller="loginController as login">
       <md-content layout-padding>
         <form name="login.loginForm" ng-submit="login.submit()">
-          <md-input-container class="md-icon-float">
+          <md-input-container class="md-icon-float reg-no">
             <label>Registration Number</label>
             <md-icon><i class="material-icons">person</i></md-icon>
-            <input ng-minlength="9" md-maxlength="9" required name="regno" ng-model="login.user.regno" style="text-transform:uppercase" tabindex="1">
+            <input ng-minlength="9" md-maxlength="9" required name="regno" ng-model="login.user.regno" tabindex="1">
             <div ng-messages="login.loginForm.regno.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The Registration number has to be exactly 9 digits.</div>

@@ -294,3 +294,10 @@ md-toast {
 .material-icons.large {
   font-size:48px;
 }
+
+
+md-input-container.reg-no {
+  input{
+    text-transform:uppercase;
+  }
+}
