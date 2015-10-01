@@ -33,3 +33,9 @@ and is using the **VITAcademics API** at  [https://github.com/aneesh-neelam/VITa
 
 
 Please do suggest any updates or report any bugs
+
+##Todo
+
+- Spotlight
+- Campus Map
+- Grades
