@@ -37,6 +37,7 @@ Please do suggest any updates or report any bugs
 ##Todo
 
 - Use Application Cache
+- Use Angular Material ^11.0 and add date picker
 - Spotlight
 - Campus Map
 - Grades
