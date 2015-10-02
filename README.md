@@ -36,6 +36,7 @@ Please do suggest any updates or report any bugs
 
 ##Todo
 
+- Use Application Cache
 - Spotlight
 - Campus Map
 - Grades
