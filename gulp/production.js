@@ -56,6 +56,16 @@ gulp.task('favicon', function() {
              .pipe(gulp.dest('build'))
 })
 
-gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'])
+gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'], function() {
+    gulp.src(assets.cacheFiles.main)
+    .pipe(manifest({
+      timestamp: true,
+      network: ['*'],
+      cache:assets.cacheFiles.external,
+      filename: 'manifest.appcache',
+      exclude: 'manifest.appcache'
+     }))
+    .pipe(gulp.dest('build'));
+})
 
 exports.gulp = gulp;

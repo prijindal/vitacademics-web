@@ -60,17 +60,6 @@ gulp.task('favicon', function() {
              .pipe(gulp.dest('build'))
 })
 
-gulp.task('manifest', function(){
-    gulp.src(assets.cacheFiles.main)
-    .pipe(manifest({
-      timestamp: true,
-      network: ['*'],
-      cache:assets.cacheFiles.external,
-      filename: 'manifest.appcache',
-      exclude: 'manifest.appcache'
-     }))
-    .pipe(gulp.dest('build'));
-});
 
 gulp.task('watch', ['build'], function() {
   livereload.listen({basePath:'build'});
@@ -81,6 +70,16 @@ gulp.task('watch', ['build'], function() {
   gulp.watch('client/partials/**/*.html', ['partials'])
 })
 
-gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon','manifest'])
+gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'], function(){
+    gulp.src(assets.cacheFiles.main)
+    .pipe(manifest({
+      timestamp: true,
+      network: ['*'],
+      cache:assets.cacheFiles.external,
+      filename: 'manifest.appcache',
+      exclude: 'manifest.appcache'
+     }))
+    .pipe(gulp.dest('build'));
+})
 
 exports.gulp = gulp;
