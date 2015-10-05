@@ -2,7 +2,8 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
-  stripDebug = require('gulp-strip-debug');
+  stripDebug = require('gulp-strip-debug'),
+  manifest = require('gulp-manifest');
 
 gulp.task('sass', function() {
   return gulp.src(assets.scss.main)
