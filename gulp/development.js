@@ -2,7 +2,8 @@ var gulp = require('gulp'),
   sass = require('gulp-ruby-sass'),
   concat = require('gulp-concat'),
   sourcemaps = require('gulp-sourcemaps'),
-  livereload = require('gulp-livereload');
+  livereload = require('gulp-livereload'),
+  manifest = require('gulp-manifest');
 
 gulp.task('sass', function() {
   return sass(assets.scss.main)
@@ -59,7 +60,19 @@ gulp.task('favicon', function() {
              .pipe(gulp.dest('build'))
 })
 
-gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'], function() {
+gulp.task('manifest', function(){
+    gulp.src(assets.cacheFiles.main)
+    .pipe(manifest({
+      timestamp: true,
+      network: ['*'],
+      cache:assets.cacheFiles.external,
+      filename: 'manifest.appcache',
+      exclude: 'manifest.appcache'
+     }))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('watch', ['build'], function() {
   livereload.listen({basePath:'build'});
   gulp.watch(assets.scss.files, ['sass'])
   gulp.watch(assets.js.files, ['js'])
@@ -68,6 +81,6 @@ gulp.task('watch', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'te
   gulp.watch('client/partials/**/*.html', ['partials'])
 })
 
-gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon'])
+gulp.task('build', ['vendor:css', 'vendor:javascript', 'sass', 'js', 'html', 'templates', 'partials', 'images', 'favicon','manifest'])
 
 exports.gulp = gulp;

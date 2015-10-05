@@ -58,6 +58,16 @@ assets = {
   images: {
     main:['client/static/img/**/*'],
     output:'build/static/img'
+  },
+  cacheFiles:{
+      main:['./build/**/*'],
+      external:[
+          '//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic',
+          '//fonts.googleapis.com/icon?family=Material+Icons',
+          '//fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2',
+          '//fonts.gstatic.com/s/robotodraft/v4/0xES5Sl_v6oyT7dAKuoni44P5ICox8Kq3LLUNMylGO4.woff2',
+          '//fonts.gstatic.com/s/robotodraft/v4/u0_CMoUf3y3-4Ss4ci-VwbBojE9J5UnpMtv5N3zfxwk.woff2'
+      ]
   }
 }
 
