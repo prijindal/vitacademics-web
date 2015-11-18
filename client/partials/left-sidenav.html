@@ -4,14 +4,14 @@
                 md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-lg')">
 
-        <md-content flex="50" class="nav-header">
+        <md-content flex="50" class="nav-header width-expand">
           <a ng-click="layout.focusPage({name:'Home'})" ng-href="#/">
             <img src="/static/img/logo.svg">
             <h1>VITacademics</h1>
           </a>
         </md-content>
 
-      <md-content flex>
+      <md-content flex class="width-expand">
       	<md-list>
           <md-divider></md-divider>
       	  <md-list-item class="md-2-line" ng-repeat="menuItem in layout.leftMenu()">

@@ -70,10 +70,13 @@ md-list .md-button {
 }
 
 .md-sidenav-right {
-  md-list .md-button {
-    font-weight: 500;
-    font-size: 16px;
-    min-height:45px;
+  md-list-item {
+    min-height: 0;
+    .md-button {
+      font-weight: 500;
+      font-size: 16px;
+      min-height:45px;
+    }
   }
 }
 
@@ -300,4 +303,9 @@ md-input-container.reg-no {
   input{
     text-transform:uppercase;
   }
+}
+
+// Fix for Angular 0.11
+.width-expand {
+  min-width: 100%;
 }
