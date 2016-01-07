@@ -4,7 +4,7 @@ angular.module('VitApp')
               menuList:[
               {
                 "title":"Further Links",
-                "items":[     
+                "items":[
                               {
                                 name:'About Us',
                                 url:'#/about'
@@ -16,7 +16,12 @@ angular.module('VitApp')
                               {
                                 name:'Feedback',
                                 url:'#/feedback'
-                              }]
+                            }//,
+                            //   {
+                            //     name:'Spotlights',
+                            //     url:'#/spotlights'
+                            //   }
+                          ]
               },
 
               {

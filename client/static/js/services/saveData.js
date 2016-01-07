@@ -1,5 +1,5 @@
 angular.module('VitApp')
-       .service('saveData', ['$http', '$mdToast', 'allAbout', 'allCourses', 'allFaculty', function($http, $mdToast, allAbout, allCourses, allFaculty){
+       .service('saveData', ['$http', '$mdToast', 'allAbout', 'allCourses', 'allFaculty','allSpotlights', function($http, $mdToast, allAbout, allCourses, allFaculty, allSpotlights){
           var credentials;
 
           var makeToast = function(content, color) {
@@ -16,6 +16,23 @@ angular.module('VitApp')
                   cb({error:1})
                 })
           }
+
+          var saveSpotlights = function(campus, cb) {
+              if(campus!='vellore' && campus!='chennai') {
+                  cb({error:2})
+              }
+              else {
+                  $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/spotlight')
+                  .success(function(data) {
+                      allSpotlights.save(data)
+                      cb({error:data.status.code, message:data.status.message})
+                  })
+                  .error(function(err) {
+                      cb({error:1})
+                  })
+              }
+          }
+
           var saveCredentials = function(userDetails, cb) {
             if(Object.keys(userDetails).length == 0 && credentials) {
               // Data Already present
@@ -82,6 +99,7 @@ angular.module('VitApp')
                 hideDelay:false
               })
               console.log('Getting Data')
+
               saveAbout(function(data) {
                   if(data.error==1) {
                     // Error in About Loading
@@ -101,6 +119,28 @@ angular.module('VitApp')
                     console.log('System Info succesfully fetched')
                   }
                 })
+
+                saveSpotlights(userDetails.campus, function(data) {
+                    if(data.error==1) {
+                      // Error in About Loading
+                      console.error('Error in getting spotlight information')
+                    }
+                    else if(data.error!=0) {
+                      // Server Error
+                      console.error('Server Error')
+                      $mdToast.show({
+                        template:makeToast(data.message, 'red'),
+                        position:'top left',
+                        hideDelay:false
+                      })
+                    }
+                    else {
+                      // About Loaded Succesfully
+                      console.log('Spotlights loaded Succesfully')
+                    }
+                  })
+
+
               saveCredentials(userDetails, function(data) {
                   if(data.error==1) {
                     // Error in Loggin in

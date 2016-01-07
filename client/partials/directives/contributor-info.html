@@ -2,11 +2,12 @@
             <md-content layout-padding>
               <md-subheader class="lead">{{:: contributor.name}}</md-subheader>
               <div layout="column" layout-align="center">
-                <md-subheader flex>{{:: contributor.role}}</md-subheader> 
+                <md-subheader flex>{{:: contributor.role}}</md-subheader>
                 <md-subheader flex>
-                  <md-fab-speed-dial ng-hide="demo.hidden" md-direction="right" class="md-fling"
-                                     md-open="demo.isOpen"
-                                     ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false">
+                  <!-- TODO: Md Fab is open by default -->
+                  <md-fab-speed-dial md-direction="right" class="md-fling"
+                                     md-open="isopen"
+                                     ng-mouseenter="isopen=true" ng-mouseleave="isopen=false">
                     <md-fab-trigger>
                       <md-button aria-label="menu" class="md-fab md-warn">
                         <md-tooltip md-direction="top">Contact</md-tooltip>

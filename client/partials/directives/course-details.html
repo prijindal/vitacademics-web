@@ -105,13 +105,13 @@
               </div>
           </md-content>
           <md-content flex layout="column" layout-gt-sm="row" layout-align="center center">
-              <div flex="50">
+              <div flex="40">
                 <hexagon-bar current="attendanceMod.attended" max="attendanceMod.total"></hexagon-bar>
               </div>
-              <div flex="20">
+              <div flex="15">
                 <h1>{{(attendanceMod.attended*100/ attendanceMod.total) | number : 0}}%</h1>
               </div>
-              <div flex layout="column" layout-align="center center">
+              <div flex="30" layout="column" layout-align="center center">
                 <div flex>
                   <p>
                     <md-button ng-click="attendanceMod.go_minus()" class="md-fab md-mini" aria-label="subtract go">

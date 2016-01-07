@@ -96,7 +96,7 @@ md-sidenav {
 .loginView{
   min-height:500px;
   form {
-    max-width: 500px;
+    max-width: 300px;
     margin:0 auto;
     padding:0 20px;
   }
@@ -110,6 +110,7 @@ md-sidenav {
     margin:0 auto;
   }
   md-input-container {
+    width: 100%;
     min-height:50px;
   }
 }
