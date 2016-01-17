@@ -1,3 +1,4 @@
+var HOST = 'https://vitacademics-rel.herokuapp.com'
 angular.module('VitApp')
        .service('saveData', ['$http', '$mdToast', 'allAbout', 'allCourses', 'allFaculty','allSpotlights', function($http, $mdToast, allAbout, allCourses, allFaculty, allSpotlights){
           var credentials;
@@ -7,7 +8,7 @@ angular.module('VitApp')
           }
 
           var saveAbout = function(cb ) {
-            $http.get('https://vitacademics-rel.herokuapp.com/api/v2/system')
+            $http.get(HOST + '/api/v2/system')
                 .success(function(data) {
                   allAbout.save(data);
                   cb({error:data.status.code, message:data.status.message})
@@ -22,7 +23,7 @@ angular.module('VitApp')
                   cb({error:2})
               }
               else {
-                  $http.get('https://vitacademics-rel.herokuapp.com/api/v2/'+campus+'/spotlight')
+                  $http.get(HOST + '/api/v2/'+campus+'/spotlight')
                   .success(function(data) {
                       allSpotlights.save(data)
                       cb({error:data.status.code, message:data.status.message})
@@ -40,7 +41,7 @@ angular.module('VitApp')
               cb({error:0, userDetails:credentials})
             }
             else if(Object.keys(userDetails).length != 0) {
-              $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/login', {
+              $http.post(HOST + '/api/v2/'+userDetails.campus+'/login', {
                 regno:userDetails.regno,
                 dob:userDetails.dob,
                 mobile:userDetails.mobile
@@ -61,7 +62,7 @@ angular.module('VitApp')
             }
           }
           var saveCourses = function(userDetails, cb) {
-            $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/refresh', {
+            $http.post(HOST + '/api/v2/'+userDetails.campus+'/refresh', {
               regno:userDetails.regno,
               dob:userDetails.dob,
               mobile:userDetails.mobile
@@ -76,7 +77,7 @@ angular.module('VitApp')
             })
           }
           var saveFaculty = function(userDetails, cb) {
-            $http.post('https://vitacademics-rel.herokuapp.com/api/v2/'+userDetails.campus+'/advisor', {
+            $http.post(HOST + '/api/v2/'+userDetails.campus+'/advisor', {
               regno:userDetails.regno,
               dob:userDetails.dob,
               mobile:userDetails.mobile
