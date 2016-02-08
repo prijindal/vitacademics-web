@@ -1,0 +1,20 @@
+<md-content class="aboutView" ng-controller="spotlightController as spotlight" layout="column" layout-align="center">
+  <section class="md-whiteframe-z2" ng-repeat="(key, value) in spotlight.spotlights">
+      <md-toolbar class="demo-toolbar md-primary md-hue-2 md-default-theme">
+        <div class="md-toolbar-tools">
+          <h3>{{key}}</h3>
+        </div>
+      </md-toolbar>
+      <md-content layout="row" layout-padding layout-wrap>
+        <section ng-repeat="message in value" class="contributor" flex="100" layout="column" layout-align="center center">
+          <div flex class="spotlight-container md-whiteframe-z4">
+            <md-content layout-padding>
+              <md-subheader class="lead"><a href="{{message.url}}">{{message.text}}</a></md-subheader>
+            </md-content>
+          </div>
+        </section>
+
+      </md-content>
+    </section>
+    <div ng-repeat=""
+</md-content>

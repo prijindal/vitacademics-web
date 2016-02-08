@@ -34,6 +34,9 @@ angular.module('VitApp', [
     .when('/advisor', {
       templateUrl:'templates/advisor.html'
     })
+    .when('/spotlights',{
+      templateUrl:'templates/spotlight.html'
+    })
     .when('/logout', {
       template:'Logging Out...'
     })
@@ -57,7 +60,12 @@ angular.module('VitApp', [
         if (!Auth.isLoggedIn()) {
             console.log('DENY');
             //event.preventDefault();
-            if($location.path() != '/feedback') {
+            console.log($location.path());
+            if(
+              $location.path() != '/feedback' &&
+              $location.path() != '/about' &&
+              $location.path() != '/version'
+            ) {
                 $location.path('/');
             }
         }

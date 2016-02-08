@@ -310,3 +310,16 @@ md-input-container.reg-no {
 .width-expand {
   min-width: 100%;
 }
+
+.spotlight-container {
+  width:100%;
+  min-height:50px;
+  .lead {
+    color: rgba(0,0,0,0.87);
+    font-size: 1.5em;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
