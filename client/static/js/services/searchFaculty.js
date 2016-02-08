@@ -1,5 +1,5 @@
 var HOST = 'https://vitacademics-rel.herokuapp.com'
-HOST = 'http://localhost:3000'
+// HOST = 'http://localhost:3000'
 angular.module('VitApp')
     .service('searchFaculty', ['$http','Auth',function($http,Auth) {
       var search = function(query, callback) {

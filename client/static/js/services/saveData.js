@@ -1,5 +1,5 @@
 var HOST = 'https://vitacademics-rel.herokuapp.com'
-HOST = 'http://localhost:3000'
+// HOST = 'http://localhost:3000'
 angular.module('VitApp')
        .service('saveData', ['$http', '$mdToast', 'allAbout', 'allCourses', 'allFaculty','allSpotlights', function($http, $mdToast, allAbout, allCourses, allFaculty, allSpotlights){
           var credentials;
