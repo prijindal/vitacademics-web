@@ -6,6 +6,9 @@ angular.module('VitApp')
               setUser : function(aUser){
                   user = aUser;
               },
+              getUser: function() {
+                return user
+              },
               isLoggedIn : function(){
                   return(user)? user : false;
               },

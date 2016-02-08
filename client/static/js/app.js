@@ -37,6 +37,12 @@ angular.module('VitApp', [
     .when('/spotlights',{
       templateUrl:'templates/spotlight.html'
     })
+    .when('/faculty', {
+      templateUrl:'templates/faculty.html'
+    })
+    .when('/faculty/:id',{
+      templateUrl:'templates/faculty.html'
+    })
     .when('/logout', {
       template:'Logging Out...'
     })

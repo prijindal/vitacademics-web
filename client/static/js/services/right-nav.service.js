@@ -16,11 +16,15 @@ angular.module('VitApp')
                               {
                                 name:'Feedback',
                                 url:'#/feedback'
-                            },
+                            	},
                               {
                                 name:'Spotlights',
                                 url:'#/spotlights'
-                              }
+                              },
+															{
+																name:'Faculty Search',
+																url:'#/faculty'
+															}
                           ]
               },
 
