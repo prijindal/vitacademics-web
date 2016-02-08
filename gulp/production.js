@@ -3,7 +3,8 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
   stripDebug = require('gulp-strip-debug'),
-  manifest = require('gulp-manifest');
+  manifest = require('gulp-manifest'),
+  replace = require('gulp-replace');
 
 gulp.task('sass', function() {
   return gulp.src(assets.scss.main)
@@ -26,6 +27,7 @@ gulp.task('html', function() {
 
 gulp.task('vendor:css', function() {
   return gulp.src(assets.vendorCss.main)
+    .pipe(replace('screen\\0','screen'))
     .pipe(concat(assets.vendorCss.output.filename))
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest(assets.vendorCss.output.path))
