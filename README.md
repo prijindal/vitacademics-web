@@ -40,3 +40,4 @@ Please do suggest any updates or report any bugs
 - Spotlight
 - Campus Map
 - Grades
+- Use Web Workers

@@ -36,8 +36,10 @@ angular.module('VitApp')
       self.TableView = Content;
       self.maxLength = maxLength;
 
+      console.dir($filter)
      self.getTimings = function(time) {
-        return $filter('date')('2015-12-07T'+time, 'shortTime') 
+       if(!time) return ;
+        return $filter('date')('2015-12-07T'+time, 'shortTime')
       }
    }])
 
