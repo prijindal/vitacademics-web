@@ -1,4 +1,4 @@
-<form (ngSubmit)="login($event)" autocomplete="on">
+<form (ngSubmit)="'return false;'" autocomplete="on">
 
   <input
     [value]="loginService.regno"
@@ -7,16 +7,15 @@
     autofocus>
   <input
     type="number"
-    [value]="loginService.number"
-    (input)="loginService.number = $event.target.value"
+    [value]="loginService.mobile"
+    (input)="loginService.mobile = $event.target.value"
     placeholder="Parent's Mobile Number"
     autofocus>
-    <input
-      type="date"
-      [value]="loginService.date"
-      (input)="loginService.date = $event.target.value"
-      placeholder="Date Of Birth"
-      autofocus>
+  <input
+    type="date"
+    (input)="setDate($event.target.value)"
+    placeholder="Date Of Birth"
+    autofocus>
 
-  <button md-raised-button color="primary">Login</button>
+  <button md-raised-button color="primary" (click)="login($event)">Login</button>
 </form>
