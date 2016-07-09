@@ -1,14 +1,18 @@
 {
   "name": "vitacademics-web",
   "version": "2.0.0",
-  "description": "An Angular 2 Webpack Starter kit featuring Angular 2 (Router, Http, Forms, Services, Tests, E2E, Coverage), Karma, Protractor, Jasmine, Istanbul, TypeScript, and Webpack by AngularClass",
+  "description": "The Web App For VITacademics",
   "keywords": [
     "angular2",
     "webpack",
-    "typescript"
+    "typescript",
+    "vit",
+    "vitacademics",
+    "vellore",
+    "collegecode"
   ],
-  "author": "Patrick Stapleton <patrick@angularclass.com>",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
+  "author": "Priyanshu Jindal <priyanshujindal1995@gmail.com>",
+  "homepage": "https://vitacademics-web.herokuapp.com",
   "license": "MIT",
   "scripts": {
      "rimraf": "rimraf",
@@ -151,10 +155,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
+    "url": "https://github.com/prijindal/vitacademics-web.git"
   },
   "bugs": {
-    "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
+    "url": "https://github.com/prijindal/vitacademics-web/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
