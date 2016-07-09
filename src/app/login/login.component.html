@@ -1,0 +1,22 @@
+<form (ngSubmit)="login($event)" autocomplete="on">
+
+  <input
+    [value]="loginService.regno"
+    (input)="loginService.regno = $event.target.value"
+    placeholder="Registration Number"
+    autofocus>
+  <input
+    type="number"
+    [value]="loginService.number"
+    (input)="loginService.number = $event.target.value"
+    placeholder="Parent's Mobile Number"
+    autofocus>
+    <input
+      type="date"
+      [value]="loginService.date"
+      (input)="loginService.date = $event.target.value"
+      placeholder="Date Of Birth"
+      autofocus>
+
+  <button md-raised-button color="primary">Login</button>
+</form>
